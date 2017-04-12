@@ -1,0 +1,20 @@
+<div id="share-options-bar" class="share-options-bar" data-behavior="<%= sidebarBehavior %>">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" data-tooltip="分享至Twitter"href="<%= 'https://twitter.com/intent/tweet?text=' + post.permalink %>">
+                <i class="fa fa-twitter"></i><span class=""><%= __('global.share_on_twitter') %></span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" data-tooltip="分享至新浪微博" href="<%= 'http://www.jiathis.com/send/?webid=tsina&appkey=&uid=你的uid&url=' + post.permalink + '&title=' + post.title %>">
+                <i class="fa fa-weibo"></i><span class=""><%= __('global.share_on_weibo') %></span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" data-tooltip="分享至微信" href="<%= 'http://www.jiathis.com/send/?webid=weixin&appkey=&uid=你的uid&url=' + post.permalink + '&title=' + post.title %>">
+                <i class="fa fa-weixin"></i><span class=""><%= __('global.share_on_weixin') %></span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
