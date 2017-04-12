@@ -55,6 +55,15 @@ fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，�
    
    `sudo gem install fastlane -NV`
    
+   如果安装过程中报错：
+   
+   `ERROR:  While executing gem ... (Errno::EPERM) 
+   Operation not permitted - /usr/bin/xxxx`
+   
+   可以执行命令：
+    
+    `sudo gem install -n /usr/local/bin fastlane`
+   
    安装完成后可以使用 `fastlane -v` 检查是否安装成功，如果输出下面的结果，表示已安装成功，并且显示版本号。
    
    `fastlane installation at path:
@@ -84,7 +93,7 @@ fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，�
 默认情况下，Appfile 如下所示：
 
 
-```
+```Ruby
 app_identifier "com.mzl.testapp" # The bundle identifier of your app
 apple_id "mlijin9011@163.com"  # Your Apple email address
 
@@ -100,7 +109,7 @@ apple_id "mlijin9011@163.com"  # Your Apple email address
 
 如果你的 iTunes Connect 和 Apple Developer Portal 有不同的证书，请使用以下代码：
 
-```
+```Ruby
 app_identifier "com.mzl.testapp"       # The bundle identifier of your app
 
 apple_dev_portal_id "portal@company.com"  # Apple Developer Account
@@ -114,7 +123,7 @@ itc_team_id "18742801" # iTunes Connect Team ID
 如果你的项目在每个环境（测试版，Store版，企业版）中的 bundle id 不同的话，则可以使用 for_platform 或 for_lane 模块声明定义。
 
 
-```
+```Ruby
 app_identifier "com.mzl.testapp"
 apple_id "mlijin9011@163.com"
 team_id "Q2CBPJ58CC"
@@ -131,7 +140,7 @@ end
 如果你想从你的 Fastfile 中访问这些值的话，可以在 Fastfile 中这样写
 
 
-```
+```Ruby
 identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
 team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
 ```
@@ -142,7 +151,7 @@ team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
 
 Fastfile 中可以同时支持不同的平台，iOS，macOS，Android，针对不同的平台，可以自定义自己的脚本，像这样：
 
-```
+```Ruby
 fastlane_version "2.14.2"
 default_platform :ios
 
@@ -195,7 +204,7 @@ fastlane 提供了很多 [action](https://docs.fastlane.tools/actions) 或者 pl
 
 贴一段我项目中使用的 Fastfile 的一部分看下：
 
-```
+```Ruby
 fastlane_version "2.23.0"
 
 default_platform :ios
@@ -382,7 +391,7 @@ end
 
 过程中会询问你的 Git Repo URL，这个 Git 仓库是一个专门用来存放证书的私有仓库，init 操作不会新建或者修改你的证书和profiles文件。执行完毕后会生成一个 Matchfile 文件，像这样：
 
-```
+```Ruby
 git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
 
 app_identifier "tools.fastlane.app"
@@ -402,12 +411,9 @@ username "user@fastlane.tools"
 
 证书加密方法:
 
-```
-openssl pkcs12 -nocerts -nodes -out key.pem -in certificate.p12
-openssl aes-256-cbc -k your_password -in key.pem -out cert_id.p12 -a
-openssl aes-256-cbc -k your_password -in certificate.cer -out cert_id.cer -a
-
-```
+`openssl pkcs12 -nocerts -nodes -out key.pem -in certificate.p12`
+`openssl aes-256-cbc -k your_password -in key.pem -out cert_id.p12 -a`
+`openssl aes-256-cbc -k your_password -in certificate.cer -out cert_id.cer -a`
 
 这里的 cert_id 可以通过下面的方法来查找当前账户下所有的证书 ID，然后找出你的证书 ID 就是这里的 cert_id。
 
@@ -426,17 +432,14 @@ end
 证书加密后存放到相应的目录中，接下来再上传 provisioning profile 文件，可以从 ADC 中下载，然后创建 `profiles/development`，`profiles/adhoc`，`profiles/appstore` 三个目录，分别存放开发，
 AdHoc，生产环境的配置文件。用上面同样的方法执行 openssl 加密
 
-```
-openssl aes-256-cbc -k your_password -in Development_XXX.mobileprovision -out Development_your.bundle.id.mobileprovision -a
-```
+`openssl aes-256-cbc -k your_password -in Development_XXX.mobileprovision -out Development_your.bundle.id.mobileprovision -a`
 
 加密完成后生成三个文件如下：
 
-```
-profiles/development/Development_your.bundle.id.mobileprovision
-profiles/adhoc/AdHoc_your.bundle.id.mobileprovision
-profiles/appstore/AppStore_your.bundle.id.mobileprovision
-```
+`profiles/development/Development_your.bundle.id.mobileprovision`
+`profiles/adhoc/AdHoc_your.bundle.id.mobileprovision
+profiles/appstore`
+`AppStore_your.bundle.id.mobileprovision`
 
 把证书和 profile 上传到你的 Git 仓库中，其他人就可以执行 `fastlane match development` 来安装。
 
@@ -444,7 +447,7 @@ profiles/appstore/AppStore_your.bundle.id.mobileprovision
 
 你也可以像我一样，在 Fastfile 里写 lane 来执行，如
 
-```
+```Ruby
 desc "match"
   lane :sn_match do 
     match(git_branch: "your_branch", type: "development", readonly: true)
@@ -453,19 +456,19 @@ desc "match"
 
 这里可以显示的指定 app_identifier，如
 
-```
+```Ruby
 match(git_branch: "your_branch", type: "development", app_identifier: "your.bundle.id", readonly: true)
 ```
 
 如果你有多个 Target，如 Watch，Extension。
 
 ```
-match(git_branch: "your_branch", app_identifier: ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"], readonly: true)
+Rubymatch(git_branch: "your_branch", app_identifier: ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"], readonly: true)
 ```
 
 也可以在 Matchfile 中声明：
 
-```
+```Ruby
 git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
 
 app_identifier ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"]
@@ -473,7 +476,7 @@ app_identifier ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"]
 
 你也可以通过 match 来注册新的设备，通过 `force_for_new_devices` 来更新 profiles 到Git 仓库中。
 
-```
+```Ruby
 desc "match"
   lane :sn_match do 
     register_devices(devices_file: "./devices.txt")
@@ -483,12 +486,44 @@ desc "match"
 
 `force_for_new_devices` 可以自动进行设备检测，是否距离上次 match 有新的设备加入，并更新你的仓库中的 profile 文件。
 
+### Deliverfile
 
---未完待续--
---精彩马上回来--
+[Deliverfile](https://github.com/fastlane/fastlane/blob/master/deliver/Deliverfile.md) 主要是用于发布上传时的配置文件。
+
+前面介绍了，如果在 `fastlane init` 的时候选择了在 iTunes Connect 创建 App，那么 fastlane 会调用 produce 进行初始化，同时会执行 `deliver init`，执行完毕后会创建一个 Deliverfile 文件，如果没有在初始化的时候选择执行 produce 流程当然 deliver 也不会执行，可以手动执行 `fastlane deliver init` 创建。
+
+执行时，会自动登录你在 Appfile 中设置的 itunes_connect_id，根据 Appfile 中的 app_identifier，会为你下载当前 iTC 中的截图，元数据等等。执行完成后会生成
+一个 Deliverfile 文件，/metadata 和 /screenshots 文件夹。
+
+本地修改 Deliverfile，元数据，或者截图文件，执行 `fastlane deliver` 后，可以上传到 iTunes Connect 上。
+
+如果你想把你本地的 ipa 文件上传到 iTunes Connect 上，可以执行：
+
+`fastlane deliver --ipa "App.ipa" --submit_for_review`
+
+如果你之前上传过 ipa 包，想选择一个用来提交审核，可以执行：
+
+`fastlane deliver submit_build --build_number xxxx`
+
+这里 xxxx 是你想选择的 build number。或者，可以直接选择最新的：
+
+`fastlane deliver submit_build --latest`
+
+在 Fastfile 里可以这样写：
 
 
-> 参考文章：[Simplify your life with fastlane match](http://macoscope.com/blog/simplify-your-life-with-fastlane-match/#migration)
+```
+deliver(app_version: ENV["app_versionName"],
+        ipa: "#{ipa_path}",
+        submit_for_review: false
+       )
+```
+
+
+# 参考文章
+
+> [官方文档](https://github.com/fastlane/fastlane)
+> [Simplify your life with fastlane match](http://macoscope.com/blog/simplify-your-life-with-fastlane-match/#migration)
 
 
 
