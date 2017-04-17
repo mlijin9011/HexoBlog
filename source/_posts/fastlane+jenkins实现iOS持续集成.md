@@ -19,7 +19,7 @@ iOS 应用的证书配置、打包和上线，大家都知道，步骤很繁琐�
 
 ![logo](fastlane+jenkins实现iOS持续集成/fastlane-logo.png)
 
-## fastlane 的简介
+## 1. fastlane 的简介
 
 fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，下图是 fastlane 的一些主要的工具[fastlane tools](https://fastlane.tools)，如自动化测试，生成截图，生成证书和签名文件，打包，发布程序等。
 
@@ -41,7 +41,7 @@ fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，�
 | [produce](https://github.com/fastlane/fastlane/tree/master/produce) | 如果你的产品还没在 iTunes Connect 或者 Apple Developer Center 创建，produce可以自动帮你完成这些工作  |
 | [gym](https://github.com/fastlane/fastlane/tree/master/gym) | 自动化编译打包工具 |
 
-## fastlane 的安装
+## 2. fastlane 的安装
 
 1. 确保 Xcode command line 工具是最新版
 
@@ -70,9 +70,9 @@ fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，�
 /usr/local/lib/ruby/gems/2.4.0/gems/fastlane-2.25.0/bin/fastlane 
 ----------------------------- fastlane 2.25.0`
 
-## fastlane 的使用
+## 3. fastlane 的使用
 
-### 初始化
+### 3.1 初始化
     
 在 工程的 .xcodeproj 文件的同级目录下，执行
 
@@ -84,14 +84,153 @@ fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，�
 
 如果在 init 的时候选择了在 iTC 中创建 App 的话，fastlane 会自动调用 produce 进行初始化，在 iTC 中成功创建后，fastlane 文件夹里面还会生成一个 Deliverfile 的文件，或者也可以后续手动创建。
 
-另外除了这三个文件，fastlane 还有几个其他重要的文件，下面我们会详细讲一下 fastlane 里面的这几个配置文件
-    
-### Appfile 文件
+### 3.2 fastlane 管理证书 & Provisioning Profile
+
+#### cert
+
+自动生成证书，并下载安装到 keychain 中
+
+#### sigh
+
+provisioning profile 的生成，管理，下载，签名等
+
+##### 1. 生成
+
+`fastlane sigh --development`
+
+##### 2. 下载
+
+`fastlane sigh download_all`
+
+##### 3. 管理
+
+`fastlane sigh manage`  管理，删除过期的profiles
+`fastlane sigh repair`  修复过期或者无效的profiles
+
+##### 4. 重新签名
+
+`fastlane sigh resign ./path/app.ipa --signing_identity "iPhone Distribution: Felix Krause" -p "my.mobileprovision"`
+
+#### gem
+
+#### match & Matchfile
+
+##### 1. 初始化 match
+
+新建一个私有的 Git 仓库来存放和管理证书和 Provisioning Profiles。
+
+执行 `fastlane match init`，按提示输入你的 Git 仓库地址，执行完毕后会生成一个 Matchfile 文件，像这样：
+
+```Ruby
+git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
+
+app_identifier "tools.fastlane.app"
+username "user@fastlane.tools"
+```
+
+##### 2. 生成和安装
+
+这个证书的仓库可以通过分支来管理不同项目的证书和配置文件，而不需要每个项目都创建一个仓库。
+
+执行 `fastlane match` 可以从 Git 仓库中下载安装证书和 Provisioning Profile 到电脑中，如果 Git 仓库中没有的话，会创建证书和 profiles 文件，并上传到 Git 仓库中，其他人可以安装使用。
+
+Git 仓库中的证书是加密过的，执行 match 时，会要求输入密码，创建证书的时候会用这个密码进行加密，安装证书的时候会用这个密码进行解密后安装。
+
+也可以手动从你的 keychain 中导出证书，然后在你的仓库中，创建 `certs/distribution` 和 `certs/development
+` 目录，分别存放开发和生产证书。
+
+证书加密方法:
+
+`openssl pkcs12 -nocerts -nodes -out key.pem -in certificate.p12`
+`openssl aes-256-cbc -k your_password -in key.pem -out cert_id.p12 -a`
+`openssl aes-256-cbc -k your_password -in certificate.cer -out cert_id.cer -a`
+
+这里的 cert_id 可以通过下面的方法来查找当前账户下所有的证书 ID，然后找出你的证书 ID 就是这里的 cert_id。
+
+```
+require 'spaceship'
+
+Spaceship.login('your@apple.id')
+Spaceship.select_team
+
+Spaceship.certificate.all.each do |cert| 
+  cert_type = Spaceship::Portal::Certificate::CERTIFICATE_TYPE_IDS[cert.type_display_id].to_s.split("::")[-1]
+  puts "Cert id: #{cert.id}, name: #{cert.name}, expires: #{cert.expires.strftime("%Y-%m-%d")}, type: #{cert_type}"
+end
+```
+
+证书加密后存放到相应的目录中，接下来再上传 provisioning profile 文件，可以从 ADC 中下载，然后创建 `profiles/development`，`profiles/adhoc`，`profiles/appstore` 三个目录，分别存放开发，
+AdHoc，生产环境的配置文件。用上面同样的方法执行 openssl 加密
+
+`openssl aes-256-cbc -k your_password -in Development_XXX.mobileprovision -out Development_your.bundle.id.mobileprovision -a`
+
+加密完成后生成三个文件如下：
+
+`profiles/development/Development_your.bundle.id.mobileprovision`
+`profiles/adhoc/AdHoc_your.bundle.id.mobileprovision
+profiles/appstore`
+`AppStore_your.bundle.id.mobileprovision`
+
+把证书和 profile 上传到你的 Git 仓库中，其他人就可以执行 `fastlane match development` 来安装。
+
+如果你不希望修改证书，可以在执行时在后面加 `--readonly`。
+
+##### 3. 管理
+
+你也可以像这样，在 Fastfile 里写 lane 来执行，如
+
+```Ruby
+desc "match"
+  lane :sn_match do 
+    match(git_branch: "your_branch", type: "development", readonly: true)
+  end
+```
+
+这里可以显示的指定 app_identifier，如
+
+```Ruby
+match(git_branch: "your_branch", type: "development", app_identifier: "your.bundle.id", readonly: true)
+```
+
+如果你有多个 Target，如 Watch，Extension。
+
+```Ruby
+match(git_branch: "your_branch", app_identifier: ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"], readonly: true)
+```
+
+也可以在 Matchfile 中声明：
+
+```Ruby
+git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
+
+app_identifier ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"]
+```
+
+你也可以通过 match 来注册新的设备，通过 `force_for_new_devices` 来更新 profiles 到Git 仓库中。
+
+```Ruby
+desc "match"
+  lane :sn_match do 
+    register_devices(devices_file: "./devices.txt")
+    match(git_branch: "your_branch", force_for_new_devices: true)
+  end
+```
+
+`force_for_new_devices` 可以自动进行设备检测，是否距离上次 match 有新的设备加入，并更新你的仓库中的 profile 文件。
+
+### 3.3 fastlane 自动化测试
+
+#### scan & Scanfile
+
+Test 和 UITest
+
+### fastlane 打包
+
+#### Appfile 
     
 [Appfile](https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md)，存放了一些 app 本身的信息，如，apple_id, app_identifier, team_id 等等。
 
 默认情况下，Appfile 如下所示：
-
 
 ```Ruby
 app_identifier "com.mzl.testapp" # The bundle identifier of your app
@@ -145,7 +284,7 @@ identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
 team_id = CredentialsManager::AppfileConfig.try_fetch_value(:team_id)
 ```
 
-### Fastfile
+#### Fastfile
 
 [Fastfile](https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md) 是最重要的一个文件，主要是些 lane 的集合，在这里可以编写和定制我们的自动化脚本，所有的流程控制功能都写在这个文件里面，利用 lane 来完成我们的自动化需求。
 
@@ -164,6 +303,7 @@ platform :ios do
     cocoapods
   end
 
+  desc "build beta"
   lane :beta do
     gym
     hockey
@@ -190,6 +330,12 @@ after_all do
   puts "Executed after every lane of both Mac and iPhone"
   slack
 end
+
+error do |lane, exception|
+  puts "Executed when every lane of both Mac and iPhone has error"
+  slack
+end
+
 ```
 
 fastlane_version：指定fastlane使用的最小版本 
@@ -381,112 +527,9 @@ end
 
 ```
 
-### MatchFile
+### 3.4 fastlane 发布 
 
-[Matchfile](https://github.com/fastlane/fastlane/tree/master/match) 主要是用来管理证书和配置文件的。
-
-开始使用 match，在你的工程文件目录下执行，
-
-`fastlane match init`
-
-过程中会询问你的 Git Repo URL，这个 Git 仓库是一个专门用来存放证书的私有仓库，init 操作不会新建或者修改你的证书和profiles文件。执行完毕后会生成一个 Matchfile 文件，像这样：
-
-```Ruby
-git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
-
-app_identifier "tools.fastlane.app"
-username "user@fastlane.tools"
-```
-
-这个证书的仓库可以通过分支来管理不同项目的证书和配置文件，而不需要每个项目都创建一个仓库。
-
-如果你还没有创建过证书，执行 `fastlane match development` 会生成相应的证书和 profiles文件，并存在你的 Git 仓库中，执行过程中需要你输入一个加密证书的密码，后续其他人安装的时候会询问密码，进行两层保护。
-
-如果你的 Git Repo 中已经创建了证书，其他人可以直接执行 `fastlane match development` 来安装，如果是在机器上第一次执行 match 操作，会询问你 Git Repo 的 Passphase，这个密码就是上面说的加密密码，密码会记录在 login.keychain 中，后续执行将不再询问。
-
-如果你的 Git Repo 中还没有证书，而你已经在 ADC 中创建了证书了，可以执行 `fastlane match nuke development` 来清空你的证书和配置文件列表，然后执行 `fastlane match development` 重新创建。
-
-如果你不想清空重新创建的话，可以手动从你的 keychain 中导出证书，然后在你的仓库中，创建 `certs/distribution` 和 `certs/development
-` 目录，分别存放开发和生产证书。
-
-证书加密方法:
-
-`openssl pkcs12 -nocerts -nodes -out key.pem -in certificate.p12`
-`openssl aes-256-cbc -k your_password -in key.pem -out cert_id.p12 -a`
-`openssl aes-256-cbc -k your_password -in certificate.cer -out cert_id.cer -a`
-
-这里的 cert_id 可以通过下面的方法来查找当前账户下所有的证书 ID，然后找出你的证书 ID 就是这里的 cert_id。
-
-```
-require 'spaceship'
-
-Spaceship.login('your@apple.id')
-Spaceship.select_team
-
-Spaceship.certificate.all.each do |cert| 
-  cert_type = Spaceship::Portal::Certificate::CERTIFICATE_TYPE_IDS[cert.type_display_id].to_s.split("::")[-1]
-  puts "Cert id: #{cert.id}, name: #{cert.name}, expires: #{cert.expires.strftime("%Y-%m-%d")}, type: #{cert_type}"
-end
-```
-
-证书加密后存放到相应的目录中，接下来再上传 provisioning profile 文件，可以从 ADC 中下载，然后创建 `profiles/development`，`profiles/adhoc`，`profiles/appstore` 三个目录，分别存放开发，
-AdHoc，生产环境的配置文件。用上面同样的方法执行 openssl 加密
-
-`openssl aes-256-cbc -k your_password -in Development_XXX.mobileprovision -out Development_your.bundle.id.mobileprovision -a`
-
-加密完成后生成三个文件如下：
-
-`profiles/development/Development_your.bundle.id.mobileprovision`
-`profiles/adhoc/AdHoc_your.bundle.id.mobileprovision
-profiles/appstore`
-`AppStore_your.bundle.id.mobileprovision`
-
-把证书和 profile 上传到你的 Git 仓库中，其他人就可以执行 `fastlane match development` 来安装。
-
-如果你不希望修改证书，可以在执行时在后面加 `--readonly`。
-
-你也可以像我一样，在 Fastfile 里写 lane 来执行，如
-
-```Ruby
-desc "match"
-  lane :sn_match do 
-    match(git_branch: "your_branch", type: "development", readonly: true)
-  end
-```
-
-这里可以显示的指定 app_identifier，如
-
-```Ruby
-match(git_branch: "your_branch", type: "development", app_identifier: "your.bundle.id", readonly: true)
-```
-
-如果你有多个 Target，如 Watch，Extension。
-
-```
-Rubymatch(git_branch: "your_branch", app_identifier: ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"], readonly: true)
-```
-
-也可以在 Matchfile 中声明：
-
-```Ruby
-git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
-
-app_identifier ["com.krausefx.app1", "com.krausefx.app2", "com.krausefx.app3"]
-```
-
-你也可以通过 match 来注册新的设备，通过 `force_for_new_devices` 来更新 profiles 到Git 仓库中。
-
-```Ruby
-desc "match"
-  lane :sn_match do 
-    register_devices(devices_file: "./devices.txt")
-    match(git_branch: "your_branch", force_for_new_devices: true)
-  end
-```
-
-`force_for_new_devices` 可以自动进行设备检测，是否距离上次 match 有新的设备加入，并更新你的仓库中的 profile 文件。
-
-### Deliverfile
+#### deliver & Deliverfile
 
 [Deliverfile](https://github.com/fastlane/fastlane/blob/master/deliver/Deliverfile.md) 主要是用于发布上传时的配置文件。
 
@@ -524,6 +567,8 @@ deliver(app_version: ENV["app_versionName"],
 
 > [官方文档](https://github.com/fastlane/fastlane)
 > [Simplify your life with fastlane match](http://macoscope.com/blog/simplify-your-life-with-fastlane-match/#migration)
+
+
 
 
 
