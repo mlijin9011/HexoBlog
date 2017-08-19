@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,fastlane,jenkins," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="木子李的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="概述iOS 应用的证书配置、打包和上线，大家都知道，步骤很繁琐，如果纯人工处理的话是非常浪费时间的，因此，我抽空研究了下 fastlane ，fastlane 是用 Ruby 写的一套自动化工具集，用它可以很轻松的完成证书配置，打包发布等工作，配合 jenkins 使用效果更佳。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastlane+jenkins实现iOS持续集成">
+<meta property="og:url" content="http://mlijin9011.github.io/2017/04/08/fastlane+jenkins实现iOS持续集成/index.html">
+<meta property="og:site_name" content="木子李的博客">
+<meta property="og:description" content="概述iOS 应用的证书配置、打包和上线，大家都知道，步骤很繁琐，如果纯人工处理的话是非常浪费时间的，因此，我抽空研究了下 fastlane ，fastlane 是用 Ruby 写的一套自动化工具集，用它可以很轻松的完成证书配置，打包发布等工作，配合 jenkins 使用效果更佳。">
+<meta property="og:image" content="http://mlijin9011.github.io/2017/04/08/fastlane+jenkins实现iOS持续集成/fastlane-logo.png">
+<meta property="og:image" content="http://mlijin9011.github.io/2017/04/08/fastlane+jenkins实现iOS持续集成/fastlane-intro-tree.png">
+<meta property="og:updated_time" content="2017-08-19T10:49:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fastlane+jenkins实现iOS持续集成">
+<meta name="twitter:description" content="概述iOS 应用的证书配置、打包和上线，大家都知道，步骤很繁琐，如果纯人工处理的话是非常浪费时间的，因此，我抽空研究了下 fastlane ，fastlane 是用 Ruby 写的一套自动化工具集，用它可以很轻松的完成证书配置，打包发布等工作，配合 jenkins 使用效果更佳。">
+<meta name="twitter:image" content="http://mlijin9011.github.io/2017/04/08/fastlane+jenkins实现iOS持续集成/fastlane-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mlijin9011.github.io/2017/04/08/fastlane+jenkins实现iOS持续集成/"/>
+
+
+
+
+
+  <title>fastlane+jenkins实现iOS持续集成 | 木子李的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">木子李的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">萧瑟的秋风，倔强的生命！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2017/04/08/fastlane+jenkins实现iOS持续集成/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Li Jin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="木子李的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">fastlane+jenkins实现iOS持续集成</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-08T12:29:31+08:00">
+                2017-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>iOS 应用的证书配置、打包和上线，大家都知道，步骤很繁琐，如果纯人工处理的话是非常浪费时间的，因此，我抽空研究了下 fastlane ，fastlane 是用 Ruby 写的一套自动化工具集，用它可以很轻松的完成证书配置，打包发布等工作，配合 jenkins 使用效果更佳。</p>
+<a id="more"></a>
+<h1 id="fastlane"><a href="#fastlane" class="headerlink" title="fastlane"></a>fastlane</h1><p><img src="/2017/04/08/fastlane+jenkins实现iOS持续集成/fastlane-logo.png" alt="logo"></p>
+<h2 id="1-fastlane-的简介"><a href="#1-fastlane-的简介" class="headerlink" title="1. fastlane 的简介"></a>1. fastlane 的简介</h2><p>fastlane是自动化打包和发布 iOS 和 Android 应用的一套工具集，下图是 fastlane 的一些主要的工具<a href="https://fastlane.tools" target="_blank" rel="external">fastlane tools</a>，如自动化测试，生成截图，生成证书和签名文件，打包，发布程序等。</p>
+<p><img src="/2017/04/08/fastlane+jenkins实现iOS持续集成/fastlane-intro-tree.png" alt="image"></p>
+<p>下面详细讲一下 fastlane 里面的几个主要的工具：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/scan" target="_blank" rel="external">scan</a></td>
+<td>自动运行自动化测试工具，并且生成 HTML 报告</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/cert" target="_blank" rel="external">cert</a></td>
+<td>自动创建管理证书</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/sigh" target="_blank" rel="external">sigh</a></td>
+<td>自动创建，更新，下载 Provisioning Profile 文件</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/match" target="_blank" rel="external">match</a></td>
+<td>管理证书和 Provisioning Profile</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/pem" target="_blank" rel="external">pem</a></td>
+<td>自动生成，更新 Notification 证书</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/snapshot" target="_blank" rel="external">snapshot</a></td>
+<td>自动截图</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/deliver" target="_blank" rel="external">deliver</a></td>
+<td>自动上传应用截图，元数据，ipa 文件到 iTunes Connect</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/produce" target="_blank" rel="external">produce</a></td>
+<td>如果你的产品还没在 iTunes Connect 或者 Apple Developer Center 创建，produce可以自动帮你完成这些工作</td>
+</tr>
+<tr>
+<td><a href="https://github.com/fastlane/fastlane/tree/master/gym" target="_blank" rel="external">gym</a></td>
+<td>自动化编译打包工具</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-fastlane-的安装"><a href="#2-fastlane-的安装" class="headerlink" title="2. fastlane 的安装"></a>2. fastlane 的安装</h2><ol>
+<li><p>确保 Xcode command line 工具是最新版</p>
+<p><code>xcode-select --install</code></p>
+</li>
+<li><p>安装fastlane</p>
+<p>官方提供了三种安装方法，gem、brew、直接下载安装</p>
+<p>简单点，可以直接用 gem 安装：</p>
+<p><code>sudo gem install fastlane -NV</code></p>
+<p>如果安装过程中报错：</p>
+<p><code>ERROR:  While executing gem ... (Errno::EPERM) 
+Operation not permitted - /usr/bin/xxxx</code></p>
+<p>可以执行命令：</p>
+<p> <code>sudo gem install -n /usr/local/bin fastlane</code></p>
+<p>安装完成后可以使用 <code>fastlane -v</code> 检查是否安装成功，如果输出下面的结果，表示已安装成功，并且显示版本号。</p>
+<p><code>fastlane installation at path:
+/usr/local/lib/ruby/gems/2.4.0/gems/fastlane-2.25.0/bin/fastlane 
+----------------------------- fastlane 2.25.0</code></p>
+</li>
+</ol>
+<h2 id="3-fastlane-的使用"><a href="#3-fastlane-的使用" class="headerlink" title="3. fastlane 的使用"></a>3. fastlane 的使用</h2><h3 id="3-1-初始化"><a href="#3-1-初始化" class="headerlink" title="3.1 初始化"></a>3.1 初始化</h3><p>在 工程的 .xcodeproj 文件的同级目录下，执行</p>
+<p><code>fastlane init</code></p>
+<p>这里会要求你输入 Apple ID，如果是第一次使用的话，还需要输入密码，fastlane 会自动检测当前项目的 App Name 和 App Identifier，也可以手动输入这些信息，如果你没有在 iTC 或者 ADC 中创建的话，他会询问你是否要帮你自动创建，非常智能。</p>
+<p>执行完毕后，会根据你输入的信息，在当前目录下生成一个文件夹 fastlane，在 fastlane 文件夹下会自动生成两个配置文件 Appfile，Fastfile，我们可以修改这两个文件来完成我们所需要的功能。</p>
+<p>如果在 init 的时候选择了在 iTC 中创建 App 的话，fastlane 会自动调用 produce 进行初始化，在 iTC 中成功创建后，fastlane 文件夹里面还会生成一个 Deliverfile 的文件，或者也可以后续手动创建。</p>
+<h3 id="3-2-fastlane-管理证书-amp-Provisioning-Profile"><a href="#3-2-fastlane-管理证书-amp-Provisioning-Profile" class="headerlink" title="3.2 fastlane 管理证书 &amp; Provisioning Profile"></a>3.2 fastlane 管理证书 &amp; Provisioning Profile</h3><h4 id="cert"><a href="#cert" class="headerlink" title="cert"></a>cert</h4><p>自动生成证书，并下载安装到 keychain 中</p>
+<h4 id="sigh"><a href="#sigh" class="headerlink" title="sigh"></a>sigh</h4><p>provisioning profile 的生成，管理，下载，签名等</p>
+<h5 id="1-生成"><a href="#1-生成" class="headerlink" title="1. 生成"></a>1. 生成</h5><p><code>fastlane sigh --development</code></p>
+<h5 id="2-下载"><a href="#2-下载" class="headerlink" title="2. 下载"></a>2. 下载</h5><p><code>fastlane sigh download_all</code></p>
+<h5 id="3-管理"><a href="#3-管理" class="headerlink" title="3. 管理"></a>3. 管理</h5><p><code>fastlane sigh manage</code>  管理，删除过期的profiles<br><code>fastlane sigh repair</code>  修复过期或者无效的profiles</p>
+<h5 id="4-重新签名"><a href="#4-重新签名" class="headerlink" title="4. 重新签名"></a>4. 重新签名</h5><p><code>fastlane sigh resign ./path/app.ipa --signing_identity &quot;iPhone Distribution: Felix Krause&quot; -p &quot;my.mobileprovision&quot;</code></p>
+<h4 id="gem"><a href="#gem" class="headerlink" title="gem"></a>gem</h4><h4 id="match-amp-Matchfile"><a href="#match-amp-Matchfile" class="headerlink" title="match &amp; Matchfile"></a>match &amp; Matchfile</h4><h5 id="1-初始化-match"><a href="#1-初始化-match" class="headerlink" title="1. 初始化 match"></a>1. 初始化 match</h5><p>新建一个私有的 Git 仓库来存放和管理证书和 Provisioning Profiles。</p>
+<p>执行 <code>fastlane match init</code>，按提示输入你的 Git 仓库地址，执行完毕后会生成一个 Matchfile 文件，像这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git_url <span class="string">"https://github.com/fastlane/fastlane/tree/master/certificates"</span></div><div class="line"></div><div class="line">app_identifier <span class="string">"tools.fastlane.app"</span></div><div class="line">username <span class="string">"user@fastlane.tools"</span></div></pre></td></tr></table></figure>
+<h5 id="2-生成和安装"><a href="#2-生成和安装" class="headerlink" title="2. 生成和安装"></a>2. 生成和安装</h5><p>这个证书的仓库可以通过分支来管理不同项目的证书和配置文件，而不需要每个项目都创建一个仓库。</p>
+<p>执行 <code>fastlane match</code> 可以从 Git 仓库中下载安装证书和 Provisioning Profile 到电脑中，如果 Git 仓库中没有的话，会创建证书和 profiles 文件，并上传到 Git 仓库中，其他人可以安装使用。</p>
+<p>Git 仓库中的证书是加密过的，执行 match 时，会要求输入密码，创建证书的时候会用这个密码进行加密，安装证书的时候会用这个密码进行解密后安装。</p>
+<p>也可以手动从你的 keychain 中导出证书，然后在你的仓库中，创建 <code>certs/distribution</code> 和 <code>certs/development</code> 目录，分别存放开发和生产证书。</p>
+<p>证书加密方法:</p>
+<p><code>openssl pkcs12 -nocerts -nodes -out key.pem -in certificate.p12</code><br><code>openssl aes-256-cbc -k your_password -in key.pem -out cert_id.p12 -a</code><br><code>openssl aes-256-cbc -k your_password -in certificate.cer -out cert_id.cer -a</code></p>
+<p>这里的 cert_id 可以通过下面的方法来查找当前账户下所有的证书 ID，然后找出你的证书 ID 就是这里的 cert_id。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">require &apos;spaceship&apos;</div><div class="line"></div><div class="line">Spaceship.login(&apos;your@apple.id&apos;)</div><div class="line">Spaceship.select_team</div><div class="line"></div><div class="line">Spaceship.certificate.all.each do |cert| </div><div class="line">  cert_type = Spaceship::Portal::Certificate::CERTIFICATE_TYPE_IDS[cert.type_display_id].to_s.split(&quot;::&quot;)[-1]</div><div class="line">  puts &quot;Cert id: #&#123;cert.id&#125;, name: #&#123;cert.name&#125;, expires: #&#123;cert.expires.strftime(&quot;%Y-%m-%d&quot;)&#125;, type: #&#123;cert_type&#125;&quot;</div><div class="line">end</div></pre></td></tr></table></figure>
+<p>证书加密后存放到相应的目录中，接下来再上传 provisioning profile 文件，可以从 ADC 中下载，然后创建 <code>profiles/development</code>，<code>profiles/adhoc</code>，<code>profiles/appstore</code> 三个目录，分别存放开发，<br>AdHoc，生产环境的配置文件。用上面同样的方法执行 openssl 加密</p>
+<p><code>openssl aes-256-cbc -k your_password -in Development_XXX.mobileprovision -out Development_your.bundle.id.mobileprovision -a</code></p>
+<p>加密完成后生成三个文件如下：</p>
+<p><code>profiles/development/Development_your.bundle.id.mobileprovision</code><br><code>profiles/adhoc/AdHoc_your.bundle.id.mobileprovision
+profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code></p>
+<p>把证书和 profile 上传到你的 Git 仓库中，其他人就可以执行 <code>fastlane match development</code> 来安装。</p>
+<p>如果你不希望修改证书，可以在执行时在后面加 <code>--readonly</code>。</p>
+<h5 id="3-管理-1"><a href="#3-管理-1" class="headerlink" title="3. 管理"></a>3. 管理</h5><p>你也可以像这样，在 Fastfile 里写 lane 来执行，如</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">desc <span class="string">"match"</span></div><div class="line">  lane <span class="symbol">:sn_match</span> <span class="keyword">do</span> </div><div class="line">    match(<span class="symbol">git_branch:</span> <span class="string">"your_branch"</span>, <span class="symbol">type:</span> <span class="string">"development"</span>, <span class="symbol">readonly:</span> <span class="literal">true</span>)</div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>这里可以显示的指定 app_identifier，如</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">match(<span class="symbol">git_branch:</span> <span class="string">"your_branch"</span>, <span class="symbol">type:</span> <span class="string">"development"</span>, <span class="symbol">app_identifier:</span> <span class="string">"your.bundle.id"</span>, <span class="symbol">readonly:</span> <span class="literal">true</span>)</div></pre></td></tr></table></figure>
+<p>如果你有多个 Target，如 Watch，Extension。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">match(<span class="symbol">git_branch:</span> <span class="string">"your_branch"</span>, <span class="symbol">app_identifier:</span> [<span class="string">"com.krausefx.app1"</span>, <span class="string">"com.krausefx.app2"</span>, <span class="string">"com.krausefx.app3"</span>], <span class="symbol">readonly:</span> <span class="literal">true</span>)</div></pre></td></tr></table></figure>
+<p>也可以在 Matchfile 中声明：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git_url <span class="string">"https://github.com/fastlane/fastlane/tree/master/certificates"</span></div><div class="line"></div><div class="line">app_identifier [<span class="string">"com.krausefx.app1"</span>, <span class="string">"com.krausefx.app2"</span>, <span class="string">"com.krausefx.app3"</span>]</div></pre></td></tr></table></figure>
+<p>你也可以通过 match 来注册新的设备，通过 <code>force_for_new_devices</code> 来更新 profiles 到Git 仓库中。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">desc <span class="string">"match"</span></div><div class="line">  lane <span class="symbol">:sn_match</span> <span class="keyword">do</span> </div><div class="line">    register_devices(<span class="symbol">devices_file:</span> <span class="string">"./devices.txt"</span>)</div><div class="line">    match(<span class="symbol">git_branch:</span> <span class="string">"your_branch"</span>, <span class="symbol">force_for_new_devices:</span> <span class="literal">true</span>)</div><div class="line">  <span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p><code>force_for_new_devices</code> 可以自动进行设备检测，是否距离上次 match 有新的设备加入，并更新你的仓库中的 profile 文件。</p>
+<h3 id="3-3-fastlane-自动化测试"><a href="#3-3-fastlane-自动化测试" class="headerlink" title="3.3 fastlane 自动化测试"></a>3.3 fastlane 自动化测试</h3><h4 id="scan-amp-Scanfile"><a href="#scan-amp-Scanfile" class="headerlink" title="scan &amp; Scanfile"></a>scan &amp; Scanfile</h4><p>Test 和 UITest</p>
+<h3 id="fastlane-打包"><a href="#fastlane-打包" class="headerlink" title="fastlane 打包"></a>fastlane 打包</h3><h4 id="Appfile"><a href="#Appfile" class="headerlink" title="Appfile"></a>Appfile</h4><p><a href="https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md" target="_blank" rel="external">Appfile</a>，存放了一些 app 本身的信息，如，apple_id, app_identifier, team_id 等等。</p>
+<p>默认情况下，Appfile 如下所示：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">app_identifier <span class="string">"com.mzl.testapp"</span> <span class="comment"># The bundle identifier of your app</span></div><div class="line">apple_id <span class="string">"mlijin9011@163.com"</span>  <span class="comment"># Your Apple email address</span></div><div class="line"></div><div class="line"><span class="comment"># You can uncomment the lines below and add your own </span></div><div class="line"><span class="comment"># team selection in case you're in multiple teams</span></div><div class="line"><span class="comment"># team_name "Team Name"</span></div><div class="line"><span class="comment"># team_id "Q2CBPJ58CA"</span></div><div class="line"></div><div class="line"><span class="comment"># To select a team for iTunes Connect use</span></div><div class="line"><span class="comment"># itc_team_name "Company Name"</span></div><div class="line"><span class="comment"># itc_team_id "18742801"</span></div></pre></td></tr></table></figure>
+<p>如果你的 iTunes Connect 和 Apple Developer Portal 有不同的证书，请使用以下代码：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">app_identifier <span class="string">"com.mzl.testapp"</span>       <span class="comment"># The bundle identifier of your app</span></div><div class="line"></div><div class="line">apple_dev_portal_id <span class="string">"portal@company.com"</span>  <span class="comment"># Apple Developer Account</span></div><div class="line">itunes_connect_id <span class="string">"tunes@company.com"</span>     <span class="comment"># iTunes Connect Account</span></div><div class="line"></div><div class="line">team_id <span class="string">"Q2CBPJ58CA"</span> <span class="comment"># Developer Portal Team ID</span></div><div class="line">itc_team_id <span class="string">"18742801"</span> <span class="comment"># iTunes Connect Team ID</span></div></pre></td></tr></table></figure>
+<p>如果你的项目在每个环境（测试版，Store版，企业版）中的 bundle id 不同的话，则可以使用 for_platform 或 for_lane 模块声明定义。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">app_identifier <span class="string">"com.mzl.testapp"</span></div><div class="line">apple_id <span class="string">"mlijin9011@163.com"</span></div><div class="line">team_id <span class="string">"Q2CBPJ58CC"</span></div><div class="line"></div><div class="line">for_platform <span class="symbol">:ios</span> <span class="keyword">do</span></div><div class="line">  team_id <span class="string">'123'</span> <span class="comment"># for all iOS related things</span></div><div class="line">  for_lane <span class="symbol">:build_inhouse</span> <span class="keyword">do</span></div><div class="line">    app_identifier <span class="string">'com.mzl.testapp.inhouse'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>如果你想从你的 Fastfile 中访问这些值的话，可以在 Fastfile 中这样写</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">identifier = CredentialsManager::AppfileConfig.try_fetch_value(<span class="symbol">:app_identifier</span>)</div><div class="line">team_id = CredentialsManager::AppfileConfig.try_fetch_value(<span class="symbol">:team_id</span>)</div></pre></td></tr></table></figure>
+<h4 id="Fastfile"><a href="#Fastfile" class="headerlink" title="Fastfile"></a>Fastfile</h4><p><a href="https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md" target="_blank" rel="external">Fastfile</a> 是最重要的一个文件，主要是些 lane 的集合，在这里可以编写和定制我们的自动化脚本，所有的流程控制功能都写在这个文件里面，利用 lane 来完成我们的自动化需求。</p>
+<p>Fastfile 中可以同时支持不同的平台，iOS，macOS，Android，针对不同的平台，可以自定义自己的脚本，像这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">fastlane_version <span class="string">"2.14.2"</span></div><div class="line">default_platform <span class="symbol">:ios</span></div><div class="line"></div><div class="line">before_all <span class="keyword">do</span></div><div class="line">  puts <span class="string">"This block is executed before every action of all platforms"</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">platform <span class="symbol">:ios</span> <span class="keyword">do</span></div><div class="line">  before_all <span class="keyword">do</span></div><div class="line">    cocoapods</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"build beta"</span></div><div class="line">  lane <span class="symbol">:beta</span> <span class="keyword">do</span></div><div class="line">    gym</div><div class="line">    hockey</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  after_all <span class="keyword">do</span></div><div class="line">    puts <span class="string">"Finished iOS related work"</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">platform <span class="symbol">:mac</span> <span class="keyword">do</span></div><div class="line">  lane <span class="symbol">:beta</span> <span class="keyword">do</span></div><div class="line">    xcodebuild</div><div class="line">    hockey</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">lane <span class="symbol">:test</span> <span class="keyword">do</span></div><div class="line">  puts <span class="string">"this lane is not platform specific"</span></div><div class="line">  xctool</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">after_all <span class="keyword">do</span></div><div class="line">  puts <span class="string">"Executed after every lane of both Mac and iPhone"</span></div><div class="line">  slack</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">error <span class="keyword">do</span> <span class="params">|lane, exception|</span></div><div class="line">  puts <span class="string">"Executed when every lane of both Mac and iPhone has error"</span></div><div class="line">  slack</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>fastlane_version：指定fastlane使用的最小版本<br>default_platform：指定当前默认的平台，可以选择 ios/android/mac<br>before_all：是在执行每一个 lane 之前都会调用这部分，所以如果有一些前提性的操作，可以写在这里，比如 cocoapods，match 等。最外面的 before_all 表示所有平台的都会执行，写在 platform ios 里面的 before_all 是只有执行 ios 平台的lane 才会执行到的。<br>after_all：同理，是在每个 lane 执行完成之后都会执行这部分的内容<br>error：每个 lane 执行出错就会执行这部分的内容<br>desc：对 lane 的描述，fastlane 会自动将 desc 的内容生成说明文档<br>lane：任务，执行的时候使用 fastlane [ios] lane名称，如上可以这样用：<code>fastlane ios beta</code></p>
+<p>fastlane 提供了很多 <a href="https://docs.fastlane.tools/actions" target="_blank" rel="external">action</a> 或者 plugin 可以在 Fastfile 的 lane 里面调用，如上面提到的 match，sigh，gym，deliver 等，还有插件 cocoapods 等。</p>
+<p>贴一段我项目中使用的 Fastfile 的一部分看下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div></pre></td><td class="code"><pre><div class="line">fastlane_version <span class="string">"2.23.0"</span></div><div class="line"></div><div class="line">default_platform <span class="symbol">:ios</span></div><div class="line"></div><div class="line">PROJECT_FILE_PATH = <span class="string">'MyProject.xcodeproj'</span></div><div class="line">OUTPUT_PATH = <span class="string">'build/'</span></div><div class="line">APP_NAME = <span class="string">'MyProject'</span></div><div class="line">SCHEME_NAME = <span class="string">'MyProject'</span></div><div class="line">PLIST_FILE_PATH = <span class="string">'MyProject/Info.plist'</span></div><div class="line"></div><div class="line">INHOUSE_IDENTIFIER = <span class="string">'com.bundle.id.inhouse'</span></div><div class="line">APPSTORE_IDENTIFIER = <span class="string">'com.bundle.id'</span></div><div class="line"></div><div class="line"><span class="comment"># 上传 ipa 包的平台，可以用 蒲公英，Bugly 等替代</span></div><div class="line">OTA_SERVER_URL = <span class="string">'http://ota.client.xxx.xxx.cn/ios/upload'</span></div><div class="line"></div><div class="line"><span class="comment"># 更新bundle id信息，修改app identifier</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_bundle_id</span><span class="params">(app_id)</span></span></div><div class="line">  say <span class="string">'update bundle id'</span></div><div class="line">  update_app_identifier(<span class="symbol">xcodeproj:</span> PROJECT_FILE_PATH,</div><div class="line">                        <span class="symbol">plist_path:</span> PLIST_FILE_PATH,</div><div class="line">                        <span class="symbol">app_identifier:</span> app_id)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># 修改build号</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_build_version</span><span class="params">(options)</span></span></div><div class="line">  say <span class="string">'update build version'</span></div><div class="line"></div><div class="line">  buildVersion = options[<span class="symbol">:build</span>]</div><div class="line">  set_info_plist_value(<span class="symbol">path:</span> PLIST_FILE_PATH,</div><div class="line">                       <span class="symbol">key:</span> <span class="string">"ProjectBuildVersion"</span>,</div><div class="line">                       <span class="symbol">value:</span> buildVersion)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># 修改bundle号</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_bundle_version</span><span class="params">(typePrefix,options)</span></span></div><div class="line">  say <span class="string">'update bundle version'</span></div><div class="line"></div><div class="line">  bundleVersion = options[<span class="symbol">:build</span>] + <span class="string">"<span class="subst">#&#123;typePrefix&#125;</span>"</span></div><div class="line">  set_info_plist_value(<span class="symbol">path:</span> PLIST_FILE_PATH,</div><div class="line">                       <span class="symbol">key:</span> <span class="string">"CFBundleVersion"</span>,</div><div class="line">                       <span class="symbol">value:</span> bundleVersion)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># 打包</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_ipa</span><span class="params">(configuration,exportMethod,options)</span></span></div><div class="line">  say <span class="string">'generate ipa'</span></div><div class="line"></div><div class="line">  fullVersion = get_version_number + <span class="string">"_"</span> + options[<span class="symbol">:build</span>]</div><div class="line">  outputName = <span class="string">"<span class="subst">#&#123;APP_NAME&#125;</span>_V<span class="subst">#&#123;fullVersion&#125;</span>_<span class="subst">#&#123;configuration&#125;</span>"</span></div><div class="line">  outputPath = <span class="string">"<span class="subst">#&#123;OUTPUT_PATH&#125;</span><span class="subst">#&#123;outputName&#125;</span>/"</span></div><div class="line"></div><div class="line">  gym(</div><div class="line">    <span class="symbol">scheme:</span> <span class="string">"<span class="subst">#&#123;SCHEME_NAME&#125;</span>"</span>,</div><div class="line">    <span class="symbol">clean:</span> <span class="literal">true</span>,</div><div class="line">    <span class="symbol">output_directory:</span> <span class="string">"<span class="subst">#&#123;outputPath&#125;</span>"</span>,</div><div class="line">    <span class="symbol">output_name:</span> <span class="string">"<span class="subst">#&#123;outputName&#125;</span>.ipa"</span>,</div><div class="line">    <span class="symbol">configuration:</span> <span class="string">"<span class="subst">#&#123;configuration&#125;</span>"</span>,</div><div class="line">    <span class="symbol">include_symbols:</span> <span class="string">"true"</span>,</div><div class="line">    <span class="comment"># archive_path: "#&#123;outputPath&#125;",</span></div><div class="line">    <span class="comment"># 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development, 和developer-id</span></div><div class="line">    <span class="symbol">export_method:</span> <span class="string">"<span class="subst">#&#123;exportMethod&#125;</span>"</span></div><div class="line">  )</div><div class="line"></div><div class="line">  upload_ota(<span class="string">"../<span class="subst">#&#123;outputPath&#125;</span>"</span>, outputName, configuration)</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment"># 上传 OTA</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload_ota</span><span class="params">(output_path, app_name, configuration)</span></span></div><div class="line">  say <span class="string">'upload ipa to ota'</span></div><div class="line"></div><div class="line">  <span class="comment"># 99-AppStore包, 0-正式包, 1-开发临时测试包, 2-第三方渠道包, 3-每日构建包</span></div><div class="line">  <span class="comment"># 默认为1</span></div><div class="line">  force_bundle_id = APPSTORE_IDENTIFIER</div><div class="line">  type = <span class="number">1</span></div><div class="line">  <span class="keyword">if</span> configuration == <span class="string">"Inhouse"</span></div><div class="line">    force_bundle_id = INHOUSE_IDENTIFIER</div><div class="line">    type = <span class="number">2</span></div><div class="line">  <span class="keyword">elsif</span> configuration == <span class="string">"AdHoc"</span></div><div class="line">    type = <span class="number">0</span></div><div class="line">  <span class="keyword">elsif</span> configuration == <span class="string">"Release"</span></div><div class="line">    type = <span class="number">99</span></div><div class="line">  <span class="keyword">end</span></div><div class="line">  sh <span class="string">"curl -# -S -F 'pkg_file=@<span class="subst">#&#123;output_path&#125;</span><span class="subst">#&#123;app_name&#125;</span>.ipa' -F 'dsym_file=@<span class="subst">#&#123;output_path&#125;</span><span class="subst">#&#123;app_name&#125;</span>.app.dSYM.zip' -F 'version=<span class="subst">#&#123;app_name&#125;</span>' -F 'description=<span class="subst">#&#123;app_name&#125;</span>' -F 'app_bundle_id=<span class="subst">#&#123;APPSTORE_IDENTIFIER&#125;</span>' -F 'pkg_type=<span class="subst">#&#123;type&#125;</span>' -F 'force_bundle_id=<span class="subst">#&#123;force_bundle_id&#125;</span>' <span class="subst">#&#123;OTA_SERVER_URL&#125;</span>"</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">platform <span class="symbol">:ios</span> <span class="keyword">do</span></div><div class="line">  before_all <span class="keyword">do</span></div><div class="line">    <span class="comment"># ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."</span></div><div class="line">    <span class="comment"># cocoapods</span></div><div class="line">    puts File.absolute_path(<span class="string">"."</span>)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"更新build号"</span></div><div class="line">  lane <span class="symbol">:buildVersion</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    update_build_version(options)</div><div class="line">  <span class="keyword">end</span> </div><div class="line"></div><div class="line">  desc <span class="string">"更新Debug版bundle号"</span></div><div class="line">  lane <span class="symbol">:debugBundleVersion</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    update_bundle_version(<span class="string">".Debug"</span>,options)</div><div class="line">  <span class="keyword">end</span> </div><div class="line"></div><div class="line">  desc <span class="string">"更新AppStore版bundle号"</span></div><div class="line">  lane <span class="symbol">:storeBundleVersion</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    update_bundle_version(<span class="string">""</span>,options)</div><div class="line">  <span class="keyword">end</span>   </div><div class="line"></div><div class="line">  desc <span class="string">"打Debug包"</span></div><div class="line">  lane <span class="symbol">:build_debug</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    buildVersion options</div><div class="line">    generate_ipa(<span class="string">"Debug"</span>,<span class="string">"development"</span>,options)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"打Inhouse包"</span></div><div class="line">  lane <span class="symbol">:build_inhouse</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    buildVersion options</div><div class="line">    update_bundle_id(<span class="string">"<span class="subst">#&#123;INHOUSE_IDENTIFIER&#125;</span>"</span>)</div><div class="line">    generate_ipa(<span class="string">"Inhouse"</span>,<span class="string">"enterprise"</span>,options)</div><div class="line">    <span class="comment"># 还原</span></div><div class="line">    update_bundle_id(<span class="string">"<span class="subst">#&#123;APPSTORE_IDENTIFIER&#125;</span>"</span>)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"打Adhoc包"</span></div><div class="line">  lane <span class="symbol">:build_adhoc</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    buildVersion options</div><div class="line">    generate_ipa(<span class="string">"AdHoc"</span>,<span class="string">"ad-hoc"</span>,options)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"打Alpha包"</span></div><div class="line">  lane <span class="symbol">:build_alpha</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    development options</div><div class="line">    inhouse options</div><div class="line">    adhoc options</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"打AppStore包"</span></div><div class="line">  lane <span class="symbol">:build_release</span> <span class="keyword">do</span> <span class="params">|options|</span></div><div class="line">    buildVersion options</div><div class="line">    storeBundleVersion options</div><div class="line">    update_bundle_id(<span class="string">"<span class="subst">#&#123;APPSTORE_IDENTIFIER&#125;</span>"</span>)</div><div class="line">    generate_ipa(<span class="string">"Release"</span>,<span class="string">"app-store"</span>,options)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  desc <span class="string">"match"</span></div><div class="line">  lane <span class="symbol">:sn_match</span> <span class="keyword">do</span> </div><div class="line">    <span class="comment"># 这两行可以注册新设备，并且自动更新仓库下的profiles文件</span></div><div class="line">    <span class="comment"># register_devices(devices_file: "./devices.txt")</span></div><div class="line">    <span class="comment"># match(git_branch: "branch", type: "development", force_for_new_devices: true)</span></div><div class="line">    match(<span class="symbol">git_branch:</span> <span class="string">"branch"</span>, <span class="symbol">readonly:</span> <span class="literal">true</span>)</div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  after_all <span class="keyword">do</span> <span class="params">|lane|</span></div><div class="line"></div><div class="line">    <span class="comment"># slack(</span></div><div class="line">    <span class="comment">#   message: "Successfully deployed new App Update."</span></div><div class="line">    <span class="comment"># )</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  error <span class="keyword">do</span> <span class="params">|lane, exception|</span></div><div class="line">    <span class="comment"># slack(</span></div><div class="line">    <span class="comment">#   message: exception.message,</span></div><div class="line">    <span class="comment">#   success: false</span></div><div class="line">    <span class="comment"># )</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md</span></div><div class="line"><span class="comment"># All available actions: https://docs.fastlane.tools/actions</span></div><div class="line"></div><div class="line"><span class="comment"># fastlane reports which actions are used</span></div><div class="line"><span class="comment"># No personal data is recorded. Learn more at https://github.com/fastlane/enhancer</span></div></pre></td></tr></table></figure>
+<h3 id="3-4-fastlane-发布"><a href="#3-4-fastlane-发布" class="headerlink" title="3.4 fastlane 发布"></a>3.4 fastlane 发布</h3><h4 id="deliver-amp-Deliverfile"><a href="#deliver-amp-Deliverfile" class="headerlink" title="deliver &amp; Deliverfile"></a>deliver &amp; Deliverfile</h4><p><a href="https://github.com/fastlane/fastlane/blob/master/deliver/Deliverfile.md" target="_blank" rel="external">Deliverfile</a> 主要是用于发布上传时的配置文件。</p>
+<p>前面介绍了，如果在 <code>fastlane init</code> 的时候选择了在 iTunes Connect 创建 App，那么 fastlane 会调用 produce 进行初始化，同时会执行 <code>deliver init</code>，执行完毕后会创建一个 Deliverfile 文件，如果没有在初始化的时候选择执行 produce 流程当然 deliver 也不会执行，可以手动执行 <code>fastlane deliver init</code> 创建。</p>
+<p>执行时，会自动登录你在 Appfile 中设置的 itunes_connect_id，根据 Appfile 中的 app_identifier，会为你下载当前 iTC 中的截图，元数据等等。执行完成后会生成<br>一个 Deliverfile 文件，/metadata 和 /screenshots 文件夹。</p>
+<p>本地修改 Deliverfile，元数据，或者截图文件，执行 <code>fastlane deliver</code> 后，可以上传到 iTunes Connect 上。</p>
+<p>如果你想把你本地的 ipa 文件上传到 iTunes Connect 上，可以执行：</p>
+<p><code>fastlane deliver --ipa &quot;App.ipa&quot; --submit_for_review</code></p>
+<p>如果你之前上传过 ipa 包，想选择一个用来提交审核，可以执行：</p>
+<p><code>fastlane deliver submit_build --build_number xxxx</code></p>
+<p>这里 xxxx 是你想选择的 build number。或者，可以直接选择最新的：</p>
+<p><code>fastlane deliver submit_build --latest</code></p>
+<p>在 Fastfile 里可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deliver(app_version: ENV[&quot;app_versionName&quot;],</div><div class="line">        ipa: &quot;#&#123;ipa_path&#125;&quot;,</div><div class="line">        submit_for_review: false</div><div class="line">       )</div></pre></td></tr></table></figure>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="https://github.com/fastlane/fastlane" target="_blank" rel="external">官方文档</a><br><a href="http://macoscope.com/blog/simplify-your-life-with-fastlane-match/#migration" target="_blank" rel="external">Simplify your life with fastlane match</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Li Jin wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的公众号！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Li Jin WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="Li Jin Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/fastlane/" rel="tag"># fastlane</a>
+          
+            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/17/ReactNative入门（3）/" rel="next" title="ReactNative入门（3）—— ReactNative与原生的交互">
+                <i class="fa fa-chevron-left"></i> ReactNative入门（3）—— ReactNative与原生的交互
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/17/iOS-AppIcon添加打包标识/" rel="prev" title="iOSAppIcon添加打包标识">
+                iOSAppIcon添加打包标识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Li Jin" />
+          <p class="site-author-name" itemprop="name">Li Jin</p>
+           
+              <p class="site-description motion-element" itemprop="description">守望天空的猎户</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mlijin9011" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/mlj90/profile" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:lijinysu@163.com" target="_blank" title="邮箱">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      邮箱
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://objccn.io/" title="ObjC 中国" target="_blank">ObjC 中国</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://onevcat.com/" title="OneV's Den" target="_blank">OneV's Den</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.devtang.com/" title="唐巧的博客" target="_blank">唐巧的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.leichunfeng.com/" title="雷纯锋的技术博客" target="_blank">雷纯锋的技术博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.cnbang.net/" title="bang's blog" target="_blank">bang's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fastlane"><span class="nav-number">2.</span> <span class="nav-text">fastlane</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-fastlane-的简介"><span class="nav-number">2.1.</span> <span class="nav-text">1. fastlane 的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-fastlane-的安装"><span class="nav-number">2.2.</span> <span class="nav-text">2. fastlane 的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-fastlane-的使用"><span class="nav-number">2.3.</span> <span class="nav-text">3. fastlane 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-初始化"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-fastlane-管理证书-amp-Provisioning-Profile"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 fastlane 管理证书 & Provisioning Profile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cert"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">cert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sigh"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">sigh</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-生成"><span class="nav-number">2.3.2.2.1.</span> <span class="nav-text">1. 生成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-下载"><span class="nav-number">2.3.2.2.2.</span> <span class="nav-text">2. 下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-管理"><span class="nav-number">2.3.2.2.3.</span> <span class="nav-text">3. 管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-重新签名"><span class="nav-number">2.3.2.2.4.</span> <span class="nav-text">4. 重新签名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gem"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">gem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#match-amp-Matchfile"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">match & Matchfile</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-初始化-match"><span class="nav-number">2.3.2.4.1.</span> <span class="nav-text">1. 初始化 match</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-生成和安装"><span class="nav-number">2.3.2.4.2.</span> <span class="nav-text">2. 生成和安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-管理-1"><span class="nav-number">2.3.2.4.3.</span> <span class="nav-text">3. 管理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-fastlane-自动化测试"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 fastlane 自动化测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#scan-amp-Scanfile"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">scan & Scanfile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastlane-打包"><span class="nav-number">2.3.4.</span> <span class="nav-text">fastlane 打包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Appfile"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">Appfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fastfile"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">Fastfile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-fastlane-发布"><span class="nav-number">2.3.5.</span> <span class="nav-text">3.4 fastlane 发布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#deliver-amp-Deliverfile"><span class="nav-number">2.3.5.1.</span> <span class="nav-text">deliver & Deliverfile</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">3.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Jin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Muse
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
