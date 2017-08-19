@@ -7,7 +7,7 @@ tags:
 - React Native
 ---
 
-## 概述
+## 前言
 
 作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。
 

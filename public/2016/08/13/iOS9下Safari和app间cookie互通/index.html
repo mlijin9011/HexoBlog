@@ -96,16 +96,16 @@
 
 
 
-<meta name="description" content="概述现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
+<meta name="description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS9下Safari和app间cookie互通">
 <meta property="og:url" content="http://mlijin9011.github.io/2016/08/13/iOS9下Safari和app间cookie互通/index.html">
 <meta property="og:site_name" content="木子李的博客">
-<meta property="og:description" content="概述现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
-<meta property="og:updated_time" content="2017-04-13T14:07:23.000Z">
+<meta property="og:description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
+<meta property="og:updated_time" content="2017-08-19T13:57:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS9下Safari和app间cookie互通">
-<meta name="twitter:description" content="概述现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
+<meta name="twitter:description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
 
 
 
@@ -366,7 +366,7 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在 app 中的继续浏览，而是更希望在下载后，直接点击 AppStore 中的打开，或者手动打开 app 后，就能够继续刚才的浏览，这就需要在 Safari 和 app 间形成一种数据的互通。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在 app 中的继续浏览，而是更希望在下载后，直接点击 AppStore 中的打开，或者手动打开 app 后，就能够继续刚才的浏览，这就需要在 Safari 和 app 间形成一种数据的互通。</p>
 <a id="more"></a>
 <p>大概有这么两种方案可以实现这个功能：</p>
 <p>一是当用户在 Safari 中浏览新闻内容时，上传用户行为和用户数据到我们服务器中，以一个唯一标识来标识这个设备的数据，这个数据会有一定的时效性，在这个时效性内下载并打开 app，我们会当做用户是希望能够继续延续刚才的浏览。当用户下载 app 打开后，用唯一标识从服务器请求用户行为数据，通过这个数据来打开相应的浏览内容，这样就实现了上面所说的功能。</p>
@@ -534,7 +534,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -545,7 +545,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -556,7 +556,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -667,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-互通"><span class="nav-number">2.</span> <span class="nav-text">Cookie 互通</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-互通"><span class="nav-number">2.</span> <span class="nav-text">Cookie 互通</span></a></li></ol></div>
             
 
           </div>

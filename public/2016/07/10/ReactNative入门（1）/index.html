@@ -96,17 +96,17 @@
 
 
 
-<meta name="description" content="概述作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。">
+<meta name="description" content="前言作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React Native入门（1）—— 组件及生命周期">
 <meta property="og:url" content="http://mlijin9011.github.io/2016/07/10/ReactNative入门（1）/index.html">
 <meta property="og:site_name" content="木子李的博客">
-<meta property="og:description" content="概述作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。">
+<meta property="og:description" content="前言作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。">
 <meta property="og:image" content="http://mlijin9011.github.io/2016/07/10/ReactNative入门（1）/component-lifecycle.jpg">
-<meta property="og:updated_time" content="2017-04-13T14:07:23.000Z">
+<meta property="og:updated_time" content="2017-08-19T13:57:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React Native入门（1）—— 组件及生命周期">
-<meta name="twitter:description" content="概述作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。">
+<meta name="twitter:description" content="前言作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。">
 <meta name="twitter:image" content="http://mlijin9011.github.io/2016/07/10/ReactNative入门（1）/component-lifecycle.jpg">
 
 
@@ -368,7 +368,7 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。</p>
 <a id="more"></a>
 <h2 id="组件的构成"><a href="#组件的构成" class="headerlink" title="组件的构成"></a>组件的构成</h2><p>在 React Native 中，所有展示的界面，都可以看做是一个组件（Component），每一个组件根据功能和逻辑的复杂程度，又都是由许多小的组件拼成，每个小的组件也都有自己对应的逻辑，不过他们都遵循同样的代码结构。</p>
 <p>先来看一个完整的 js 文件中的代码，然后我们以它为例来分析其中的代码结构：</p>
@@ -594,7 +594,7 @@ getInitialState()：初始化组件的状态
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -605,7 +605,7 @@ getInitialState()：初始化组件的状态
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -616,7 +616,7 @@ getInitialState()：初始化组件的状态
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -727,7 +727,7 @@ getInitialState()：初始化组件的状态
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的构成"><span class="nav-number">2.</span> <span class="nav-text">组件的构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#包和组件引用"><span class="nav-number">2.1.</span> <span class="nav-text">包和组件引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件类的声明"><span class="nav-number">2.2.</span> <span class="nav-text">组件类的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件样式的声明"><span class="nav-number">2.3.</span> <span class="nav-text">组件样式的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的生命周期"><span class="nav-number">3.</span> <span class="nav-text">组件的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例化阶段"><span class="nav-number">3.1.</span> <span class="nav-text">实例化阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行阶段"><span class="nav-number">3.2.</span> <span class="nav-text">运行阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#销毁阶段"><span class="nav-number">3.3.</span> <span class="nav-text">销毁阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的构成"><span class="nav-number">2.</span> <span class="nav-text">组件的构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#包和组件引用"><span class="nav-number">2.1.</span> <span class="nav-text">包和组件引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件类的声明"><span class="nav-number">2.2.</span> <span class="nav-text">组件类的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件样式的声明"><span class="nav-number">2.3.</span> <span class="nav-text">组件样式的声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件的生命周期"><span class="nav-number">3.</span> <span class="nav-text">组件的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例化阶段"><span class="nav-number">3.1.</span> <span class="nav-text">实例化阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行阶段"><span class="nav-number">3.2.</span> <span class="nav-text">运行阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#销毁阶段"><span class="nav-number">3.3.</span> <span class="nav-text">销毁阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
