@@ -674,13 +674,13 @@ getInitialState()：初始化组件的状态
     <link href="http://mlijin9011.github.io/2016/07/08/%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>http://mlijin9011.github.io/2016/07/08/几种排序算法/</id>
     <published>2016-07-08T09:41:05.000Z</published>
-    <updated>2017-08-21T01:40:43.000Z</updated>
+    <updated>2017-08-21T02:30:58.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>基础知识整理，十大排序算法总结：</p>
 <p>查找和排序算法是算法的入门知识，其经典思想可以用于很多算法当中。学习算法首先要熟悉其思想，实际中加以灵活应用。<br>常见的排序算法有，快速排序、归并排序、插入排序、冒泡排序、堆排序、基数排序、桶排序等。</p>
 <p>接下来我们就分析一下常见的排序算法及其使用场景。</p>
 <a id="more"></a>
-]]></content>
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1>]]></content>
     
     <summary type="html">
     
