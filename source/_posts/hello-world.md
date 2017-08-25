@@ -10,6 +10,8 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 ## Quick Start
 
+快速搭建博客框架：https://hexo.io/zh-cn/index.html
+
 ### Create a new post
 
 ``` bash
@@ -45,3 +47,5 @@ More info: [Deployment](https://hexo.io/docs/deployment.html)
 ## Hexo Next 主题使用帮助 
 
 http://theme-next.iissnan.com/
+
+
