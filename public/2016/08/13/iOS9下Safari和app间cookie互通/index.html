@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://mlijin9011.github.io/2016/08/13/iOS9下Safari和app间cookie互通/index.html">
 <meta property="og:site_name" content="木子李的博客">
 <meta property="og:description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
-<meta property="og:updated_time" content="2017-08-28T09:14:48.000Z">
+<meta property="og:updated_time" content="2017-08-28T09:40:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS9下Safari和app间cookie互通">
 <meta name="twitter:description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
@@ -379,6 +379,10 @@
 <p>可能你会觉得在程序启动后，弹出一个 Safari 页面有点不妥，那么我们可以把这个 <code>APISFSafariViewController</code> 设置为纯透明，这样用户就感觉不到了，然后这个纯透明的 Safari 再通过 openUrl 的方式呼起我们要延续阅读的页面，如果不需要延续阅读，那么就设定一个时间值，在这个时间值后，把这个纯透明的 Safari 隐藏。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>前提：safari中打开h5页面，在app中还原</p>
 <p>html1 页面写 cookie 到 safari，app启动后打开一个透明的safari页面，这个safari页面请求另外一个与 html1 同域名的 html2,<br>html2 读取到 html1 存的 cookie 后，通过 scheme 的方式，在app中打开相对应的页面，完成场景还原</p>
+<h2 id="后期补充"><a href="#后期补充" class="headerlink" title="后期补充"></a>后期补充</h2><p>上述使用 <code>APISFSafariViewController</code> 这种获取 cookie 的方式，SafariViewController 始终是隐藏的，而 iOS 10 以后这是苹果命令禁止的：</p>
+<blockquote>
+<p>SafariViewContoller must be used to visibly present information to users; the controller may not be hidden or obscured by other views or layers. Additionally, an app may not use SafariViewController to track users without their knowledge and consent.</p>
+</blockquote>
 <p>参考博文：<a href="http://www.jianshu.com/p/1a46187141fc" target="_blank" rel="external">iOS app与浏览器 跨域互通</a></p>
 
       
@@ -670,7 +674,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-互通"><span class="nav-number">2.</span> <span class="nav-text">Cookie 互通</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie-互通"><span class="nav-number">2.</span> <span class="nav-text">Cookie 互通</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后期补充"><span class="nav-number">4.</span> <span class="nav-text">后期补充</span></a></li></ol></div>
             
 
           </div>

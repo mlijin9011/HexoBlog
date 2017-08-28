@@ -40,6 +40,13 @@ iOS 系统中每个 app 都有自己的沙盒，无法跨越沙盒去访问数�
 html1 页面写 cookie 到 safari，app启动后打开一个透明的safari页面，这个safari页面请求另外一个与 html1 同域名的 html2,
 html2 读取到 html1 存的 cookie 后，通过 scheme 的方式，在app中打开相对应的页面，完成场景还原
 
+## 后期补充
+
+上述使用 `APISFSafariViewController` 这种获取 cookie 的方式，SafariViewController 始终是隐藏的，而 iOS 10 以后这是苹果命令禁止的：
+
+> SafariViewContoller must be used to visibly present information to users; the controller may not be hidden or obscured by other views or layers. Additionally, an app may not use SafariViewController to track users without their knowledge and consent.
+> 
+
 参考博文：[iOS app与浏览器 跨域互通](http://www.jianshu.com/p/1a46187141fc)
 
 
