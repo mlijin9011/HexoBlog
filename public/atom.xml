@@ -494,7 +494,7 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
     <link href="http://mlijin9011.github.io/2016/08/13/iOS9%E4%B8%8BSafari%E5%92%8Capp%E9%97%B4cookie%E4%BA%92%E9%80%9A/"/>
     <id>http://mlijin9011.github.io/2016/08/13/iOS9下Safari和app间cookie互通/</id>
     <published>2016-08-13T08:10:02.000Z</published>
-    <updated>2017-08-21T01:39:33.000Z</updated>
+    <updated>2017-08-28T09:14:48.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在 app 中的继续浏览，而是更希望在下载后，直接点击 AppStore 中的打开，或者手动打开 app 后，就能够继续刚才的浏览，这就需要在 Safari 和 app 间形成一种数据的互通。</p>
 <a id="more"></a>
@@ -507,6 +507,8 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
 <p>用户通过 Safari 浏览 wap1 页面，wap1 页面把用户行为数据写到 cookie 中，当用户通过引导下载 app 后，第一次打开 app 时，在 app 内打开 <code>APISFSafariViewController</code>，打开一个 wap2 页面，在这个 wap2 页面先取到刚才 wap1 页面保存的 cookie 数据，然后在 wap2 中通过 openUrl 的方式，把这个 cookie 数据传递到 app 中，然后通过这个 cookie 数据来实现延续阅读的功能。</p>
 <p>在这里，wap1 页面是我们正常的一个 html 页面，里面只是加一个写用户行为数据到 Safari 中的cookie 的操作，这个 cookie 的域采用我们约定好的值，即只有在这个域下的 html 才能读取到这个 cookie。wap2 页面是一个专门用来静默的获取 wap1 的 cookie 值的页面，并且可以静默的通过 openUrl 的方式把 cookie 回传给 app。</p>
 <p>可能你会觉得在程序启动后，弹出一个 Safari 页面有点不妥，那么我们可以把这个 <code>APISFSafariViewController</code> 设置为纯透明，这样用户就感觉不到了，然后这个纯透明的 Safari 再通过 openUrl 的方式呼起我们要延续阅读的页面，如果不需要延续阅读，那么就设定一个时间值，在这个时间值后，把这个纯透明的 Safari 隐藏。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>前提：safari中打开h5页面，在app中还原</p>
+<p>html1 页面写 cookie 到 safari，app启动后打开一个透明的safari页面，这个safari页面请求另外一个与 html1 同域名的 html2,<br>html2 读取到 html1 存的 cookie 后，通过 scheme 的方式，在app中打开相对应的页面，完成场景还原</p>
 <p>参考博文：<a href="http://www.jianshu.com/p/1a46187141fc" target="_blank" rel="external">iOS app与浏览器 跨域互通</a></p>
 ]]></content>
     

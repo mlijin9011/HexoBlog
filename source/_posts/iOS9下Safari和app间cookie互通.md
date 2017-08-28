@@ -33,4 +33,13 @@ iOS 系统中每个 app 都有自己的沙盒，无法跨越沙盒去访问数�
 
 可能你会觉得在程序启动后，弹出一个 Safari 页面有点不妥，那么我们可以把这个 `APISFSafariViewController` 设置为纯透明，这样用户就感觉不到了，然后这个纯透明的 Safari 再通过 openUrl 的方式呼起我们要延续阅读的页面，如果不需要延续阅读，那么就设定一个时间值，在这个时间值后，把这个纯透明的 Safari 隐藏。
 
+## 总结
+
+前提：safari中打开h5页面，在app中还原
+
+html1 页面写 cookie 到 safari，app启动后打开一个透明的safari页面，这个safari页面请求另外一个与 html1 同域名的 html2,
+html2 读取到 html1 存的 cookie 后，通过 scheme 的方式，在app中打开相对应的页面，完成场景还原
+
 参考博文：[iOS app与浏览器 跨域互通](http://www.jianshu.com/p/1a46187141fc)
+
+
