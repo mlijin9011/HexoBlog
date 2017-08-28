@@ -47,6 +47,8 @@ html2 读取到 html1 存的 cookie 后，通过 scheme 的方式，在app中打
 > SafariViewContoller must be used to visibly present information to users; the controller may not be hidden or obscured by other views or layers. Additionally, an app may not use SafariViewController to track users without their knowledge and consent.
 > 
 
+所以这种方式，目前仅能支持 iOS 9 ，iOS 10 以上需要再找别的途径。
+
 参考博文：[iOS app与浏览器 跨域互通](http://www.jianshu.com/p/1a46187141fc)
 
 

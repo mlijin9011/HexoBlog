@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://mlijin9011.github.io/2016/08/13/iOS9下Safari和app间cookie互通/index.html">
 <meta property="og:site_name" content="木子李的博客">
 <meta property="og:description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
-<meta property="og:updated_time" content="2017-08-28T09:40:20.000Z">
+<meta property="og:updated_time" content="2017-08-28T09:42:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS9下Safari和app间cookie互通">
 <meta name="twitter:description" content="前言现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在">
@@ -383,6 +383,7 @@
 <blockquote>
 <p>SafariViewContoller must be used to visibly present information to users; the controller may not be hidden or obscured by other views or layers. Additionally, an app may not use SafariViewController to track users without their knowledge and consent.</p>
 </blockquote>
+<p>所以这种方式，目前仅能支持 iOS 9 ，iOS 10 以上需要再找别的途径。</p>
 <p>参考博文：<a href="http://www.jianshu.com/p/1a46187141fc" target="_blank" rel="external">iOS app与浏览器 跨域互通</a></p>
 
       

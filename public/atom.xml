@@ -494,7 +494,7 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
     <link href="http://mlijin9011.github.io/2016/08/13/iOS9%E4%B8%8BSafari%E5%92%8Capp%E9%97%B4cookie%E4%BA%92%E9%80%9A/"/>
     <id>http://mlijin9011.github.io/2016/08/13/iOS9下Safari和app间cookie互通/</id>
     <published>2016-08-13T08:10:02.000Z</published>
-    <updated>2017-08-28T09:40:20.000Z</updated>
+    <updated>2017-08-28T09:42:44.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在项目有一个需求，比如某新闻业务，当用户还没有下载 app 时，在手机上的 Safari 中浏览了一篇新闻，然后在浏览器中点击“在 app 中查看”，会自动跳转到 AppStore 中下载 app，此时用户可能希望在下载完 app 后能够继续刚才在 Safari 中的浏览内容和一些用户行为。但是用户被引导下载后，并不会希望需要重新回到浏览器，重新再由浏览器发起一个拉起 app 的操作来实现在 app 中的继续浏览，而是更希望在下载后，直接点击 AppStore 中的打开，或者手动打开 app 后，就能够继续刚才的浏览，这就需要在 Safari 和 app 间形成一种数据的互通。</p>
 <a id="more"></a>
@@ -513,6 +513,7 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
 <blockquote>
 <p>SafariViewContoller must be used to visibly present information to users; the controller may not be hidden or obscured by other views or layers. Additionally, an app may not use SafariViewController to track users without their knowledge and consent.</p>
 </blockquote>
+<p>所以这种方式，目前仅能支持 iOS 9 ，iOS 10 以上需要再找别的途径。</p>
 <p>参考博文：<a href="http://www.jianshu.com/p/1a46187141fc" target="_blank" rel="external">iOS app与浏览器 跨域互通</a></p>
 ]]></content>
     
