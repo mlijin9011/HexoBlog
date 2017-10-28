@@ -12,6 +12,42 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 快速搭建博客框架：https://hexo.io/zh-cn/index.html
 
+### 安装前提
+
+在安装前，您必须检查电脑中是否已安装下列应用程序：
+
+    Homebrew
+    Node.js
+    Git
+
+1.安装 Homebrew
+
+```
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+2.安装 Node.js
+
+```
+$ brew install node
+```
+
+3.安装 Git
+一般 Mac 都已安装了 Git，无需自己安装，如需手动安装，执行
+
+```
+$ brew install git
+```
+
+### 安装 Hexo
+
+所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。
+
+```
+$ npm install -g hexo-cli
+```
+
+
 ### Create a new post
 
 ``` bash
