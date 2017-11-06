@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://mlijin9011.github.io/"/>
-  <updated>2017-11-06T07:40:20.330Z</updated>
+  <updated>2017-11-06T07:47:47.675Z</updated>
   <id>http://mlijin9011.github.io/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://mlijin9011.github.io/2017/10/16/Swift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/"/>
     <id>http://mlijin9011.github.io/2017/10/16/Swift学习笔记（1）/</id>
     <published>2017-10-16T06:35:53.000Z</published>
-    <updated>2017-11-06T07:40:20.330Z</updated>
+    <updated>2017-11-06T07:47:47.675Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="1-Swift-语法"><a href="#1-Swift-语法" class="headerlink" title="1. Swift 语法"></a>1. Swift 语法</h1><h2 id="1-1-可选类型"><a href="#1-1-可选类型" class="headerlink" title="1.1 可选类型"></a>1.1 可选类型</h2><p>1.可选类型解析</p>
+    <content type="html"><![CDATA[<h1 id="1-Swift-语法"><a href="#1-Swift-语法" class="headerlink" title="1. Swift 语法"></a>1. Swift 语法</h1><a id="more"></a>
+<h2 id="1-1-可选类型"><a href="#1-1-可选类型" class="headerlink" title="1.1 可选类型"></a>1.1 可选类型</h2><p>1.可选类型解析</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var errorCode: Int? = 404              // 在类型后面添加一个?，表示是可选类型</div><div class="line">print(errorCode)                       // Optional(404)</div><div class="line">if errorCode != nil &#123;                  // 确定可选类型包含值后可以在变量名后加!强制解析</div><div class="line">  print(errorCode!)                    // 404</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="1-2-基本运算符"><a href="#1-2-基本运算符" class="headerlink" title="1.2 基本运算符"></a>1.2 基本运算符</h2><p>1.空合运算符: a ?? b    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let optionalE: Int? = 4     // ?? 前面那个值要为可选类型</div><div class="line">let d = optionalE ?? b      // 4, 如果optionalE为空,d为b的值，如果不为空就是optionalE解包后的值</div></pre></td></tr></table></figure>
@@ -129,7 +130,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;1-Swift-语法&quot;&gt;&lt;a href=&quot;#1-Swift-语法&quot; class=&quot;headerlink&quot; title=&quot;1. Swift 语法&quot;&gt;&lt;/a&gt;1. Swift 语法&lt;/h1&gt;&lt;h2 id=&quot;1-1-可选类型&quot;&gt;&lt;a href=&quot;#1-1-可选类型&quot; c
+      &lt;h1 id=&quot;1-Swift-语法&quot;&gt;&lt;a href=&quot;#1-Swift-语法&quot; class=&quot;headerlink&quot; title=&quot;1. Swift 语法&quot;&gt;&lt;/a&gt;1. Swift 语法&lt;/h1&gt;
     
     </summary>
     
@@ -507,9 +508,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
-    
       <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
     
   </entry>
   
@@ -806,9 +807,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
-    
       <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
     
   </entry>
   
