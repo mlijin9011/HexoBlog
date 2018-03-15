@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Swift," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="木子李的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="1. Swift 语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift学习笔记（1）">
+<meta property="og:url" content="http://mlijin9011.github.io/2017/10/16/Swift学习笔记（1）/index.html">
+<meta property="og:site_name" content="木子李的博客">
+<meta property="og:description" content="1. Swift 语法">
+<meta property="og:updated_time" content="2017-11-06T07:47:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift学习笔记（1）">
+<meta name="twitter:description" content="1. Swift 语法">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mlijin9011.github.io/2017/10/16/Swift学习笔记（1）/"/>
+
+
+
+
+
+  <title>Swift学习笔记（1） | 木子李的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">木子李的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">萧瑟的秋风，倔强的生命！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2017/10/16/Swift学习笔记（1）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Li Jin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="木子李的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Swift学习笔记（1）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T14:35:53+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-Swift-语法"><a href="#1-Swift-语法" class="headerlink" title="1. Swift 语法"></a>1. Swift 语法</h1><a id="more"></a>
+<h2 id="1-1-可选类型"><a href="#1-1-可选类型" class="headerlink" title="1.1 可选类型"></a>1.1 可选类型</h2><p>1.可选类型解析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var errorCode: Int? = 404              // 在类型后面添加一个?，表示是可选类型</div><div class="line">print(errorCode)                       // Optional(404)</div><div class="line">if errorCode != nil &#123;                  // 确定可选类型包含值后可以在变量名后加!强制解析</div><div class="line">  print(errorCode!)                    // 404</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="1-2-基本运算符"><a href="#1-2-基本运算符" class="headerlink" title="1.2 基本运算符"></a>1.2 基本运算符</h2><p>1.空合运算符: a ?? b    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let optionalE: Int? = 4     // ?? 前面那个值要为可选类型</div><div class="line">let d = optionalE ?? b      // 4, 如果optionalE为空,d为b的值，如果不为空就是optionalE解包后的值</div></pre></td></tr></table></figure>
+<p>2.区间运算符: 表示一个区间的值    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1...5                       // 定义1到5,5个数,包含1和5</div><div class="line">1..&lt;5                       // 定义1到5,4个数,不包含5</div></pre></td></tr></table></figure>
+<h2 id="1-3-字符串"><a href="#1-3-字符串" class="headerlink" title="1.3 字符串"></a>1.3 字符串</h2><p>1.初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var emptyString1 = &quot;&quot;                  // 空字符串,&quot;&quot;内为空</div><div class="line">let emptyString2 = String()            // 空字符串,通过String()初始化方法置为空</div></pre></td></tr></table></figure>
+<p>字符串的值传递方式是通过值传递的,传递的时候是对已有的字符串创建副本再进行传递或赋值操作.</p>
+<p>2.字符的操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var string1 = &quot;Not Empty&quot;</div><div class="line">let char: Character = &quot;a&quot;             // a, 字符的类型为Character</div><div class="line">for char in string1.characters &#123;      // for循环后面会详述</div><div class="line">    print(char)                       // 依次输出emptyString1中所有字符</div><div class="line">&#125;</div><div class="line">string1.characters.count              // 9, 获取字符串中字符个数包括空格</div></pre></td></tr></table></figure>
+<p>3.字符串拼接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var string1 = &quot;Hello&quot;</div><div class="line">var string2 = &quot; World&quot;</div><div class="line"></div><div class="line">var string3 = string1 + string2        // Hello World, 通过&quot;+&quot;将两个字符串相连</div><div class="line"></div><div class="line">string1 += string2                     // Hello World, 等价于string1 = string1+string2</div><div class="line">string1.append(&quot; !&quot;)                   // Hello World !, 通过append()方法拼接</div><div class="line"></div><div class="line">let messages = &quot;Hello \(string2) !&quot;    // Hello World !, 通过将常量或变量放入\()中</div></pre></td></tr></table></figure>
+<pre><code>注意：print(string1.append(string2))    //() 因为append没有返回值，是直接改变sting1的值
+</code></pre><p>4.字符串索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let messages = &quot;Hello World !&quot;   </div><div class="line">             </div><div class="line">let messChar = messages[messages.startIndex]  // H,通过第一个字符的索引获取字符</div><div class="line"></div><div class="line">let firstIndex = messages.index(after: messages.startIndex)  // 1, 第一个字符的索引</div><div class="line">let lastIndex = messages.index(before: messages.endIndex)    // 13, 最后一个字符的索引</div><div class="line"></div><div class="line">let index = messages.index(messages.startIndex, offsetBy: 4) // 4, 初始位置偏移4</div><div class="line">let indexChar = messages[index]                              // o, 通过索引获得的字符为o</div></pre></td></tr></table></figure>
+<pre><code>注意:索引不能越界
+</code></pre><p>5.字符串的插入和删除    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var welcome = &quot;Hello&quot;</div><div class="line"></div><div class="line">welcome.insert(&quot;!&quot;, at: welcome.endIndex)  </div><div class="line">print(welcome)                             // Hello!, 将!插入welcome的末尾</div><div class="line"></div><div class="line">welcome.insert(contentsOf: &quot;world&quot;.characters, at: welcome.index(before: welcome.endIndex))</div><div class="line">print(welcome)                             // Helloworld!, 注意:插入的内容是:&quot;world&quot;.characters</div><div class="line"></div><div class="line">welcome.remove(at: welcome.index(before: welcome.endIndex)) </div><div class="line">print(welcome)                             // Helloworld, 删除最后一位</div><div class="line"></div><div class="line">let range = welcome.index(welcome.endIndex, offsetBy: -5)..&lt; welcome.endIndex // 后5位的范围</div><div class="line">welcome.removeSubrange(range)              // 删除&quot;world&quot;</div><div class="line">print(welcome)                             // Hello</div></pre></td></tr></table></figure>
+<p>6.字符串的比较操作    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var welcome = &quot;Hello&quot;</div><div class="line">welcome == &quot;Hello&quot;                     // true, 字符串可以用==, !=进行比较操作</div></pre></td></tr></table></figure>
+<h2 id="1-4-数组"><a href="#1-4-数组" class="headerlink" title="1.4 数组"></a>1.4 数组</h2><p>有序的,同一类型的多个元素的集合</p>
+<p>1.定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var arrInts = [Int]()                  // [], 定义一个元素类型为Int的可变空数组</div><div class="line">arrInts = []                           // [], 空数组的简单定义方式</div><div class="line">arrInts = [1, 4]                       // [1, 4], 数组的简单构造方法</div><div class="line">var twoDouble = [Double](repeating: 2.0, count: 2)  // [2.0, 2.0] 相同元素数组的创建</div></pre></td></tr></table></figure>
+<p>2.数组操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr1 = [1, 2, 3]</div><div class="line">var arr2 = [4, 5]</div><div class="line"></div><div class="line">var array = arr1 + arr2                 // 数组也能用&quot;+&quot;拼接</div><div class="line">arr1 += arr2                            // 等价于arr1 = arr1 + arr2</div><div class="line">                    </div><div class="line">let secondNum = arr1[2]                 // 3, 通过下标访问元素,数组中第一个元素的下标是0</div><div class="line">arr1[0] = 10                            // 将arr1的第一个元素改为 10</div><div class="line"></div><div class="line">arr1[1...2] = [11, 12]                  // 将数组中的[1...2]区间改为[11, 12]中的元素</div><div class="line">print(arr1)                             // [10, 11, 12, 4, 5]</div><div class="line"></div><div class="line">arr1.append(6)                          // arr1 中插入一个元素6</div><div class="line">arr1.insert(1, at: 0)                   // 将1插入到数组第一个元素</div><div class="line">arr1.remove(at: 0)                      // 移除0位置的元素,之前后面的元素会自动往前一位</div><div class="line">arr1.removeLast()                       // 移除最后一个元素</div></pre></td></tr></table></figure>
+<p>3.遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for (index, value) in arr1.enumerated() &#123;  // 使用迭代器获取数组元素以及索引号</div><div class="line">    print(&quot;索引:\(index), 元素:\(value)&quot;)   // 依次打印索引号及元素 索引号:0, 元素:10 ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="1-5-集合"><a href="#1-5-集合" class="headerlink" title="1.5 集合"></a>1.5 集合</h2><p>存储相同类型没有确定顺序的元素,相同元素只能出现一次</p>
+<p>1.定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var char1 = Set&lt; Character &gt;()          // 创建一个Character类型的空集合</div><div class="line">let char2:Set&lt; Character &gt; = []         // 定义空集合的简便方法.类型:Set&lt; Character &gt;</div><div class="line"></div><div class="line">var letter1: Set = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]      // 集合类型可以写成Set,但必须显示声明,不能省略</div><div class="line">var letter2 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]           // Set省略后,根据自动类型推断,letter2就是数组类型</div></pre></td></tr></table></figure>
+<p>2.操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">letter1.insert(&quot;a&quot;)                    // 如果插入的元素如果已经在集合中,那么会被忽略</div><div class="line">letter1.remove(&quot;c&quot;)                    // c, 要删除的元素在集合中,则返回元素,否则返回nil</div><div class="line">letter1.contains(&quot;a&quot;)                  // true, 是否包含某个元素</div><div class="line">	</div><div class="line">var num1: Set = [&quot;3&quot;, &quot;2&quot;, &quot;1&quot;, &quot;5&quot;, &quot;7&quot;]</div><div class="line">let num2: Set = [&quot;3&quot;, &quot;2&quot;, &quot;5&quot;, &quot;7&quot;]</div><div class="line">let num3: Set = [&quot;1&quot;, &quot;6&quot;, &quot;5&quot;]</div><div class="line"></div><div class="line">num1.intersection(num3)              // [&quot;1&quot;, &quot;5&quot;], 两个集合的交集</div><div class="line">num1.union(num3)                     // [&quot;5&quot;, &quot;2&quot;, &quot;1&quot;, &quot;7&quot;, &quot;6&quot;, &quot;3&quot;], 两个集合的并集</div><div class="line">num1.subtracting(num3)               // [&quot;2&quot;, &quot;7&quot;, &quot;3&quot;], 只在集合1不在集合2的部分</div><div class="line">num1.symmetricDifference(num3)       // [&quot;2&quot;, &quot;7&quot;, &quot;6&quot;, &quot;3&quot;], 两个集合的并集中非交集部分</div><div class="line"></div><div class="line">num1 == num2                         // false, 判断两个集合包含的元素是否都相同</div><div class="line">num2.isSubset(of: num1)              // true, num2是num1的子集</div><div class="line">num1.isSuperset(of: num2)            // true, num1是num2的超集合</div><div class="line">num1.isDisjoint(with: num2)          // false, 判断两个集合中的元素是否都不相同</div></pre></td></tr></table></figure>
+<p>3.遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">for char in letter1 &#123;</div><div class="line">    print(char)                      // 不按顺序的输出集合中每个元素</div><div class="line">&#125;</div><div class="line"></div><div class="line">for char in letter1.sorted() &#123;</div><div class="line">    print(char)                      // 按特定顺序的输出集合中每个元素</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="1-6-字典"><a href="#1-6-字典" class="headerlink" title="1.6 字典"></a>1.6 字典</h2><p>字典中的每个元素都是一个键值对,每个键值对有一个对应的key和value</p>
+<p>1.定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var chars: [String: String] = [&quot;char1&quot;:&quot;A&quot;, &quot;char2&quot;:&quot;B&quot;]  // 键和值都是String类型</div><div class="line">var charDict = [&quot;char1&quot;:&quot;A&quot;, &quot;char2&quot;:&quot;B&quot;]  // 系统会作自动类型推断,类型也可以省略</div></pre></td></tr></table></figure>
+<p>2.操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">chars[&quot;char2&quot;]                             // b, 通过字典的key访问value</div><div class="line">let arrKeys = [String](charDict.keys)      // [&quot;char1&quot;, &quot;char2&quot;], 获取字典中所有key的数组</div><div class="line">let arrValues = [String](charDict.values)  // [&quot;A&quot;, &quot;B&quot;], 获取字典中所有value的数组</div><div class="line"></div><div class="line">chars[&quot;char3&quot;] = &quot;C&quot;                       // chars中新增一个键值对</div><div class="line">chars[&quot;char1&quot;] = &quot;a&quot;                       // chars中修改key对应的value</div><div class="line">chars[&quot;char3&quot;] = nil                       // 将key对应的value设置为nil,移除键值对</div><div class="line"></div><div class="line">chars.updateValue(&quot;b&quot;, forKey: &quot;char2&quot;)    // 更新键值对,要是这个键不存在则会添加一个</div><div class="line">chars.removeValue(forKey: &quot;char2&quot;)         // 移除键值对</div></pre></td></tr></table></figure>
+<p>3.遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for (key, value) in charDict &#123;             // 遍历字典中的所有key value</div><div class="line">    print(&quot;\(key): \(value)&quot;)              // char2: B, char1: A</div><div class="line">&#125;</div><div class="line">for key in charDict.keys &#123;                 // 遍历字典中的所有key</div><div class="line">    print(key)                             // char2, char1</div><div class="line">&#125;</div><div class="line"></div><div class="line">for value in charDict.values &#123;             // 遍历字典中的所有value</div><div class="line">    print(value)                           // B, A</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="1-7-控制流"><a href="#1-7-控制流" class="headerlink" title="1.7 控制流"></a>1.7 控制流</h2><p>1.for循环    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">for num in 1...5 &#123;                     // 依次把闭区间[1, 5]中的值赋值给num</div><div class="line">    print(num)                         // 依次输出5个数字</div><div class="line">&#125;</div><div class="line"></div><div class="line">for _ in 1...5 &#123;                       // _ 替代变量名</div><div class="line">    print(&quot;A&quot;)                         // 依次输出5个字符串&quot;A&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.repeat-while循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var num = 3</div><div class="line">repeat &#123;                               // 第一次即使条件不满足也会进入&#123;&#125;</div><div class="line">    print(num)                         // 3</div><div class="line">    num = num - 1                      // 每次循环 num - 1</div><div class="line">&#125; while num &gt; 0</div></pre></td></tr></table></figure>
+<p>3.switch语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var num = 12</div><div class="line">switch num &#123;</div><div class="line">case 2:</div><div class="line">    print(&quot;num等于2&quot;)                  // 每个case分支至少需要包含一条语句</div><div class="line">case 3, 4, 5:                         // case语句可以匹配多个值,之间用(,)隔开</div><div class="line">    print(&quot;num == 3 or 4 or 5&quot;)       // case分支末尾不需要写break,不会发生贯穿</div><div class="line">case 6..&lt;10:                          // case语句也支持区间</div><div class="line">    print(&quot;num大于等于6,且小于10&quot;)</div><div class="line">case 10..&lt;19 where num % 3 == 0:      // 使用where语句来增加额外判断条件</div><div class="line">    print(&quot;num大于等于10,且小于19,且能被3整除&quot;)</div><div class="line">default:</div><div class="line">    print(&quot;上面的情况都不满足&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>4.控制转移语句    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var num = 2</div><div class="line">switch num &#123;</div><div class="line">case 2:</div><div class="line">    print(&quot;Hello&quot;)                     // Hello</div><div class="line">    fallthrough                        // 贯穿,使用fallthrough可以连续到下一个case中</div><div class="line">default:</div><div class="line">    print(&quot;World&quot;)                     // World</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>5.循环语句的标签设置    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var num1 = 6</div><div class="line">var num2 = 4</div><div class="line">num1Loop: while num1 &gt; 0 &#123;</div><div class="line">    num2Loop: while num2 &gt; 0 &#123;</div><div class="line">        print(num2)                    // 4</div><div class="line">        num2 = num2 - 1</div><div class="line">        break num1Loop                 // 终止第一个循环</div><div class="line">    &#125;</div><div class="line">    print(num1)                        // 已经在num2Loop中执行了退出num1Loop循环，所以不会执行此语句</div><div class="line">    num1 = num1 - 1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>6.guard语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var num = 4</div><div class="line">func guardTest() &#123;</div><div class="line">    guard num == 5 else &#123;             // 如果guard条件不满足,则会执行else后面的&#123;&#125;</div><div class="line">        print(num)                    // 4</div><div class="line">        return                        // 由于有return, guard语句必需要在函数中</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">guardTest()</div></pre></td></tr></table></figure>
+<p>7.版本适配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if #available(iOS 11, *) &#123; // 平台还可以是: iOS macOS watchOS tvOS</div><div class="line">    // 使用iOS11及以上的API</div><div class="line">&#125; else &#123;</div><div class="line">    // 使用iOS11以下的API</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="1-8-函数"><a href="#1-8-函数" class="headerlink" title="1.8 函数"></a>1.8 函数</h2><p>1.参数的标签</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func sum(_ name1: String, label2 name2: String) &#123;  // 下划线(_)来代替标签</div><div class="line">    print(name1 + name2)                           // KobeBryant</div><div class="line">&#125;</div><div class="line">sum(&quot;Kobe&quot;, label2: &quot;Bryant&quot;)                      // 忽略的参数标签此处不会显示</div></pre></td></tr></table></figure>
+<p>2.参数的默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">func defaultLabel(label1 name1: String, label2 name2: String = &quot;Bryant&quot;) &#123;</div><div class="line">    print(name1 + name2)</div><div class="line">&#125;</div><div class="line">defaultLabel(label1: &quot;Kobe&quot;, label2: &quot;Lee&quot;)  // KobeLee</div><div class="line">defaultLabel(label1: &quot;Kobe&quot;)                 // KobeBryant, 有默认参数可以省略</div></pre></td></tr></table></figure>
+<p>3.可变参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func avarageNum(_ num: Double...) -&gt; Double &#123; // 参数后面加...表示有多个参数</div><div class="line">    var total: Double = 0</div><div class="line">    for number in num &#123;</div><div class="line">        total += number</div><div class="line">    &#125;</div><div class="line">    return total/Double(num.count)</div><div class="line">&#125;</div><div class="line"></div><div class="line">avarageNum(2, 6, 4, 8, 7)                     // 5.4, 参数个数不限</div></pre></td></tr></table></figure>
+<pre><code>注意: 一个函数只能有一个可变参数
+</code></pre><p>4.inout改变输入参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func swapTwoInts(_ a: inout Int, _ b: inout Int) &#123;  //  加inout可以传指针</div><div class="line">    let temp = a</div><div class="line">    a = b</div><div class="line">    b = temp</div><div class="line">&#125;</div><div class="line">var a = 2</div><div class="line">var b = 3</div><div class="line">swapTwoInts(&amp;a, &amp;b)                     // 此处传进去的是a,b两个变量的地址</div><div class="line">print(&quot;a=\(a), b=\(b)&quot;)                 // a=3, b=2, swapTwoInts后a,b的值改变了</div></pre></td></tr></table></figure>
+<p>5.函数类型</p>
+<p>可以把一个函数当作常量或变量赋值给一个常量或者变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var swap = swapTwoInts                  // swap的类型为(inout Int, inout Int) -&gt; ()</div><div class="line">swap(&amp;a, &amp;b)</div><div class="line">print(&quot;a=\(a), b=\(b)&quot;)                 // a=2, b=3, 函数swap等价于swapTwoInts</div></pre></td></tr></table></figure>
+<p>6.函数参数</p>
+<p>可以把一个函数当做参数传入另一个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">func sum(num1: Int, num2: Int) -&gt; Int &#123; // 和</div><div class="line">    return num1 + num2</div><div class="line">&#125;</div><div class="line">func sub(num1: Int, num2: Int) -&gt; Int &#123; // 差</div><div class="line">    return num1 - num2</div><div class="line">&#125;</div><div class="line"></div><div class="line">func mathNumber(_ mathFunc: (Int, Int) -&gt; Int, _ a: Int, _ b: Int) -&gt; Int &#123;</div><div class="line">    return (mathFunc(a, b))</div><div class="line">&#125;</div><div class="line"></div><div class="line">mathNumber(sum, 4, 2)                   // 6, 将函数作为参数传进去</div><div class="line">mathNumber(sub, 4, 2)                   // 2</div></pre></td></tr></table></figure>
+<p>7.函数返回值</p>
+<p>可以把一个函数作为另一个函数的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func mathSumOrSub(_ isSum: Bool) -&gt; (Int, Int) -&gt; Int &#123;</div><div class="line">    return isSum ? sum : sub</div><div class="line">&#125;</div><div class="line">mathSumOrSub(true)(2, 4)              // 6, mathSumOrSub(true) 等于 sum</div></pre></td></tr></table></figure>
+<p>8.函数嵌套</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func mathSumOrSub(isSum: Bool, _ a: Int, _ b: Int) -&gt; Int &#123;</div><div class="line">    func sum(num1: Int, num2: Int) -&gt; Int &#123; return num1 + num2 &#125;</div><div class="line">    func sub(num1: Int, num2: Int) -&gt; Int &#123; return num1 - num2 &#125;</div><div class="line"></div><div class="line">    return isSum ? sum(num1: a, num2: b) : sub(num1: a, num2: b)</div><div class="line">&#125;</div><div class="line"></div><div class="line">mathSumOrSub(isSum: true, 4, 4)       // 8</div></pre></td></tr></table></figure>
+<h2 id="1-9-闭包"><a href="#1-9-闭包" class="headerlink" title="1.9 闭包"></a>1.9 闭包</h2><p>闭包: 用来捕获,存储传递代码块以及常量和变量的引用</p>
+<p>1.闭包表达语法</p>
+<p>利用闭包去实现,闭包表达语法:<br>{ (参数名1: 参数类型, 参数名2: 参数类型) -&gt; 返回类型 in<br>    代码块<br>    return 返回值<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let nums = [4, 6, 2, 9, 5]</div><div class="line">let sortNums = nums.sorted(by: &#123; (n1: Int, n2: Int) -&gt; Bool in</div><div class="line">    return n1 &gt; n2</div><div class="line">&#125;)</div><div class="line">print(sortNums)                        // [9, 6, 5, 4, 2]</div></pre></td></tr></table></figure>
+<p>2.闭包的简化    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let sortNums2 = nums.sorted(by: &#123; n1, n2 in return n1 &lt; n2&#125;) // 根据上下文推断类型</div><div class="line">print(sortNums2)                        // [2, 4, 5, 6, 9]</div><div class="line"></div><div class="line">let sortNums3 = nums.sorted(by: &#123; n1, n2 in n1 &lt; n2&#125;) // 隐式返回返回单行表达式</div><div class="line">print(sortNums3)                        // [2, 4, 5, 6, 9]</div><div class="line"></div><div class="line">let sortNums4 = nums.sorted(by: &#123;$0 &gt; $1&#125;)  // 内联闭包可以进行参数名缩写,in也可以省略</div><div class="line">print(sortNums4)                        // [9, 6, 5, 4, 2], $0 $1为两个Int类型的参数</div><div class="line"></div><div class="line">let sortNums5 = nums.sorted(by: &gt;)      // 返回类型正好匹配</div><div class="line">print(sortNums5)                        // [9, 6, 5, 4, 2]</div></pre></td></tr></table></figure>
+<pre><code>注意：在开发中为了代码的可读性,刻意简化的代码不提倡
+</code></pre><p>3.尾随闭包:调用函数时,要将闭包作为函数的参数传递,如果太长可以写在函数括号之后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let sortNums7 = nums.sorted() &#123; $0 &gt; $1 &#125; // 使用尾随闭包调用函数</div><div class="line">let sortNums8 = nums.sorted &#123; $0 &gt; $1 &#125; // 这个函数只有一个参数,且是闭包表达式,还可以省略()</div></pre></td></tr></table></figure>
+<p>4.值捕获: 捕获变量或常量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">func makeAdd(forAdd amount: Int) -&gt; () -&gt; Int &#123;</div><div class="line">    var total = 0</div><div class="line">    func add() -&gt; Int &#123;</div><div class="line">        total += amount                // 在函数体内捕获了total和amount两个变量的引用</div><div class="line">        return total                   // 捕获保证了两个变量在makeAdd调用完并不会消失</div><div class="line">    &#125;</div><div class="line">    return add                         // 并且保证在下次调用makeAdd时候total依然存在</div><div class="line">&#125;</div><div class="line"></div><div class="line">let addTen = makeAdd(forAdd: 10)       // 定义了一个常量,相当于持续持有add()函数</div><div class="line">addTen()                               // 10, 每一次调用都会将total增加10</div><div class="line">addTen()                               // 20</div><div class="line"></div><div class="line">let addSeven = makeAdd(forAdd: 7)      // 开辟持有了一块新的内存</div><div class="line">addSeven()                             // 7</div><div class="line"></div><div class="line">addTen()                               // 30,addTen和addSeven相互独立,互不影响</div></pre></td></tr></table></figure>
+<p>5.逃逸闭包: 当一个闭包作为参数传到一个函数中,这个闭包会在函数返回后被执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var handlers: [() -&gt; Void] = []</div><div class="line">func funcWithEscaping(handler: @escaping () -&gt; Void) &#123; // 外部定义的闭包需要添加标记@escaping</div><div class="line">    handlers.append(handler)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class tempClass &#123;</div><div class="line">    var x = 10</div><div class="line">    func  doSomething() &#123;</div><div class="line">        funcWithEscaping &#123; self.x = 100 &#125; // 加了@escaping标记,需要显式引用self</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let instance = tempClass()</div><div class="line"></div><div class="line">handlers.first?()</div><div class="line">print(instance.x)                      // 100</div></pre></td></tr></table></figure>
+<h2 id="1-10-枚举"><a href="#1-10-枚举" class="headerlink" title="1.10 枚举"></a>1.10 枚举</h2><p>1.定义<br>将一组相关的值定义成共同的类型    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">enum compassPoint &#123;                    // 用枚举表示指南针的四个方向</div><div class="line">    case North                         // 枚举成员不会像OC进行隐式赋值</div><div class="line">    case South</div><div class="line">    case East</div><div class="line">    case West</div><div class="line">&#125;</div><div class="line">enum compassPoint2 &#123;</div><div class="line">    case North, South, East, West      // 成员值也可以横着写</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.使用switch语句匹配枚举值，如果省略default, 就必须穷举所有情况</p>
+<p>3.关联值: 枚举可以存储和修改不同类型的关联值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">enum Person &#123;</div><div class="line">    case Location(Double, Double)</div><div class="line">    case Name(String)</div><div class="line">&#125;</div><div class="line">var p1 = Person.Location(87.21, 90.123)</div><div class="line">p1 = .Name(&quot;Alex&quot;)                      // 同一时间只能存储一个值</div><div class="line">p1 = .Name(&quot;Joan&quot;)</div><div class="line"></div><div class="line">switch p1 &#123;</div><div class="line">case .Location(let x, let y):</div><div class="line">    print(&quot;X:\(x),Y:\(y)&quot;)</div><div class="line">case .Name(let name):</div><div class="line">    print(name)                         // Joan</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>4.原始值:可以给枚举成员设置默认填充值,但类型必须一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 原始值的隐藏赋值,当使用整数作为原始值时,隐式赋值依次递增1</div><div class="line">enum Mouth: Int &#123;                       // 枚举成员类型: Int</div><div class="line">    case January = 1, February, March, April, May</div><div class="line">&#125;</div><div class="line">// 在定义枚举类型的时候使用了原始值,会自动获得一个初始化方法</div><div class="line">let secondMonth = Mouth(rawValue: 2)   // 获得的是一个可选类型</div><div class="line">print(secondMonth)                     // Optional(Mouth.February)</div></pre></td></tr></table></figure>
+<p>5.递归枚举</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">enum Arth &#123;</div><div class="line">    case Number(Int)</div><div class="line">    indirect case Add(Arth, Arth)      // indirect表示枚举成员可递归</div><div class="line">    indirect case Mul(Arth, Arth)</div><div class="line">&#125;</div><div class="line"></div><div class="line">let five = Arth.Number(5)</div><div class="line">let four = Arth.Number(4)</div><div class="line">let sum = Arth.Add(five, four)</div><div class="line">let result = Arth.Mul(sum, Arth.Number(2))</div><div class="line"></div><div class="line">func evaluate(express: Arth) -&gt; Int &#123;</div><div class="line">    switch express &#123;</div><div class="line">    case .Number(let value):</div><div class="line">        return value</div><div class="line">    case .Add(let left, let right):</div><div class="line">        return evaluate(express: left) + evaluate(express: right)</div><div class="line">    case .Mul(let left, let right):</div><div class="line">        return evaluate(express: left) * evaluate(express: right)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">print(result)   // Mul(Arth.Add(Arth.Number(5), Arth.Number(4)), Arth.Number(2))</div><div class="line">print(evaluate(express: result))       // 18</div></pre></td></tr></table></figure>
+<h2 id="1-11-类和结构体"><a href="#1-11-类和结构体" class="headerlink" title="1.11 类和结构体"></a>1.11 类和结构体</h2><p>1.类和结构体的值传递</p>
+<p>结构体和枚举的值传递都是通过值拷贝<br>类是引用拷贝,拷贝后的值的改变会影响原来的</p>
+<p>2.类和结构体的选择</p>
+<p>结构体: 只是用来封装少量简单的数据值;实例被赋值或传递存储的时候需要进行值拷贝,不需要用到继承<br>类: 需要包含复杂的属性方法,能形成一个抽象的事物描述;需要用到继承;需要用到引用拷贝</p>
+<p>字符串,数组,字典的底层都是通过结构体实现的,所以它们在被赋值的时候都是通过值拷贝,<br>当然了swift在内部会做性能优化,不会是只要赋值就拷贝,只有在必要的时候才会进行值拷贝.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Li Jin wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的公众号！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Li Jin WeChat Pay"/>
+        <p>微信打赏</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="Li Jin Alipay"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/17/iOS-AppIcon添加打包标识/" rel="next" title="iOSAppIcon添加打包标识">
+                <i class="fa fa-chevron-left"></i> iOSAppIcon添加打包标识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/24/2018-02-24/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Li Jin" />
+          <p class="site-author-name" itemprop="name">Li Jin</p>
+           
+              <p class="site-description motion-element" itemprop="description">守望天空的猎户</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mlijin9011" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/mlj90/profile" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:lijinysu@163.com" target="_blank" title="邮箱">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      邮箱
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://objccn.io/" title="ObjC 中国" target="_blank">ObjC 中国</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://onevcat.com/" title="OneV's Den" target="_blank">OneV's Den</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.devtang.com/" title="唐巧的博客" target="_blank">唐巧的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.leichunfeng.com/" title="雷纯锋的技术博客" target="_blank">雷纯锋的技术博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.cnbang.net/" title="bang's blog" target="_blank">bang's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Swift-语法"><span class="nav-number">1.</span> <span class="nav-text">1. Swift 语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-可选类型"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 可选类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-基本运算符"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 基本运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-字符串"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-数组"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-集合"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-字典"><span class="nav-number">1.6.</span> <span class="nav-text">1.6 字典</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-控制流"><span class="nav-number">1.7.</span> <span class="nav-text">1.7 控制流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-函数"><span class="nav-number">1.8.</span> <span class="nav-text">1.8 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-闭包"><span class="nav-number">1.9.</span> <span class="nav-text">1.9 闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-10-枚举"><span class="nav-number">1.10.</span> <span class="nav-text">1.10 枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-类和结构体"><span class="nav-number">1.11.</span> <span class="nav-text">1.11 类和结构体</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Jin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Pisces
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://mlijin9011.github.io/"/>
-  <updated>2017-11-06T07:47:47.675Z</updated>
+  <updated>2018-02-24T14:15:48.000Z</updated>
   <id>http://mlijin9011.github.io/</id>
   
   <author>
@@ -16,11 +16,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="http://mlijin9011.github.io/2018/02/24/2018-02-24/"/>
+    <id>http://mlijin9011.github.io/2018/02/24/2018-02-24/</id>
+    <published>2018-02-24T14:15:48.000Z</published>
+    <updated>2018-02-24T14:15:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>你好，我叫王鑫堂，来自四川。<br>本科学的是通信工程专业，研究生阶段学的是软件工程。研究生期间有两段实习经历，第一个是在搜狗，使用Shell和Python脚本，做搜索广告白盒测试；第二个是在华三，使用C语言做协议开发。<br>16年7月毕业后，进入阳光凯讯。到目前为止参与了4个项目，第一个是基于Spandsp开源项目，开发传真服务器；第二个是宽带集群NAS协议和S1协议开发；第三个是基于WIndows平台的单向传输系统；第四个是基于国产元心系统的凯信APP。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;自我介绍&quot;&gt;&lt;a href=&quot;#自我介绍&quot; class=&quot;headerlink&quot; title=&quot;自我介绍&quot;&gt;&lt;/a&gt;自我介绍&lt;/h1&gt;&lt;p&gt;你好，我叫王鑫堂，来自四川。&lt;br&gt;本科学的是通信工程专业，研究生阶段学的是软件工程。研究生期间有两段实习经历，第一个是在搜
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Swift学习笔记（1）</title>
     <link href="http://mlijin9011.github.io/2017/10/16/Swift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%881%EF%BC%89/"/>
     <id>http://mlijin9011.github.io/2017/10/16/Swift学习笔记（1）/</id>
     <published>2017-10-16T06:35:53.000Z</published>
-    <updated>2017-11-06T07:47:47.675Z</updated>
+    <updated>2017-11-06T07:47:47.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="1-Swift-语法"><a href="#1-Swift-语法" class="headerlink" title="1. Swift 语法"></a>1. Swift 语法</h1><a id="more"></a>
 <h2 id="1-1-可选类型"><a href="#1-1-可选类型" class="headerlink" title="1.1 可选类型"></a>1.1 可选类型</h2><p>1.可选类型解析</p>
@@ -413,7 +432,7 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
     <link href="http://mlijin9011.github.io/2017/01/28/Mac%E4%BD%BF%E7%94%A8oh-my-zsh%E5%92%8CiTerm2/"/>
     <id>http://mlijin9011.github.io/2017/01/28/Mac使用oh-my-zsh和iTerm2/</id>
     <published>2017-01-28T04:45:27.000Z</published>
-    <updated>2017-11-06T07:43:47.548Z</updated>
+    <updated>2017-11-06T07:43:47.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Shell 是 Linux/Unix 的一个外壳，它负责外界与 Linux 内核的交互，接收用户或其他应用程序的命令，然后把这些命令转化成内核能理解的语言，传给内核，内核是真正干活的，干完之后再把结果返回用户或应用程序。</p>
 <p>Mac 的最大优势是 GUI 和命令行的完美结合，本文介绍如何使用 iTerm2 和 oh my zsh 打造 Mac 最强终端。</p>
@@ -508,9 +527,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
       <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
     
   </entry>
   
@@ -683,7 +702,7 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
     <link href="http://mlijin9011.github.io/2016/08/18/Mac%E7%94%9F%E6%88%90SSHKey/"/>
     <id>http://mlijin9011.github.io/2016/08/18/Mac生成SSHKey/</id>
     <published>2016-08-18T04:16:23.000Z</published>
-    <updated>2017-11-06T07:43:47.550Z</updated>
+    <updated>2018-02-26T10:01:58.919Z</updated>
     
     <content type="html"><![CDATA[<h2 id="关于-SSH-key"><a href="#关于-SSH-key" class="headerlink" title="关于 SSH key"></a>关于 SSH key</h2><p>使用 SSH 协议，可以连接和验证远程服务器和服务。大家都知道 GitHub 克隆代码可以通过两种方式，SSH key 或者 HTTPS。使用 SSH key 时，您可以直接通过 SSH key 连接到 GitHub，而无需在每次访问时提供用户名或密码。</p>
 <a id="more"></a>
@@ -807,9 +826,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
       <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
     
   </entry>
   
@@ -934,11 +953,11 @@ getInitialState()：初始化组件的状态
   </entry>
   
   <entry>
-    <title>Hello World</title>
+    <title>Hello World - 如何搭建 HexoBlog</title>
     <link href="http://mlijin9011.github.io/2016/07/07/hello-world/"/>
     <id>http://mlijin9011.github.io/2016/07/07/hello-world/</id>
     <published>2016-07-07T10:10:00.000Z</published>
-    <updated>2017-11-06T07:43:47.553Z</updated>
+    <updated>2018-03-15T13:26:06.127Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <a id="more"></a>
@@ -955,6 +974,7 @@ Git
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install git</div></pre></td></tr></table></figure>
 <h3 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h3><p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
+<h3 id="使用-Hexo-搭建博客"><a href="#使用-Hexo-搭建博客" class="headerlink" title="使用 Hexo 搭建博客"></a>使用 Hexo 搭建博客</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div><div class="line">$ cd blog</div><div class="line">$ npm install</div></pre></td></tr></table></figure>
 <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>

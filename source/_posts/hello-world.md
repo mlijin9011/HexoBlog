@@ -1,5 +1,5 @@
 ---
-title: Hello World
+title: Hello World - 如何搭建 HexoBlog
 date: 2016-07-07 18:10:00
 tags: 
 - Hexo
@@ -47,6 +47,13 @@ $ brew install git
 $ npm install -g hexo-cli
 ```
 
+### 使用 Hexo 搭建博客
+
+```
+$ hexo init blog
+$ cd blog
+$ npm install
+```
 
 ### Create a new post
 
