@@ -1,6 +1,6 @@
 ---
 title: Mac使用oh-my-zsh和iTerm2
-date: 2017-01-28 12:45:27
+date: 2016-01-28 12:45:27
 categories:
 - 技术
 tags:
