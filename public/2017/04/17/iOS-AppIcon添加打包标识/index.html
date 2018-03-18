@@ -99,17 +99,17 @@
 <meta name="description" content="前言iOS 分支开发迭代过程中，测试经常需要装不同分支不同版本的包，有时候测试发现了 BUG 后，会突然忘了自己下的是 CI 上的哪一个包？这时候，我们可以把打包的 build 信息打印在 AppIcon 上，这样只需要根据 Icon 上的 build 信息就一目了然了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOSAppIcon添加打包标识">
-<meta property="og:url" content="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/index.html">
+<meta property="og:url" content="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/index.html">
 <meta property="og:site_name" content="木子李的博客">
 <meta property="og:description" content="前言iOS 分支开发迭代过程中，测试经常需要装不同分支不同版本的包，有时候测试发现了 BUG 后，会突然忘了自己下的是 CI 上的哪一个包？这时候，我们可以把打包的 build 信息打印在 AppIcon 上，这样只需要根据 Icon 上的 build 信息就一目了然了。">
-<meta property="og:image" content="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/buildPhases_Shell.png">
-<meta property="og:image" content="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/infoPlist_Icon1.png">
-<meta property="og:image" content="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/infoPlist_Icon2.png">
-<meta property="og:updated_time" content="2017-08-21T01:39:33.000Z">
+<meta property="og:image" content="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/buildPhases_Shell.png">
+<meta property="og:image" content="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/infoPlist_Icon1.png">
+<meta property="og:image" content="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/infoPlist_Icon2.png">
+<meta property="og:updated_time" content="2018-03-18T09:13:32.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOSAppIcon添加打包标识">
 <meta name="twitter:description" content="前言iOS 分支开发迭代过程中，测试经常需要装不同分支不同版本的包，有时候测试发现了 BUG 后，会突然忘了自己下的是 CI 上的哪一个包？这时候，我们可以把打包的 build 信息打印在 AppIcon 上，这样只需要根据 Icon 上的 build 信息就一目了然了。">
-<meta name="twitter:image" content="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/buildPhases_Shell.png">
+<meta name="twitter:image" content="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/buildPhases_Shell.png">
 
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <link rel="canonical" href="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/"/>
+  <link rel="canonical" href="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/"/>
 
 
 
@@ -281,7 +281,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2017/08/17/iOS-AppIcon添加打包标识/">
+    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2017/04/17/iOS-AppIcon添加打包标识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Li Jin">
@@ -310,8 +310,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T17:04:18+08:00">
-                2017-08-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T17:04:18+08:00">
+                2017-04-17
               </time>
             
 
@@ -377,7 +377,7 @@
 <h1 id="Build-Phases"><a href="#Build-Phases" class="headerlink" title="Build Phases"></a>Build Phases</h1><p>Build Phases 代表着将代码构建为一个可执行文件的规则。它描述了 build 过程中必须执行的不同任务。</p>
 <h2 id="定制Build-Phases"><a href="#定制Build-Phases" class="headerlink" title="定制Build Phases"></a>定制Build Phases</h2><p>你可以在 build phases 中添加运行自定义脚本，就像 CocoaPods 使用的一样，来做额外的工作。当然也可以添加一些资源的拷贝任务，当你需要将某些确定的资源拷贝到制定的 target 目录中，这非常有用。<br>另外你可以通过定制 build phase 来添加带有水印(包括版本号和commit hash)的 app icon。只需要在 build phase 中添加一个 Run Script.</p>
 <p>在工程 <code>Target</code> -&gt; <code>Build Phases</code> 中新建一个 <code>Run Script</code>，我们可以给它起名 <code>Add BuildInfo on Icon</code>。</p>
-<p><img src="/2017/08/17/iOS-AppIcon添加打包标识/buildPhases_Shell.png" alt="image"></p>
+<p><img src="/2017/04/17/iOS-AppIcon添加打包标识/buildPhases_Shell.png" alt="image"></p>
 <p>创建脚本 draw_icon_buildinfo.sh</p>
 <h2 id="写加水印的脚本"><a href="#写加水印的脚本" class="headerlink" title="写加水印的脚本"></a>写加水印的脚本</h2><p>1.判断执行 Build 的机器是否安装了 ImageMagic</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">convertPath=`which convert`</div><div class="line"># 判断 convertPath 文件是否存在</div><div class="line">if [ ! -f $&#123;convertPath&#125;]; then</div><div class="line">echo &quot;==============</div><div class="line">WARNING: 你需要先安装 ImageMagick！！！！:</div><div class="line">brew install imagemagick</div><div class="line">==============&quot;</div><div class="line">exit 0;</div><div class="line">fi</div></pre></td></tr></table></figure>
@@ -386,7 +386,7 @@
 <p>3.获取 commit、branch、version 等信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">version=`/usr/libexec/PlistBuddy -c &quot;Print CFBundleShortVersionString&quot; &quot;$&#123;CONFIGURATION_BUILD_DIR&#125;/$&#123;INFOPLIST_PATH&#125;&quot;`</div><div class="line">build_num=`/usr/libexec/PlistBuddy -c &quot;Print SinaNewsBuildVersion&quot; &quot;$&#123;CONFIGURATION_BUILD_DIR&#125;/$&#123;INFOPLIST_PATH&#125;&quot;`</div><div class="line">if [[ $&#123;build_num&#125; == &quot;&quot; ]]; then</div><div class="line">    build_num=`date +&quot;%Y%m%d%H%M&quot;`</div><div class="line">    echo &quot;Use Xcode building, build time $&#123;build_num&#125;&quot;</div><div class="line">fi</div><div class="line">commit=`git rev-parse --short HEAD`</div><div class="line">branch=$(git rev-parse --abbrev-ref HEAD)</div><div class="line">caption=&quot;$&#123;version&#125;\n$&#123;build_num&#125;\n$&#123;branch&#125;&quot;</div><div class="line">echo &quot;caption : $&#123;caption&#125;&quot;</div></pre></td></tr></table></figure>
 <p>4.找Icon图片</p>
-<p>在编译后的 info.plist 中，可以看到：<br><img src="/2017/08/17/iOS-AppIcon添加打包标识/infoPlist_Icon1.png" alt="image"><br><img src="/2017/08/17/iOS-AppIcon添加打包标识/infoPlist_Icon2.png" alt="image"></p>
+<p>在编译后的 info.plist 中，可以看到：<br><img src="/2017/04/17/iOS-AppIcon添加打包标识/infoPlist_Icon1.png" alt="image"><br><img src="/2017/04/17/iOS-AppIcon添加打包标识/infoPlist_Icon2.png" alt="image"></p>
 <p>通过脚本输出的结果为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/libexec/PlistBuddy -c &quot;Print CFBundleIcons:CFBundlePrimaryIcon:CFBundleIconFiles&quot; &quot;$&#123;CONFIGURATION_BUILD_DIR&#125;/$&#123;INFOPLIST_PATH&#125;&quot;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Array &#123;</div><div class="line">    AppIcon20x20</div><div class="line">    AppIcon29x29</div><div class="line">    AppIcon40x40</div><div class="line">    AppIcon60x60</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -468,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/05/港珠澳之行/" rel="next" title="港珠澳之行">
-                <i class="fa fa-chevron-left"></i> 港珠澳之行
+              <a href="/2017/04/08/fastlane+jenkins实现iOS持续集成/" rel="next" title="fastlane+jenkins实现iOS持续集成">
+                <i class="fa fa-chevron-left"></i> fastlane+jenkins实现iOS持续集成
               </a>
             
           </div>
@@ -478,8 +478,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/16/Swift学习笔记（1）/" rel="prev" title="Swift学习笔记（1）">
-                Swift学习笔记（1） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/05/港珠澳之行/" rel="prev" title="港珠澳之行">
+                港珠澳之行 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
