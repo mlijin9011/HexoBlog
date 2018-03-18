@@ -1019,6 +1019,24 @@ getInitialState()：初始化组件的状态
   </entry>
   
   <entry>
+    <title>算法学习笔记</title>
+    <link href="http://mlijin9011.github.io/2015/07/08/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://mlijin9011.github.io/2015/07/08/算法学习笔记/</id>
+    <published>2015-07-08T09:41:05.000Z</published>
+    <updated>2018-03-18T09:06:26.321Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="算法" scheme="http://mlijin9011.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello World - 如何搭建 HexoBlog</title>
     <link href="http://mlijin9011.github.io/2015/07/07/hello-world/"/>
     <id>http://mlijin9011.github.io/2015/07/07/hello-world/</id>
@@ -1060,34 +1078,6 @@ Git
     
     
       <category term="Hexo" scheme="http://mlijin9011.github.io/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>几种排序算法</title>
-    <link href="http://mlijin9011.github.io/2014/01/08/%E5%87%A0%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    <id>http://mlijin9011.github.io/2014/01/08/几种排序算法/</id>
-    <published>2014-01-08T09:41:05.000Z</published>
-    <updated>2018-03-16T11:18:03.771Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>基础知识整理，十大排序算法总结：</p>
-<p>查找和排序算法是算法的入门知识，其经典思想可以用于很多算法当中。学习算法首先要熟悉其思想，实际中加以灵活应用。<br>常见的排序算法有，快速排序、归并排序、插入排序、冒泡排序、堆排序、基数排序、桶排序等。</p>
-<p>接下来我们就分析一下常见的排序算法及其使用场景。</p>
-<a id="more"></a>
-<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;基础知识整理，十大排序算法总结：&lt;/p&gt;
-&lt;p&gt;查找和排序算法是算法的入门知识，其经典思想可以用于很多算法当中。学习算法首先要熟悉其思想，实际中加以灵活应用。&lt;br&gt;常见的排序算法有，快速排序、归并排序、插入排序、冒泡排序、堆排序、基数排序、桶排序等。&lt;/p&gt;
-&lt;p&gt;接下来我们就分析一下常见的排序算法及其使用场景。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="算法" scheme="http://mlijin9011.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
