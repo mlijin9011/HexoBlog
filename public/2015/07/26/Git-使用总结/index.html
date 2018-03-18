@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="木子李的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="作为一个开发人员，Git 在我们工作中不可或缺，但是很多人都并没有真正了解 Git 强大的功能，本文是做一个 Git 常用功能的积累。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 使用总结 (持续更新)">
+<meta property="og:url" content="http://mlijin9011.github.io/2015/07/26/Git-使用总结/index.html">
+<meta property="og:site_name" content="木子李的博客">
+<meta property="og:description" content="作为一个开发人员，Git 在我们工作中不可或缺，但是很多人都并没有真正了解 Git 强大的功能，本文是做一个 Git 常用功能的积累。">
+<meta property="og:updated_time" content="2018-03-18T09:04:28.364Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git 使用总结 (持续更新)">
+<meta name="twitter:description" content="作为一个开发人员，Git 在我们工作中不可或缺，但是很多人都并没有真正了解 Git 强大的功能，本文是做一个 Git 常用功能的积累。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mlijin9011.github.io/2015/07/26/Git-使用总结/"/>
+
+
+
+
+
+  <title>Git 使用总结 (持续更新) | 木子李的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">木子李的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">萧瑟的秋风，倔强的生命！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2015/07/26/Git-使用总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Li Jin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="木子李的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git 使用总结 (持续更新)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-26T19:22:52+08:00">
+                2015-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作为一个开发人员，Git 在我们工作中不可或缺，但是很多人都并没有真正了解 Git 强大的功能，本文是做一个 Git 常用功能的积累。</p>
+<a id="more"></a>
+<h2 id="开始-Git"><a href="#开始-Git" class="headerlink" title="开始 Git"></a>开始 Git</h2><h3 id="Git-的简单介绍"><a href="#Git-的简单介绍" class="headerlink" title="Git 的简单介绍"></a>Git 的简单介绍</h3><ul>
+<li>4个区</li>
+</ul>
+<blockquote>
+<p>工作区 (Working Area)<br>暂存区 (Stage)<br>本地仓库 (Local Repository)<br>远程仓库 (Remote Repository)</p>
+</blockquote>
+<p>工作区是从远端某个版本中提取出来的文件，放在磁盘上供你使用或修改；</p>
+<p>暂存区保存了下次将提交的文件列表信息，有时候也被称作‘索引’；</p>
+<p>Git 仓库是 Git 用来保存项目的元数据和对象数据库的地方。</p>
+<ul>
+<li>5种状态</li>
+</ul>
+<p>以上4个区，进入每一个区成功之后会产生一个状态，再加上最初始的一个状态，一共是5种状态。以下我们把这5种状态分别命名为：</p>
+<blockquote>
+<p>未修改(Origin)<br>已修改(Modified)<br>已暂存(Staged)<br>已提交(Committed)<br>已推送(Pushed)</p>
+</blockquote>
+<p>未修改表示与远程仓库相同；</p>
+<p>已修改表示修改了文件，但还没保存到数据库中； </p>
+<p>已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交中；</p>
+<p>已提交表示数据已经安全的保存在本地数据库中；</p>
+<p>已推送表示已经推送到远程仓库。</p>
+<ul>
+<li>基本 Git 工作流程</li>
+</ul>
+<p>在工作目录中修改文件。</p>
+<p>暂存文件，将文件的快照放入暂存区域。</p>
+<p>提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录。</p>
+<h3 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h3><p>一些简单常用的大家都知道的命令就不记录了：clone, add, commit, pull, push 等</p>
+<ul>
+<li><strong>修改commit</strong></li>
+</ul>
+<p>大家可能都有过有时候不小心，commit 提交错的情况，可以这么解决：</p>
+<p>1.如果还没 push 到远端 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git commit --amend</div></pre></td></tr></table></figure>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># 编辑了 README.md 和 README_ZH.md</div><div class="line">git add README.md</div><div class="line">git commit</div><div class="line"></div><div class="line"># 意识到你忘记添加 README_ZH.md 的更改</div><div class="line">git add README_ZH.md</div><div class="line">git commit --amend --no-edit</div></pre></td></tr></table></figure>
+<p>编辑器会弹出上一次提交的信息，加入 <code>--no-edit</code> 标记会修复提交但不修改提交信息。需要的话你也可以修改，不然的话就像往常一样保存并关闭文件。完整的提交会替换之前不完整的提交，看上去就像我们在同一个快照中提交了 README.md 和 README_ZH.md。</p>
+<p>如果你的缓存区没有文件时，运行这个命令可以用来编辑上次提交的提交信息，而不会更改快照。</p>
+<p>2.如果已经push到了远端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git rebase -i &lt;base&gt;</div></pre></td></tr></table></figure>
+<p>将当前分支 rebase 到 base，它会打开一个编辑器，你可为每个将要 rebase 的提交输入命令。这些命令决定了每个提交将会怎样被转移到新的基上去。你还可以对这些提交进行排序。</p>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"># 新的功能分支</div><div class="line">$ git checkout -b feature master</div><div class="line"># 编辑文件</div><div class="line">$ git commit -a -m &quot;Start developing a featureA&quot;</div><div class="line"># 编辑更多文件</div><div class="line">$ git commit -a -m &quot;Fix something from the previous commit&quot;</div><div class="line"></div><div class="line"># 直接在 master 上添加文件</div><div class="line">$ git checkout master</div><div class="line"># 编辑文件</div><div class="line">$ git commit -a -m &quot;FeatureB&quot;</div><div class="line"></div><div class="line"># 开始交互式 rebase</div><div class="line">$ git checkout feature</div><div class="line">$ git rebase -i master</div></pre></td></tr></table></figure>
+<p>最后的那个命令会打开一个编辑器，包含 feature 的两个提交，和一些指示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pick 32618c4 Start developing a featureA</div><div class="line">pick 62eed47 Fix something from the previous commit</div></pre></td></tr></table></figure>
+<p>如果第二个提交修复了第一个提交中的小问题，你可以用 fixup 命令把它们合到一个提交中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pick 32618c4 Start developing a featureA</div><div class="line">fixup 62eed47 Fix something from the previous commit</div></pre></td></tr></table></figure>
+<p>保存后关闭文件，Git 会根据你的指令来执行 rebase。</p>
+<ul>
+<li><strong>代码回滚</strong></li>
+</ul>
+<p>还有一种常见的情况就是，代码已经提交后，发现此代码有问题，想回滚此提交。</p>
+<p>1.如果还没 push 到远端</p>
+<p>git reset (将一个分支的末端指向另一个提交)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git reset HEAD</div><div class="line">$ git reset --soft HEAD (缓存区和工作目录都不会被改变)</div><div class="line">$ git reset --mixed HEAD (默认选项。缓存区和你指定的提交同步，但工作目录不受影响)</div><div class="line">$ git reset --hard HEAD (缓存区和工作目录都同步到你指定的提交)</div></pre></td></tr></table></figure>
+<p>HEAD 也可以传一个提交的id。</p>
+<p>2.如果已经push到了远端</p>
+<p>git revert (撤销一个提交的同时会创建一个新的提交)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git revert HEAD~2 (撤销倒数第二个提交)</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>分支间合并提交</strong></li>
+</ul>
+<p>将一个分支的更改并入另一个分支，主要有三种方式，如果是想把 feature 分支全部的 commit 内容都并入主分支，可以用前两种方法，如果只需要并入置顶的 commit 可以用第三种方法。</p>
+<p>1.git merge</p>
+<p>最常用的是 git merge，例如，如果 master 中新的提交和你的工作是相关的。为了将新的提交并入你的分支，你可以直接执行下面这些命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git checkout feature</div><div class="line">$ git merge master</div></pre></td></tr></table></figure>
+<p>或直接压缩成一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git merge master feature</div></pre></td></tr></table></figure>
+<p>优点：merge 是一个安全的操作，现有的分支不会被更改，避免了 rebase 潜在的缺点。</p>
+<p>缺点：每次合并上游更改时 feature 分支都会引入一个外来的合并提交。如果 master 非常活跃的话，这或多或少会污染你的分支历史。</p>
+<p>2.git rebase</p>
+<p>你可以像下面这样将 master 分支并入 feature 分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git checkout feature</div><div class="line">$ git rebase master</div></pre></td></tr></table></figure>
+<p>把整个 feature 分支移动到 master 分支的后面，有效地把所有 master 分支上新的提交并入过来。</p>
+<p>优点：项目历史会非常整洁。首先，它不像 git merge 那样引入不必要的合并提交。其次，rebase 导致最后的项目历史呈现出完美的线性，更容易使用 git log、git bisect 和 gitk 来查看项目历史。</p>
+<p>缺点：如果你违反了 rebase 黄金法则（绝不在公共的分支上使用它），重写项目历史可能会给你的协作工作流带来灾难性的影响。此外，rebase 不会有合并提交中附带的信息，看不到 feature 分支中并入了上游的哪些更改。</p>
+<p>3.git cherry-pick</p>
+<p>可以选择某一个分支中的一个或几个 commit 来进行操作。</p>
+<p>例如，你在 develop 分支拉出了一个 release 分支打算发版，但是 release 存在一个 bug，你在 release 分支修复完发版后，<br>想把修复这个 bug 的 commit 再合并回 develop 分支，就可以使用 cherry-pick。</p>
+<blockquote>
+<p>注意：当执行完 cherry-pick 以后，将会生成一个新的提交；这个新的提交的哈希值和原来的不同，但标识名一样；</p>
+</blockquote>
+<p>命令集合:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 单独合并一个提交</div><div class="line">$ git cherry-pick &lt;commit id&gt; </div><div class="line"></div><div class="line"># 单独合并一个提交，保留原提交者信息</div><div class="line">$ git cherry-pick -x &lt;commit id&gt; </div><div class="line"></div><div class="line"># 把 &lt;start-commit-id&gt; 到 &lt;end-commit-id&gt; 之间 (左开右闭，不包含 start-commit-id)的提交 cherry-pick 到当前分支</div><div class="line">$ git cherry-pick &lt;start-commit-id&gt;..&lt;end-commit-id&gt; </div><div class="line"></div><div class="line"># 把 &lt;start-commit-id&gt; 到 &lt;end-commit-id&gt; 之间 (闭区间，包含 start-commit-id)的提交 cherry-pick 到当前分支</div><div class="line">$ git cherry-pick &lt;start-commit-id&gt;^..&lt;end-commit-id&gt;</div></pre></td></tr></table></figure>
+<p>参考：</p>
+<ol>
+<li><a href="https://github.com/geeeeeeeeek/git-recipes/wiki" target="_blank" rel="external">git-recipes</a></li>
+<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="external">图解 Git</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Li Jin wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的公众号！</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/wechatpay.png" alt="Li Jin WeChat Pay"/>
+        <p>微信打赏</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.png" alt="Li Jin Alipay"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/18/Mac生成SSHKey/" rel="next" title="Mac生成SSHKey">
+                <i class="fa fa-chevron-left"></i> Mac生成SSHKey
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/10/ReactNative入门（1）/" rel="prev" title="React Native入门（1）—— 组件及生命周期">
+                React Native入门（1）—— 组件及生命周期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Li Jin" />
+          <p class="site-author-name" itemprop="name">Li Jin</p>
+           
+              <p class="site-description motion-element" itemprop="description">守望天空的猎户</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mlijin9011" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/mlj90/profile" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:lijinysu@163.com" target="_blank" title="邮箱">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      邮箱
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://objccn.io/" title="ObjC 中国" target="_blank">ObjC 中国</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://onevcat.com/" title="OneV's Den" target="_blank">OneV's Den</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.devtang.com/" title="唐巧的博客" target="_blank">唐巧的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.leichunfeng.com/" title="雷纯锋的技术博客" target="_blank">雷纯锋的技术博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.cnbang.net/" title="bang's blog" target="_blank">bang's blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始-Git"><span class="nav-number">1.</span> <span class="nav-text">开始 Git</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-的简单介绍"><span class="nav-number">1.1.</span> <span class="nav-text">Git 的简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-常用命令"><span class="nav-number">1.2.</span> <span class="nav-text">Git 常用命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Jin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Pisces
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

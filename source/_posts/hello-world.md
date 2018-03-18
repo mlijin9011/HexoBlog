@@ -1,9 +1,10 @@
 ---
 title: Hello World - 如何搭建 HexoBlog
-date: 2016-07-07 18:10:00
+date: 2015-07-07 18:10:00
 tags: 
 - Hexo
 ---
+
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
 <!--more-->
@@ -52,7 +53,7 @@ $ npm install -g hexo-cli
 ```
 $ hexo init blog
 $ cd blog
-$ npm install
+$ npm install hexo-deployer-git --save
 ```
 
 ### Create a new post
