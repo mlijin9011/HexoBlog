@@ -214,15 +214,15 @@ post_wordcount:
   separated_meta: true
 
 # Wechat Subscriber
-wechat_subscriber:
-  enabled: true
-  qcode: /uploads/wechat-qcode.jpg
-  description: 欢迎您扫一扫上面的微信公众号，订阅我的公众号！
+# wechat_subscriber:
+#   enabled: true
+#   qcode: /uploads/wechat-qcode.jpg
+#   description: 欢迎您扫一扫上面的微信公众号，订阅我的公众号！
 
 # Reward
-reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
-wechatpay: /uploads/wechatpay.png
-alipay: /uploads/alipay.png
+# reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
+# wechatpay: /uploads/wechatpay.png
+# alipay: /uploads/alipay.png
 
 # Declare license on posts
 post_copyright:
