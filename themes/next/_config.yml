@@ -125,11 +125,8 @@ links_title: 友情链接
 # links_layout: inline
 links:
   ObjC 中国: https://objccn.io/
-  OneV's Den: https://onevcat.com/
-  唐巧的博客: http://blog.devtang.com/
-  雷纯锋的技术博客: http://blog.leichunfeng.com/
-  bang's blog: http://blog.cnbang.net/
   廖雪峰的官方网站: https://www.liaoxuefeng.com/
+  iOS大神博客列表: 
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg

@@ -611,9 +611,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
-    
       <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
     
   </entry>
   
@@ -665,9 +665,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
-    
       <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
     
   </entry>
   
@@ -805,11 +805,31 @@ getInitialState()：初始化组件的状态
   </entry>
   
   <entry>
+    <title>Objective-C Runtime</title>
+    <link href="http://mlijin9011.github.io/2016/02/28/Objective-C-Runtime/"/>
+    <id>http://mlijin9011.github.io/2016/02/28/Objective-C-Runtime/</id>
+    <published>2016-02-28T09:22:18.000Z</published>
+    <updated>2018-03-18T09:25:00.161Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac使用oh-my-zsh和iTerm2</title>
     <link href="http://mlijin9011.github.io/2016/01/28/Mac%E4%BD%BF%E7%94%A8oh-my-zsh%E5%92%8CiTerm2/"/>
     <id>http://mlijin9011.github.io/2016/01/28/Mac使用oh-my-zsh和iTerm2/</id>
     <published>2016-01-28T04:45:27.000Z</published>
-    <updated>2018-03-18T09:17:05.085Z</updated>
+    <updated>2018-03-18T09:18:45.641Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Shell 是 Linux/Unix 的一个外壳，它负责外界与 Linux 内核的交互，接收用户或其他应用程序的命令，然后把这些命令转化成内核能理解的语言，传给内核，内核是真正干活的，干完之后再把结果返回用户或应用程序。</p>
 <p>Mac 的最大优势是 GUI 和命令行的完美结合，本文介绍如何使用 iTerm2 和 oh my zsh 打造 Mac 最强终端。</p>
@@ -1033,6 +1053,87 @@ getInitialState()：初始化组件的状态
     
     
       <category term="算法" scheme="http://mlijin9011.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS大神博客</title>
+    <link href="http://mlijin9011.github.io/2015/07/07/iOS%E5%A4%A7%E7%A5%9E%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://mlijin9011.github.io/2015/07/07/iOS大神博客/</id>
+    <published>2015-07-07T12:33:53.000Z</published>
+    <updated>2018-03-18T11:46:51.507Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS从入门到高级，经常阅读各位大神的博客，学习大神的思维和研究的东西，让自己更接近大神，我搜罗了一些知名博客，值得关注阅读。</p>
+<a id="more"></a>
+<h2 id="博客列表"><a href="#博客列表" class="headerlink" title="博客列表"></a>博客列表</h2><p><a href="http://onevcat.com" target="_blank" rel="external"><strong>OneV’s Den</strong></a></p>
+<p><a href="http://blog.devtang.com" target="_blank" rel="external"><strong>唐巧的技术博客</strong></a></p>
+<p><a href="http://blog.ibireme.com" target="_blank" rel="external"><strong>一只魔法师的工坊</strong></a></p>
+<p><a href="http://nshipster.cn" target="_blank" rel="external"><strong>NSHipster</strong></a><br>NSHipster 关注被忽略的 Objective-C、Swift 和 Cocoa 特性。每周更新。</p>
+<p><a href="http://kittenyang.com" target="_blank" rel="external"><strong>Kitten Yong的博客</strong></a><br>对iOS中的动画有深入研究。</p>
+<p><a href="http://limboy.me" target="_blank" rel="external"><strong>Limboy‘s HQ</strong></a><br>李忠关于 RAC 、组件化的文章流传很广。</p>
+<p><a href="http://blog.sunnyxx.com" target="_blank" rel="external"><strong>sunnyxx的技术博客</strong></a></p>
+<p><a href="http://blog.cnbang.net" target="_blank" rel="external"><strong>bang’s blog</strong></a></p>
+<p><a href="http://blog.leichunfeng.com" target="_blank" rel="external"><strong>雷纯锋的技术博客</strong></a></p>
+<p><a href="http://yulingtianxia.com" target="_blank" rel="external"><strong>玉令天下的Blog</strong></a><br>腾讯杨萧玉的博客，底层细节能深入到汇编的实现。</p>
+<p><a href="http://casatwy.com" target="_blank" rel="external"><strong>Casa Taloyum</strong></a><br>Casa 对架构有很深的理解。</p>
+<p><a href="https://draveness.me/tag/iOS/" target="_blank" rel="external"><strong>Draveness’s Blog</strong></a></p>
+<p><a href="http://zhowkev.in" target="_blank" rel="external"><strong>Kevin Blog</strong></a></p>
+<p><a href="http://www.xiangwangfeng.com" target="_blank" rel="external"><strong>阿毛的蛋疼地</strong></a></p>
+<p><a href="http://imtx.me" target="_blank" rel="external"><strong>I’m TualatriX</strong></a></p>
+<p><a href="http://blog.nswebfrog.com/" target="_blank" rel="external"><strong>webfrogs</strong></a></p>
+<p><a href="http://joeyio.com" target="_blank" rel="external"><strong>代码手工艺人</strong></a></p>
+<p><a href="http://gracelancy.com" target="_blank" rel="external"><strong>Lancy’s Blog</strong></a></p>
+<p><a href="http://wangzz.github.io" target="_blank" rel="external"><strong>王中周的技术博客</strong></a></p>
+<p><a href="http://cnblogs.com/biosli" target="_blank" rel="external"><strong>摇滚诗人</strong></a></p>
+<p><a href="http://msching.github.io" target="_blank" rel="external"><strong>码农人生</strong></a></p>
+<p><a href="http://www.cnblogs.com/kenshincui" target="_blank" rel="external"><strong>Kenshin Cui’s Blog</strong></a></p>
+<p><a href="http://www.tanhao.me" target="_blank" rel="external"><strong>老谭笔记</strong></a></p>
+<p><a href="http://www.iosxxx.com" target="_blank" rel="external"><strong>向晨宇的技术博客</strong></a></p>
+<p><a href="http://www.desgard.com" target="_blank" rel="external"><strong>瓜地</strong></a></p>
+<p><a href="https://ming1016.github.io" target="_blank" rel="external"><strong>星光社</strong></a></p>
+<p><a href="http://mrpeak.cn" target="_blank" rel="external"><strong>MrPeak杂货铺</strong></a></p>
+<p><a href="https://juejin.im/user/57638ad8207703006b06e3ef/posts" target="_blank" rel="external"><strong>Bestswifter</strong></a></p>
+<p><a href="https://www.jianshu.com/u/8d5b91490ca5" target="_blank" rel="external"><strong>故胤道长</strong></a></p>
+<p><a href="https://www.jianshu.com/u/96a14318a4de" target="_blank" rel="external"><strong>iOS程序犭袁</strong></a></p>
+<p><a href="https://juejin.im/user/5656f11760b28da566412f03/posts" target="_blank" rel="external"><strong>Joy_xx</strong></a></p>
+<p><a href="https://juejin.im/user/57f8ffda2e958a005581e3c0/posts" target="_blank" rel="external"><strong>J<em>Knight</em></strong></a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" rel="external">https://github.com/tangqiaoboy/iOSBlogCN</a><br><a href="https://www.jianshu.com/p/ea9fabdc12ed" target="_blank" rel="external">https://www.jianshu.com/p/ea9fabdc12ed</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS从入门到高级，经常阅读各位大神的博客，学习大神的思维和研究的东西，让自己更接近大神，我搜罗了一些知名博客，值得关注阅读。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>开博客啦</title>
+    <link href="http://mlijin9011.github.io/2015/07/07/%E5%BC%80%E5%8D%9A%E5%AE%A2%E5%95%A6/"/>
+    <id>http://mlijin9011.github.io/2015/07/07/开博客啦/</id>
+    <published>2015-07-07T11:09:04.000Z</published>
+    <updated>2018-03-18T11:25:30.267Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天终于学会了搭建个人博客，从此以后也是有博客的人啦，顿时学习的劲头就上来了，顺便把前些日子看的东西总结一下发出来。</p>
+<p>好好学习，天天向上，争取早日进入大公司，😊！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天终于学会了搭建个人博客，从此以后也是有博客的人啦，顿时学习的劲头就上来了，顺便把前些日子看的东西总结一下发出来。&lt;/p&gt;
+&lt;p&gt;好好学习，天天向上，争取早日进入大公司，😊！&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="杂记" scheme="http://mlijin9011.github.io/categories/%E6%9D%82%E8%AE%B0/"/>
+    
     
   </entry>
   
