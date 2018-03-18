@@ -1,6 +1,6 @@
 ---
 title: ReactNative入门（3）—— ReactNative与原生的交互
-date: 2016-12-17 16:03:28
+date: 2016-5-17 16:03:28
 categories:
 - 技术
 tags:

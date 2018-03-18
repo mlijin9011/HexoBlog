@@ -470,51 +470,6 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
   </entry>
   
   <entry>
-    <title>ReactNative入门（3）—— ReactNative与原生的交互</title>
-    <link href="http://mlijin9011.github.io/2016/12/17/ReactNative%E5%85%A5%E9%97%A8%EF%BC%883%EF%BC%89/"/>
-    <id>http://mlijin9011.github.io/2016/12/17/ReactNative入门（3）/</id>
-    <published>2016-12-17T08:03:28.000Z</published>
-    <updated>2017-08-21T01:39:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。</p>
-<a id="more"></a>
-<h3 id="iOS-原生页面打开-RN-页面"><a href="#iOS-原生页面打开-RN-页面" class="headerlink" title="iOS 原生页面打开 RN 页面"></a>iOS 原生页面打开 RN 页面</h3><p>可以自定义一个 <code>ReactViewController</code> 类，在这个控制器中添加一个 <code>RCTRootView</code> 作为子 View。这样这个 ViewController 就可以显示一个 RN 页面了，具体实现方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    // Do any additional setup after loading the view.</div><div class="line">    </div><div class="line">	NSURL *jsCodeLocation = [NSURL URLWithString:@&quot;http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true&quot;];</div><div class="line">	RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</div><div class="line">                                                      moduleName:@&quot;test&quot;</div><div class="line">                                               initialProperties:nil</div><div class="line">                                                   launchOptions:nil];</div><div class="line">	reactView.frame = self.view.bounds;</div><div class="line">	[self.view addSubView:rootView];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="RN-调用-OC-方法"><a href="#RN-调用-OC-方法" class="headerlink" title="RN 调用 OC 方法"></a>RN 调用 OC 方法</h3><p>首先创建一个工具类，来专门处理 RN 和 OC 间的交互，例如 <code>ReactUtil</code>，这个类需要实现 <code>RCTBridgeModule</code> 协议，<code>RCTBridgeModule</code> 是定义好的 protocol，实现该协议的类，会自动注册到 OC 对应的 Bridge 中。<br>OC-Bridge 上层负责与 OC 通信，下层负责和 JS-Bridge 通信，而 JS-Bridge 负责和 JS 通信。<br>这样通过 OC-Bridge 和 JS-Bridge 就可以实现 JS 和 OC 的相互调用了。</p>
-<p>ReactUtil 类的具体实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">RCT_EXPORT_MODULE()</div><div class="line"></div><div class="line">RCT_EXPORT_METHOD(jsInvokeApp:(NSString *)eventName parameter:(NSDictionary *)parameter resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) &#123;</div><div class="line">    NSLog(@&quot;接收到RN传过来的事件名：%@，数据为:%@&quot;, eventName, parameter);</div><div class="line">    </div><div class="line">    //  TODO: 具体业务处理，可根据eventName，parameter等区分</div><div class="line">    BOOL result;</div><div class="line">    if (result) &#123;</div><div class="line">        resolve(@&quot;&quot;);</div><div class="line">    &#125; else &#123;</div><div class="line">        NSError *error = [NSError errorWithDomain:@&quot;com.XXX.domain&quot; code:1 userInfo:nil];</div><div class="line">        reject(@&quot;code&quot;, @&quot;message&quot;, error);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>所有实现 <code>RCTBridgeModule</code> 协议的类都必须显示的 include 宏命令: <code>RCT_EXPORT_MODULE()</code>。<br><code>RCT_EXPORT_MODULE</code> 的作用是当 OC-Bridge 加载的时候，自动注册一个 Module。这个 Module 可以在 JS-Bridge 中调用。<br><code>RCT_EXPORT_MODULE</code> 接受字符串作为其 Module 的名称，如果不设置名称的话默认就使用类名作为 Module 的名称。</p>
-<p>最后我们需要在 JS 文件中调用 <code>ReactUtil</code> 中的方法即可:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var &#123; NativeModules &#125; = require(&apos;react-native&apos;);</div><div class="line">var ReactUtil = NativeModules.ReactUtil;</div><div class="line"> </div><div class="line">//获取Promise对象处理</div><div class="line">async _updateEvents() &#123;</div><div class="line">    try &#123;</div><div class="line">       var events = await ReactUtil.jsInvokeApp(&apos;eventName&apos;, &#123;&apos;key&apos;:&apos;value&apos;&#125;);</div><div class="line">       this.setState(&#123;events&#125;);</div><div class="line">    &#125; catch(e) &#123;</div><div class="line">       this.setState(&#123;events:e.message&#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="OC-调用-RN-方法"><a href="#OC-调用-RN-方法" class="headerlink" title="OC 调用 RN 方法"></a>OC 调用 RN 方法</h3><p>在 0.27 版本之前，调用方式是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@synthesize bridge = _bridge; </div><div class="line">- (void)appInvokeJs:(NSString *)eventName eventBody:(NSDictionary *)eventBody &#123; </div><div class="line">  [_bridge.eventDispatcher sendDeviceEventWithName:eventName body:eventBody];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在 xcode 里面一直提示这种方式可能要被取代：</p>
-<p><code>&#39;sendDeviceEventWithName:body:&#39; is deprecated: Subclass RCTEventEmitter instead</code></p>
-<p>现在可以这样写：修改我们刚才写的 <code>ReactUtil</code> 继承自 <code>RCTEventEmitter</code></p>
-<p>然后要重写下面这个方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// TODO: 所有 app 通知 JS 的方法</div><div class="line">- (NSArray&lt;NSString *&gt; *)supportedEvents &#123;</div><div class="line">  return @[@&quot;appInvokeJs&quot;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后实现你导出的所有方法，里面都使用 sendEventWithName 方法即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)appInvokeJs:(NSString *)eventName eventBody:(NSDictionary *)eventBody &#123;</div><div class="line">    NSMutableDictionary *body = [[NSMutableDictionary alloc] init];</div><div class="line">    [body setObject:eventName forKey:@&quot;eventName&quot;];</div><div class="line">    [body setObject:eventBody forKey:@&quot;eventBody&quot;];</div><div class="line">    [self sendEventWithName:@&quot;appInvokeJs&quot; body:body];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后 JS 端调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import &#123;</div><div class="line">  ... </div><div class="line">  NativeModules,</div><div class="line">  NativeEventEmitter,  //导入 NativeEventEmitter 模块</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line">  </div><div class="line">var ReactUtil = NativeModules.ReactUtil;</div><div class="line">const myNativeEvent = new NativeEventEmitter(ReactUtil);  //创建自定义事件接口</div><div class="line">  </div><div class="line">//在组件中使用</div><div class="line">componentWillMount() &#123;</div><div class="line">    this.listener = myNativeEvent.addListener(&apos;appInvokeJs&apos;, this.appInvokeJs.bind(this)); </div><div class="line">&#125;</div><div class="line">componentWillUnmount() &#123; </div><div class="line">    this.listener &amp;&amp; this.listener.remove();</div><div class="line">    this.listener = null; </div><div class="line">&#125; </div><div class="line"></div><div class="line">appInvokeJs(data) &#123;</div><div class="line">    //接受原生传过来的数据 </div><div class="line">    data = &#123;eventName:,eventBody:&#125;</div><div class="line">    if (data.eventName == &apos;EventName&apos;) &#123;</div><div class="line">       //</div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>成都游记</title>
     <link href="http://mlijin9011.github.io/2016/10/10/%E6%88%90%E9%83%BD%E6%B8%B8%E8%AE%B0/"/>
     <id>http://mlijin9011.github.io/2016/10/10/成都游记/</id>
@@ -679,11 +634,56 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
   </entry>
   
   <entry>
+    <title>ReactNative入门（3）—— ReactNative与原生的交互</title>
+    <link href="http://mlijin9011.github.io/2016/05/17/ReactNative%E5%85%A5%E9%97%A8%EF%BC%883%EF%BC%89/"/>
+    <id>http://mlijin9011.github.io/2016/05/17/ReactNative入门（3）/</id>
+    <published>2016-05-17T08:03:28.000Z</published>
+    <updated>2018-03-18T09:15:18.880Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。</p>
+<a id="more"></a>
+<h3 id="iOS-原生页面打开-RN-页面"><a href="#iOS-原生页面打开-RN-页面" class="headerlink" title="iOS 原生页面打开 RN 页面"></a>iOS 原生页面打开 RN 页面</h3><p>可以自定义一个 <code>ReactViewController</code> 类，在这个控制器中添加一个 <code>RCTRootView</code> 作为子 View。这样这个 ViewController 就可以显示一个 RN 页面了，具体实现方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    // Do any additional setup after loading the view.</div><div class="line">    </div><div class="line">	NSURL *jsCodeLocation = [NSURL URLWithString:@&quot;http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true&quot;];</div><div class="line">	RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</div><div class="line">                                                      moduleName:@&quot;test&quot;</div><div class="line">                                               initialProperties:nil</div><div class="line">                                                   launchOptions:nil];</div><div class="line">	reactView.frame = self.view.bounds;</div><div class="line">	[self.view addSubView:rootView];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="RN-调用-OC-方法"><a href="#RN-调用-OC-方法" class="headerlink" title="RN 调用 OC 方法"></a>RN 调用 OC 方法</h3><p>首先创建一个工具类，来专门处理 RN 和 OC 间的交互，例如 <code>ReactUtil</code>，这个类需要实现 <code>RCTBridgeModule</code> 协议，<code>RCTBridgeModule</code> 是定义好的 protocol，实现该协议的类，会自动注册到 OC 对应的 Bridge 中。<br>OC-Bridge 上层负责与 OC 通信，下层负责和 JS-Bridge 通信，而 JS-Bridge 负责和 JS 通信。<br>这样通过 OC-Bridge 和 JS-Bridge 就可以实现 JS 和 OC 的相互调用了。</p>
+<p>ReactUtil 类的具体实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">RCT_EXPORT_MODULE()</div><div class="line"></div><div class="line">RCT_EXPORT_METHOD(jsInvokeApp:(NSString *)eventName parameter:(NSDictionary *)parameter resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) &#123;</div><div class="line">    NSLog(@&quot;接收到RN传过来的事件名：%@，数据为:%@&quot;, eventName, parameter);</div><div class="line">    </div><div class="line">    //  TODO: 具体业务处理，可根据eventName，parameter等区分</div><div class="line">    BOOL result;</div><div class="line">    if (result) &#123;</div><div class="line">        resolve(@&quot;&quot;);</div><div class="line">    &#125; else &#123;</div><div class="line">        NSError *error = [NSError errorWithDomain:@&quot;com.XXX.domain&quot; code:1 userInfo:nil];</div><div class="line">        reject(@&quot;code&quot;, @&quot;message&quot;, error);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所有实现 <code>RCTBridgeModule</code> 协议的类都必须显示的 include 宏命令: <code>RCT_EXPORT_MODULE()</code>。<br><code>RCT_EXPORT_MODULE</code> 的作用是当 OC-Bridge 加载的时候，自动注册一个 Module。这个 Module 可以在 JS-Bridge 中调用。<br><code>RCT_EXPORT_MODULE</code> 接受字符串作为其 Module 的名称，如果不设置名称的话默认就使用类名作为 Module 的名称。</p>
+<p>最后我们需要在 JS 文件中调用 <code>ReactUtil</code> 中的方法即可:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var &#123; NativeModules &#125; = require(&apos;react-native&apos;);</div><div class="line">var ReactUtil = NativeModules.ReactUtil;</div><div class="line"> </div><div class="line">//获取Promise对象处理</div><div class="line">async _updateEvents() &#123;</div><div class="line">    try &#123;</div><div class="line">       var events = await ReactUtil.jsInvokeApp(&apos;eventName&apos;, &#123;&apos;key&apos;:&apos;value&apos;&#125;);</div><div class="line">       this.setState(&#123;events&#125;);</div><div class="line">    &#125; catch(e) &#123;</div><div class="line">       this.setState(&#123;events:e.message&#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="OC-调用-RN-方法"><a href="#OC-调用-RN-方法" class="headerlink" title="OC 调用 RN 方法"></a>OC 调用 RN 方法</h3><p>在 0.27 版本之前，调用方式是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@synthesize bridge = _bridge; </div><div class="line">- (void)appInvokeJs:(NSString *)eventName eventBody:(NSDictionary *)eventBody &#123; </div><div class="line">  [_bridge.eventDispatcher sendDeviceEventWithName:eventName body:eventBody];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在 xcode 里面一直提示这种方式可能要被取代：</p>
+<p><code>&#39;sendDeviceEventWithName:body:&#39; is deprecated: Subclass RCTEventEmitter instead</code></p>
+<p>现在可以这样写：修改我们刚才写的 <code>ReactUtil</code> 继承自 <code>RCTEventEmitter</code></p>
+<p>然后要重写下面这个方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// TODO: 所有 app 通知 JS 的方法</div><div class="line">- (NSArray&lt;NSString *&gt; *)supportedEvents &#123;</div><div class="line">  return @[@&quot;appInvokeJs&quot;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后实现你导出的所有方法，里面都使用 sendEventWithName 方法即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)appInvokeJs:(NSString *)eventName eventBody:(NSDictionary *)eventBody &#123;</div><div class="line">    NSMutableDictionary *body = [[NSMutableDictionary alloc] init];</div><div class="line">    [body setObject:eventName forKey:@&quot;eventName&quot;];</div><div class="line">    [body setObject:eventBody forKey:@&quot;eventBody&quot;];</div><div class="line">    [self sendEventWithName:@&quot;appInvokeJs&quot; body:body];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后 JS 端调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import &#123;</div><div class="line">  ... </div><div class="line">  NativeModules,</div><div class="line">  NativeEventEmitter,  //导入 NativeEventEmitter 模块</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line">  </div><div class="line">var ReactUtil = NativeModules.ReactUtil;</div><div class="line">const myNativeEvent = new NativeEventEmitter(ReactUtil);  //创建自定义事件接口</div><div class="line">  </div><div class="line">//在组件中使用</div><div class="line">componentWillMount() &#123;</div><div class="line">    this.listener = myNativeEvent.addListener(&apos;appInvokeJs&apos;, this.appInvokeJs.bind(this)); </div><div class="line">&#125;</div><div class="line">componentWillUnmount() &#123; </div><div class="line">    this.listener &amp;&amp; this.listener.remove();</div><div class="line">    this.listener = null; </div><div class="line">&#125; </div><div class="line"></div><div class="line">appInvokeJs(data) &#123;</div><div class="line">    //接受原生传过来的数据 </div><div class="line">    data = &#123;eventName:,eventBody:&#125;</div><div class="line">    if (data.eventName == &apos;EventName&apos;) &#123;</div><div class="line">       //</div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ReactNative入门（2）—— 接入原生应用</title>
-    <link href="http://mlijin9011.github.io/2016/07/24/ReactNative%E5%85%A5%E9%97%A8%EF%BC%882%EF%BC%89/"/>
-    <id>http://mlijin9011.github.io/2016/07/24/ReactNative入门（2）/</id>
-    <published>2016-07-24T02:18:09.000Z</published>
-    <updated>2017-04-12T02:52:37.000Z</updated>
+    <link href="http://mlijin9011.github.io/2016/04/24/ReactNative%E5%85%A5%E9%97%A8%EF%BC%882%EF%BC%89/"/>
+    <id>http://mlijin9011.github.io/2016/04/24/ReactNative入门（2）/</id>
+    <published>2016-04-24T02:18:09.000Z</published>
+    <updated>2018-03-18T09:15:10.705Z</updated>
     
     <content type="html"><![CDATA[<h2 id="安装-React-Native-依赖"><a href="#安装-React-Native-依赖" class="headerlink" title="安装 React Native 依赖"></a>安装 React Native 依赖</h2><p>在工程所在目录新建一个文件夹，作为 JS 文件目录，在这个文件夹下，安装 React 和 React Native 依赖：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd x/xx/xxx #你的工程路径</div><div class="line">npm install react</div><div class="line">npm install react-native</div></pre></td></tr></table></figure>
@@ -734,10 +734,10 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
   
   <entry>
     <title>React Native入门（1）—— 组件及生命周期</title>
-    <link href="http://mlijin9011.github.io/2016/07/10/ReactNative%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/"/>
-    <id>http://mlijin9011.github.io/2016/07/10/ReactNative入门（1）/</id>
-    <published>2016-07-10T03:54:34.000Z</published>
-    <updated>2017-08-21T01:39:33.000Z</updated>
+    <link href="http://mlijin9011.github.io/2016/04/10/ReactNative%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/"/>
+    <id>http://mlijin9011.github.io/2016/04/10/ReactNative入门（1）/</id>
+    <published>2016-04-10T03:54:34.000Z</published>
+    <updated>2018-03-18T09:15:04.752Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>作为一个 iOS 原生应用的开发者，刚开始接触 React Native，先来学习下 React Native 中的组件结构和生命周期，理解一个 React Native 组件如何进行展示，如何进行开发。</p>
 <a id="more"></a>
@@ -760,7 +760,7 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
 <p>第一阶段：实例化期，是组件第一次绘制阶段，如图中的上面的虚线框内，在这个阶段完成了组件的加载和初始化；</p>
 <p>第二阶段：存在期，是组件正在运行和交互阶段，如图中的左下的虚线框内，在这个阶段组件可以处理用户交互，或者接收事件更新界面；</p>
 <p>第三阶段：销毁期，是组件被卸载消亡的阶段，如图中的右下的虚线框内，在这个阶段做一些组件的清理工作。</p>
-<p><img src="/2016/07/10/ReactNative入门（1）/component-lifecycle.jpg" alt="logo"></p>
+<p><img src="/2016/04/10/ReactNative入门（1）/component-lifecycle.jpg" alt="logo"></p>
 <p>下面具体分析组件生命周期的各个阶段：</p>
 <h3 id="实例化阶段"><a href="#实例化阶段" class="headerlink" title="实例化阶段"></a>实例化阶段</h3><p>实例化期分为5个阶段，每个阶段以一个函数来进行控制：</p>
 <p><strong>getDefaultProps</strong></p>

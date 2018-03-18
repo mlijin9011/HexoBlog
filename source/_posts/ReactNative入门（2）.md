@@ -1,6 +1,6 @@
 ---
 title: ReactNative入门（2）—— 接入原生应用
-date: 2016-07-24 10:18:09
+date: 2016-04-24 10:18:09
 categories:
 - 技术
 tags:
@@ -151,3 +151,4 @@ SimpleApp 是你的模块名，这个在后面会要用到。
 
 
 参考博文：[React Native 中文网：嵌入到现有原生应用](http://reactnative.cn/docs/0.31/integration-with-existing-apps.html#content)
+

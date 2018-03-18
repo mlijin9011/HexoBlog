@@ -96,22 +96,16 @@
 
 
 
-<meta name="description" content="安装 React Native 依赖在工程所在目录新建一个文件夹，作为 JS 文件目录，在这个文件夹下，安装 React 和 React Native 依赖：
-123cd x/xx/xxx #你的工程路径npm install reactnpm install react-native
-这时这个文件夹下会出现一个 node_modules 文件夹，react 依赖库就在这个文件夹下。">
+<meta name="description" content="前言在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ReactNative入门（2）—— 接入原生应用">
-<meta property="og:url" content="http://mlijin9011.github.io/2016/07/24/ReactNative入门（2）/index.html">
+<meta property="og:title" content="ReactNative入门（3）—— ReactNative与原生的交互">
+<meta property="og:url" content="http://mlijin9011.github.io/2016/05/17/ReactNative入门（3）/index.html">
 <meta property="og:site_name" content="木子李的博客">
-<meta property="og:description" content="安装 React Native 依赖在工程所在目录新建一个文件夹，作为 JS 文件目录，在这个文件夹下，安装 React 和 React Native 依赖：
-123cd x/xx/xxx #你的工程路径npm install reactnpm install react-native
-这时这个文件夹下会出现一个 node_modules 文件夹，react 依赖库就在这个文件夹下。">
-<meta property="og:updated_time" content="2017-04-12T02:52:37.000Z">
+<meta property="og:description" content="前言在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。">
+<meta property="og:updated_time" content="2018-03-18T09:15:18.880Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ReactNative入门（2）—— 接入原生应用">
-<meta name="twitter:description" content="安装 React Native 依赖在工程所在目录新建一个文件夹，作为 JS 文件目录，在这个文件夹下，安装 React 和 React Native 依赖：
-123cd x/xx/xxx #你的工程路径npm install reactnpm install react-native
-这时这个文件夹下会出现一个 node_modules 文件夹，react 依赖库就在这个文件夹下。">
+<meta name="twitter:title" content="ReactNative入门（3）—— ReactNative与原生的交互">
+<meta name="twitter:description" content="前言在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。">
 
 
 
@@ -140,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://mlijin9011.github.io/2016/07/24/ReactNative入门（2）/"/>
+  <link rel="canonical" href="http://mlijin9011.github.io/2016/05/17/ReactNative入门（3）/"/>
 
 
 
 
 
-  <title>ReactNative入门（2）—— 接入原生应用 | 木子李的博客</title>
+  <title>ReactNative入门（3）—— ReactNative与原生的交互 | 木子李的博客</title>
   
 
 
@@ -283,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2016/07/24/ReactNative入门（2）/">
+    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2016/05/17/ReactNative入门（3）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Li Jin">
@@ -300,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ReactNative入门（2）—— 接入原生应用</h1>
+          <h1 class="post-title" itemprop="name headline">ReactNative入门（3）—— ReactNative与原生的交互</h1>
         
 
         <div class="post-meta">
@@ -312,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-24T10:18:09+08:00">
-                2016-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-17T16:03:28+08:00">
+                2016-05-17
               </time>
             
 
@@ -372,34 +366,27 @@
       
 
       
-        <h2 id="安装-React-Native-依赖"><a href="#安装-React-Native-依赖" class="headerlink" title="安装 React Native 依赖"></a>安装 React Native 依赖</h2><p>在工程所在目录新建一个文件夹，作为 JS 文件目录，在这个文件夹下，安装 React 和 React Native 依赖：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd x/xx/xxx #你的工程路径</div><div class="line">npm install react</div><div class="line">npm install react-native</div></pre></td></tr></table></figure>
-<p>这时这个文件夹下会出现一个 node_modules 文件夹，react 依赖库就在这个文件夹下。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在项目中，通常我们会使用 RN 和原生混合开发的模式，所以这就涉及到一个重要的内容—— RN 和原生之间的数据交互。现在我们来一起看一下该怎样去实现数据交互。交互涉及到两部分内容:1. OC 打开 RN 页面；2. RN 调用 OC 方法；3. OC 调用 RN 方法。</p>
 <a id="more"></a>
-<h2 id="CocoaPods安装"><a href="#CocoaPods安装" class="headerlink" title="CocoaPods安装"></a>CocoaPods安装</h2><p>在 Podfile 文件中增加以下的内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># path 后面的内容修改为正确的路径，根据你的 node_modules 文件夹路径。</div><div class="line">pod &apos;React&apos;, :path =&gt; &apos;./node_modules/react-native&apos;, :subspecs =&gt; [</div><div class="line">  &apos;Core&apos;,</div><div class="line">  &apos;RCTImage&apos;,</div><div class="line">  &apos;RCTNetwork&apos;,</div><div class="line">  &apos;RCTText&apos;,</div><div class="line">  # 添加其他你想在工程中使用的依赖。</div><div class="line">]</div></pre></td></tr></table></figure>
-<p>接着安装 pods：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pod install</div></pre></td></tr></table></figure>
-<h2 id="创建-React-Native-应用"><a href="#创建-React-Native-应用" class="headerlink" title="创建 React Native 应用"></a>创建 React Native 应用</h2><p>首先，创建一个文件夹来保存 React 代码，然后创建一个 js 文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mkdir ReactViews</div><div class="line">$ touch ReactViews/test.js</div></pre></td></tr></table></figure>
-<p>然后写你的 js 代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&apos;use strict&apos;;</div><div class="line"></div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">  Text,</div><div class="line">  StyleSheet,</div><div class="line">  View,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">var styles = StyleSheet.create(&#123;</div><div class="line">  container: &#123;</div><div class="line">    flex: 1,</div><div class="line">    backgroundColor: &apos;red&apos;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">class SimpleApp extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">        &lt;Text&gt;This is a simple react native application.&lt;/Text&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;SimpleApp&apos;, () =&gt; SimpleApp);</div></pre></td></tr></table></figure>
-<p>SimpleApp 是你的模块名，这个在后面会要用到。</p>
-<p>接着，往应用里添加容器视图，来容纳 React Native 组件，它可以是你应用里任何的 UIView。</p>
-<p>新建一个 ReactView 继承 UIView。</p>
-<p>// ReactView.h</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">@interface ReactView : UIView</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
-<p>往 ReactView 里添加 RCTRootView，来包含你的 React Native 应用。</p>
-<p>// ReactView.m </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">#import &quot;RCTRootView.h&quot;</div><div class="line"></div><div class="line">@implementation MZLReactView</div><div class="line"></div><div class="line">- (instancetype)initWithFrame:(CGRect)frame &#123;</div><div class="line">    self = [super initWithFrame:frame];</div><div class="line">    if (self) &#123;</div><div class="line">        self.backgroundColor = [UIColor grayColor];</div><div class="line">        </div><div class="line">        NSURL *jsCodeLocation = [NSURL URLWithString:@&quot;http://localhost:8081/test.bundle?platform=ios&quot;];</div><div class="line">        // NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@&quot;test&quot; withExtension:@&quot;jsbundle&quot;];</div><div class="line">    </div><div class="line">        RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation moduleName:@&quot;SimpleComponent&quot; initialProperties:nil launchOptions:nil];</div><div class="line">        [self addSubview:rootView];</div><div class="line">        </div><div class="line">        rootView.frame = self.bounds;</div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
-<p>在 UIViewController 中使用这个 ReactView，这样就创建了一个 React Native 应用。</p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>在工程的根目录下，开启 React Native 开发服务器：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(JS_DIR=`pwd`/ReactViews; cd node_modules/react-native; npm run start -- --root $JS_DIR)</div></pre></td></tr></table></figure>
-<p>这条命令会启动一个 React Native 开发服务器，用于构建我们的 bundle 文件。–root 选项用来标明你的 React Native 应用所在的根目录。在我们这里是 ReactViews 目录，里面有一个test.js 文件。开发服务器启动后会打包出 test.bundle 文件来，并可以通过 <code>http://localhost:8081/test.bundle</code> 来访问。</p>
-<p>现在编译和运行你的应用，就可以看到你的 React Native 应用在 ReactView 内运行。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在底层，当 RCTRootView 初始化完成以后，它会尝试从开发服务器下载、解析并运行打包后的脚本文件。所以你所要做的就是实现你自己的容器视图或者视图控制器，然后把 RCTRootView 作为子视图加入，接下来 RCTRootView 会搞定你的脚本文件然后渲染你的 React 组件。</p>
-<p>你可以在这里获得一个样例应用的完整源代码。</p>
-<p>参考博文：<a href="http://reactnative.cn/docs/0.31/integration-with-existing-apps.html#content" target="_blank" rel="external">React Native 中文网：嵌入到现有原生应用</a></p>
+<h3 id="iOS-原生页面打开-RN-页面"><a href="#iOS-原生页面打开-RN-页面" class="headerlink" title="iOS 原生页面打开 RN 页面"></a>iOS 原生页面打开 RN 页面</h3><p>可以自定义一个 <code>ReactViewController</code> 类，在这个控制器中添加一个 <code>RCTRootView</code> 作为子 View。这样这个 ViewController 就可以显示一个 RN 页面了，具体实现方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    // Do any additional setup after loading the view.</div><div class="line">    </div><div class="line">	NSURL *jsCodeLocation = [NSURL URLWithString:@&quot;http://localhost:8081/index.ios.bundle?platform=ios&amp;dev=true&quot;];</div><div class="line">	RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation</div><div class="line">                                                      moduleName:@&quot;test&quot;</div><div class="line">                                               initialProperties:nil</div><div class="line">                                                   launchOptions:nil];</div><div class="line">	reactView.frame = self.view.bounds;</div><div class="line">	[self.view addSubView:rootView];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="RN-调用-OC-方法"><a href="#RN-调用-OC-方法" class="headerlink" title="RN 调用 OC 方法"></a>RN 调用 OC 方法</h3><p>首先创建一个工具类，来专门处理 RN 和 OC 间的交互，例如 <code>ReactUtil</code>，这个类需要实现 <code>RCTBridgeModule</code> 协议，<code>RCTBridgeModule</code> 是定义好的 protocol，实现该协议的类，会自动注册到 OC 对应的 Bridge 中。<br>OC-Bridge 上层负责与 OC 通信，下层负责和 JS-Bridge 通信，而 JS-Bridge 负责和 JS 通信。<br>这样通过 OC-Bridge 和 JS-Bridge 就可以实现 JS 和 OC 的相互调用了。</p>
+<p>ReactUtil 类的具体实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">RCT_EXPORT_MODULE()</div><div class="line"></div><div class="line">RCT_EXPORT_METHOD(jsInvokeApp:(NSString *)eventName parameter:(NSDictionary *)parameter resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) &#123;</div><div class="line">    NSLog(@&quot;接收到RN传过来的事件名：%@，数据为:%@&quot;, eventName, parameter);</div><div class="line">    </div><div class="line">    //  TODO: 具体业务处理，可根据eventName，parameter等区分</div><div class="line">    BOOL result;</div><div class="line">    if (result) &#123;</div><div class="line">        resolve(@&quot;&quot;);</div><div class="line">    &#125; else &#123;</div><div class="line">        NSError *error = [NSError errorWithDomain:@&quot;com.XXX.domain&quot; code:1 userInfo:nil];</div><div class="line">        reject(@&quot;code&quot;, @&quot;message&quot;, error);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所有实现 <code>RCTBridgeModule</code> 协议的类都必须显示的 include 宏命令: <code>RCT_EXPORT_MODULE()</code>。<br><code>RCT_EXPORT_MODULE</code> 的作用是当 OC-Bridge 加载的时候，自动注册一个 Module。这个 Module 可以在 JS-Bridge 中调用。<br><code>RCT_EXPORT_MODULE</code> 接受字符串作为其 Module 的名称，如果不设置名称的话默认就使用类名作为 Module 的名称。</p>
+<p>最后我们需要在 JS 文件中调用 <code>ReactUtil</code> 中的方法即可:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var &#123; NativeModules &#125; = require(&apos;react-native&apos;);</div><div class="line">var ReactUtil = NativeModules.ReactUtil;</div><div class="line"> </div><div class="line">//获取Promise对象处理</div><div class="line">async _updateEvents() &#123;</div><div class="line">    try &#123;</div><div class="line">       var events = await ReactUtil.jsInvokeApp(&apos;eventName&apos;, &#123;&apos;key&apos;:&apos;value&apos;&#125;);</div><div class="line">       this.setState(&#123;events&#125;);</div><div class="line">    &#125; catch(e) &#123;</div><div class="line">       this.setState(&#123;events:e.message&#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="OC-调用-RN-方法"><a href="#OC-调用-RN-方法" class="headerlink" title="OC 调用 RN 方法"></a>OC 调用 RN 方法</h3><p>在 0.27 版本之前，调用方式是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@synthesize bridge = _bridge; </div><div class="line">- (void)appInvokeJs:(NSString *)eventName eventBody:(NSDictionary *)eventBody &#123; </div><div class="line">  [_bridge.eventDispatcher sendDeviceEventWithName:eventName body:eventBody];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在 xcode 里面一直提示这种方式可能要被取代：</p>
+<p><code>&#39;sendDeviceEventWithName:body:&#39; is deprecated: Subclass RCTEventEmitter instead</code></p>
+<p>现在可以这样写：修改我们刚才写的 <code>ReactUtil</code> 继承自 <code>RCTEventEmitter</code></p>
+<p>然后要重写下面这个方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// TODO: 所有 app 通知 JS 的方法</div><div class="line">- (NSArray&lt;NSString *&gt; *)supportedEvents &#123;</div><div class="line">  return @[@&quot;appInvokeJs&quot;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后实现你导出的所有方法，里面都使用 sendEventWithName 方法即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)appInvokeJs:(NSString *)eventName eventBody:(NSDictionary *)eventBody &#123;</div><div class="line">    NSMutableDictionary *body = [[NSMutableDictionary alloc] init];</div><div class="line">    [body setObject:eventName forKey:@&quot;eventName&quot;];</div><div class="line">    [body setObject:eventBody forKey:@&quot;eventBody&quot;];</div><div class="line">    [self sendEventWithName:@&quot;appInvokeJs&quot; body:body];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后 JS 端调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">import &#123;</div><div class="line">  ... </div><div class="line">  NativeModules,</div><div class="line">  NativeEventEmitter,  //导入 NativeEventEmitter 模块</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line">  </div><div class="line">var ReactUtil = NativeModules.ReactUtil;</div><div class="line">const myNativeEvent = new NativeEventEmitter(ReactUtil);  //创建自定义事件接口</div><div class="line">  </div><div class="line">//在组件中使用</div><div class="line">componentWillMount() &#123;</div><div class="line">    this.listener = myNativeEvent.addListener(&apos;appInvokeJs&apos;, this.appInvokeJs.bind(this)); </div><div class="line">&#125;</div><div class="line">componentWillUnmount() &#123; </div><div class="line">    this.listener &amp;&amp; this.listener.remove();</div><div class="line">    this.listener = null; </div><div class="line">&#125; </div><div class="line"></div><div class="line">appInvokeJs(data) &#123;</div><div class="line">    //接受原生传过来的数据 </div><div class="line">    data = &#123;eventName:,eventBody:&#125;</div><div class="line">    if (data.eventName == &apos;EventName&apos;) &#123;</div><div class="line">       //</div><div class="line">    &#125; else &#123;</div><div class="line">        </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -470,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/10/ReactNative入门（1）/" rel="next" title="React Native入门（1）—— 组件及生命周期">
-                <i class="fa fa-chevron-left"></i> React Native入门（1）—— 组件及生命周期
+              <a href="/2016/04/24/ReactNative入门（2）/" rel="next" title="ReactNative入门（2）—— 接入原生应用">
+                <i class="fa fa-chevron-left"></i> ReactNative入门（2）—— 接入原生应用
               </a>
             
           </div>
@@ -692,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-React-Native-依赖"><span class="nav-number">1.</span> <span class="nav-text">安装 React Native 依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods安装"><span class="nav-number">2.</span> <span class="nav-text">CocoaPods安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-React-Native-应用"><span class="nav-number">3.</span> <span class="nav-text">创建 React Native 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">4.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-原生页面打开-RN-页面"><span class="nav-number">2.</span> <span class="nav-text">iOS 原生页面打开 RN 页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RN-调用-OC-方法"><span class="nav-number">3.</span> <span class="nav-text">RN 调用 OC 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OC-调用-RN-方法"><span class="nav-number">4.</span> <span class="nav-text">OC 调用 RN 方法</span></a></li></ol></div>
             
 
           </div>

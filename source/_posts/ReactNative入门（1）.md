@@ -1,6 +1,6 @@
 ---
 title: React Native入门（1）—— 组件及生命周期
-date: 2016-07-10 11:54:34
+date: 2016-04-10 11:54:34
 categories:
 - 技术
 tags: 
