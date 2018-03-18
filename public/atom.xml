@@ -890,23 +890,17 @@ getInitialState()：初始化组件的状态
     <link href="http://mlijin9011.github.io/2015/07/26/Git-%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/"/>
     <id>http://mlijin9011.github.io/2015/07/26/Git-使用总结/</id>
     <published>2015-07-26T11:22:52.000Z</published>
-    <updated>2018-03-18T09:04:28.364Z</updated>
+    <updated>2018-03-18T11:56:31.717Z</updated>
     
     <content type="html"><![CDATA[<p>作为一个开发人员，Git 在我们工作中不可或缺，但是很多人都并没有真正了解 Git 强大的功能，本文是做一个 Git 常用功能的积累。</p>
 <a id="more"></a>
-<h2 id="开始-Git"><a href="#开始-Git" class="headerlink" title="开始 Git"></a>开始 Git</h2><h3 id="Git-的简单介绍"><a href="#Git-的简单介绍" class="headerlink" title="Git 的简单介绍"></a>Git 的简单介绍</h3><ul>
-<li>4个区</li>
-</ul>
-<blockquote>
+<h2 id="开始-Git"><a href="#开始-Git" class="headerlink" title="开始 Git"></a>开始 Git</h2><h3 id="Git-的简单介绍"><a href="#Git-的简单介绍" class="headerlink" title="Git 的简单介绍"></a>Git 的简单介绍</h3><h4 id="4个区"><a href="#4个区" class="headerlink" title="4个区"></a>4个区</h4><blockquote>
 <p>工作区 (Working Area)<br>暂存区 (Stage)<br>本地仓库 (Local Repository)<br>远程仓库 (Remote Repository)</p>
 </blockquote>
 <p>工作区是从远端某个版本中提取出来的文件，放在磁盘上供你使用或修改；</p>
 <p>暂存区保存了下次将提交的文件列表信息，有时候也被称作‘索引’；</p>
 <p>Git 仓库是 Git 用来保存项目的元数据和对象数据库的地方。</p>
-<ul>
-<li>5种状态</li>
-</ul>
-<p>以上4个区，进入每一个区成功之后会产生一个状态，再加上最初始的一个状态，一共是5种状态。以下我们把这5种状态分别命名为：</p>
+<h4 id="5种状态"><a href="#5种状态" class="headerlink" title="5种状态"></a>5种状态</h4><p>以上4个区，进入每一个区成功之后会产生一个状态，再加上最初始的一个状态，一共是5种状态。以下我们把这5种状态分别命名为：</p>
 <blockquote>
 <p>未修改(Origin)<br>已修改(Modified)<br>已暂存(Staged)<br>已提交(Committed)<br>已推送(Pushed)</p>
 </blockquote>
@@ -915,17 +909,11 @@ getInitialState()：初始化组件的状态
 <p>已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交中；</p>
 <p>已提交表示数据已经安全的保存在本地数据库中；</p>
 <p>已推送表示已经推送到远程仓库。</p>
-<ul>
-<li>基本 Git 工作流程</li>
-</ul>
-<p>在工作目录中修改文件。</p>
+<h4 id="基本-Git-工作流程"><a href="#基本-Git-工作流程" class="headerlink" title="基本 Git 工作流程"></a>基本 Git 工作流程</h4><p>在工作目录中修改文件。</p>
 <p>暂存文件，将文件的快照放入暂存区域。</p>
 <p>提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录。</p>
 <h3 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h3><p>一些简单常用的大家都知道的命令就不记录了：clone, add, commit, pull, push 等</p>
-<ul>
-<li><strong>修改commit</strong></li>
-</ul>
-<p>大家可能都有过有时候不小心，commit 提交错的情况，可以这么解决：</p>
+<h4 id="修改commit"><a href="#修改commit" class="headerlink" title="修改commit"></a><strong>修改commit</strong></h4><p>大家可能都有过有时候不小心，commit 提交错的情况，可以这么解决：</p>
 <p>1.如果还没 push 到远端 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git commit --amend</div></pre></td></tr></table></figure>
 <p>例：</p>
@@ -942,10 +930,7 @@ getInitialState()：初始化组件的状态
 <p>如果第二个提交修复了第一个提交中的小问题，你可以用 fixup 命令把它们合到一个提交中：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pick 32618c4 Start developing a featureA</div><div class="line">fixup 62eed47 Fix something from the previous commit</div></pre></td></tr></table></figure>
 <p>保存后关闭文件，Git 会根据你的指令来执行 rebase。</p>
-<ul>
-<li><strong>代码回滚</strong></li>
-</ul>
-<p>还有一种常见的情况就是，代码已经提交后，发现此代码有问题，想回滚此提交。</p>
+<h4 id="代码回滚"><a href="#代码回滚" class="headerlink" title="代码回滚"></a><strong>代码回滚</strong></h4><p>还有一种常见的情况就是，代码已经提交后，发现此代码有问题，想回滚此提交。</p>
 <p>1.如果还没 push 到远端</p>
 <p>git reset (将一个分支的末端指向另一个提交)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git reset HEAD</div><div class="line">$ git reset --soft HEAD (缓存区和工作目录都不会被改变)</div><div class="line">$ git reset --mixed HEAD (默认选项。缓存区和你指定的提交同步，但工作目录不受影响)</div><div class="line">$ git reset --hard HEAD (缓存区和工作目录都同步到你指定的提交)</div></pre></td></tr></table></figure>
@@ -953,10 +938,7 @@ getInitialState()：初始化组件的状态
 <p>2.如果已经push到了远端</p>
 <p>git revert (撤销一个提交的同时会创建一个新的提交)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git revert HEAD~2 (撤销倒数第二个提交)</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>分支间合并提交</strong></li>
-</ul>
-<p>将一个分支的更改并入另一个分支，主要有三种方式，如果是想把 feature 分支全部的 commit 内容都并入主分支，可以用前两种方法，如果只需要并入置顶的 commit 可以用第三种方法。</p>
+<h4 id="分支间合并提交"><a href="#分支间合并提交" class="headerlink" title="分支间合并提交"></a><strong>分支间合并提交</strong></h4><p>将一个分支的更改并入另一个分支，主要有三种方式，如果是想把 feature 分支全部的 commit 内容都并入主分支，可以用前两种方法，如果只需要并入置顶的 commit 可以用第三种方法。</p>
 <p>1.git merge</p>
 <p>最常用的是 git merge，例如，如果 master 中新的提交和你的工作是相关的。为了将新的提交并入你的分支，你可以直接执行下面这些命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git checkout feature</div><div class="line">$ git merge master</div></pre></td></tr></table></figure>
