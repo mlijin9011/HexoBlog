@@ -805,31 +805,6 @@ getInitialState()：初始化组件的状态
   </entry>
   
   <entry>
-    <title>Objective-C Runtime</title>
-    <link href="http://mlijin9011.github.io/2016/02/28/Objective-C-Runtime/"/>
-    <id>http://mlijin9011.github.io/2016/02/28/Objective-C-Runtime/</id>
-    <published>2016-02-28T09:22:18.000Z</published>
-    <updated>2018-03-18T12:10:05.013Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developer.apple.com/documentation/objectivec/objective_c_runtime?preferredLanguage=occ" target="_blank" rel="external">https://developer.apple.com/documentation/objectivec/objective_c_runtime?preferredLanguage=occ</a><br><a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="external">http://tech.glowing.com/cn/objective-c-runtime/</a><br><a href="https://www.jianshu.com/p/f73ea068efd2" target="_blank" rel="external">https://www.jianshu.com/p/f73ea068efd2</a><br><a href="https://swiftcafe.io/2016/01/16/objc-runtime/" target="_blank" rel="external">https://swiftcafe.io/2016/01/16/objc-runtime/</a><br><a href="http://nshipster.cn/swift-objc-runtime/" target="_blank" rel="external">http://nshipster.cn/swift-objc-runtime/</a><br><a href="http://blog.sunnyxx.com/2016/08/13/reunderstanding-runtime-0/" target="_blank" rel="external">http://blog.sunnyxx.com/2016/08/13/reunderstanding-runtime-0/</a><br><a href="https://draveness.me/tag/runtime/" target="_blank" rel="external">https://draveness.me/tag/runtime/</a><br><a href="https://ming1016.github.io/2015/04/01/objc-runtime/" target="_blank" rel="external">https://ming1016.github.io/2015/04/01/objc-runtime/</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://developer.apple.com/documentation/objectivec/objectiv
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Mac使用oh-my-zsh和iTerm2</title>
     <link href="http://mlijin9011.github.io/2016/01/28/Mac%E4%BD%BF%E7%94%A8oh-my-zsh%E5%92%8CiTerm2/"/>
     <id>http://mlijin9011.github.io/2016/01/28/Mac使用oh-my-zsh和iTerm2/</id>
@@ -887,6 +862,187 @@ getInitialState()：初始化组件的状态
     
     
       <category term="Mac" scheme="http://mlijin9011.github.io/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C Runtime 协议与分类</title>
+    <link href="http://mlijin9011.github.io/2015/08/29/Objective-C-Runtime-5/"/>
+    <id>http://mlijin9011.github.io/2015/08/29/Objective-C-Runtime-5/</id>
+    <published>2015-08-29T12:02:38.000Z</published>
+    <updated>2018-03-25T08:57:23.249Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C Runtime 方法与消息</title>
+    <link href="http://mlijin9011.github.io/2015/08/22/Objective-C-Runtime-4/"/>
+    <id>http://mlijin9011.github.io/2015/08/22/Objective-C-Runtime-4/</id>
+    <published>2015-08-22T02:12:18.000Z</published>
+    <updated>2018-03-25T08:56:48.296Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C Runtime 成员变量与属性</title>
+    <link href="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/"/>
+    <id>http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/</id>
+    <published>2015-08-15T04:22:48.000Z</published>
+    <updated>2018-03-22T14:27:06.123Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C Runtime - 类与对象</title>
+    <link href="http://mlijin9011.github.io/2015/08/08/Objective-C-Runtime-2/"/>
+    <id>http://mlijin9011.github.io/2015/08/08/Objective-C-Runtime-2/</id>
+    <published>2015-08-08T12:12:18.000Z</published>
+    <updated>2018-03-25T08:38:23.148Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C Runtime - 基础结构</title>
+    <link href="http://mlijin9011.github.io/2015/08/01/Objective-C-Runtime-1/"/>
+    <id>http://mlijin9011.github.io/2015/08/01/Objective-C-Runtime-1/</id>
+    <published>2015-08-01T14:12:18.000Z</published>
+    <updated>2018-03-25T08:56:01.075Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Objective-C 在 C 语言的基础上，借鉴了 Smalltalk 的面向对象与消息机制，扩展了 C 语言，这个扩展的核心是一个用 C 和 编译语言 写的 Runtime 库，它是 Objective-C 面向对象和动态机制的基石。Objective-C Runtime 使得 C 具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。理解 Objective-C 的 Runtime 机制可以帮我们更好的了解这个语言，适当的时候还能对语言进行扩展，从系统层面解决项目中的一些设计或技术问题。了解 Runtime ，要先了解它的基础 - 基础结构。<a href="https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="external">这里</a> 可以下载到 Runtime 的源码来研究。</p>
+<a id="more"></a>
+<h2 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a>基础结构</h2><h3 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h3><h4 id="objc-class"><a href="#objc-class" class="headerlink" title="objc_class"></a>objc_class</h4><p>在 Objective-C 中的类在 Runtime 中是用 <code>Class</code> 来表示的，<code>Class</code>  是一个 <code>struct objc_class</code> 类型的指针，<code>struct objc_class</code> 才是保存真正数据的地方，也就是说任何一个类都是用 <code>objc_class</code> 这样一个结构体来描述的，其定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an Objective-C class.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_class &#123;</div><div class="line">    Class isa;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> !__OBJC2__</span></div><div class="line">    Class super_class                                        OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name                                         OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> version                                             OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> info                                                OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> instance_size                                       OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_method_list **methodLists                    OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_cache *cache                                 OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line">&#125; OBJC2_UNAVAILABLE;</div><div class="line"><span class="comment">/* Use `Class` instead of `struct objc_class *` */</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>具体解释一下：</p>
+<p><strong>isa</strong>：对象的 isa 指针指向它的类，而在 OC 中，类本身也是一个对象，这个对象的 Class 里面也有一个 isa 指针，指向 <code>Meta Class</code> （元类，这个后面再具体介绍）</p>
+<p><strong>super_class</strong>：指向该类的父类，如果该类已经是最顶层的根类 (如 NSObject 或 NSProxy)，则 super_class 为 NULL</p>
+<p><strong>name</strong>：类名</p>
+<p><strong>version</strong>：类的版本信息，默认为 0，这对于对象的序列化非常有用，它可是让我们识别出不同类定义版本中实例变量布局的改变</p>
+<p><strong>info</strong>：类信息，运行时使用的一些位标识。</p>
+<p><strong>instance_size</strong>：该类的实例变量大小</p>
+<p><strong>ivars</strong>：该类的成员变量链表，NULL代表没有实例变量，不包括父类的变量</p>
+<p><strong>methodLists</strong>：该类的方法定义的链表</p>
+<p><strong>cache</strong>：该类的方法缓存，后面具体讲 cache 的作用。</p>
+<p><strong>protocols</strong>：该类的协议链表</p>
+</blockquote>
+<p>可见，我们平常调用的 <code>[NSObject class]</code> 方法就是返回这样一个指向其类结构的指针。</p>
+<h3 id="id-amp-Object"><a href="#id-amp-Object" class="headerlink" title="id &amp; Object"></a>id &amp; Object</h3><h4 id="id"><a href="#id" class="headerlink" title="id"></a>id</h4><p>在 Objective-C 中 id 表示通用对象类型，可以转换为任何数据类型，即 id类型的变量可以存放任何数据类型的对象。id 的定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// A pointer to an instance of a class.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object *id;</div></pre></td></tr></table></figure>
+<p>id，是一个 <code>objc_object</code> 结构类型的指针，它的存在可以让我们实现类似于C++ 中泛型的一些操作。该类型的对象可以转换为任何一种对象，有点类似于C语言中void *指针类型的作用。</p>
+<h4 id="objc-object"><a href="#objc-object" class="headerlink" title="objc_object"></a>objc_object</h4><p><code>struct objc_object</code> 的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// Represents an instance of a class.</span></div><div class="line"><span class="keyword">struct</span> objc_object &#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>可以看到，<code>struct objc_object</code> 中有一个指向其类的 isa 指针。向一个对象发送消息时，Runtime 库会根据对象 object 的 isa 指针找到 object 所属于的类，然后在类的方法列表以及父类方法列表寻找对应的方法运行。</p>
+<h4 id="id-与-NSObject"><a href="#id-与-NSObject" class="headerlink" title="id 与 NSObject"></a>id 与 NSObject</h4><p><code>NSObject</code> 的定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@interface NSObject &lt;NSObject&gt; &#123;</div><div class="line">    Class    isa;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出 NSObject 的第一个成员实例是 Class 类型的 isa 指针，而 id 是一个指向 objc_object 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 NSObject 的类对象都可以用id 来指代，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。</p>
+<p>可见，每一个基于 NSObject 的类的实例对象都有一个指向该对象的类结构的指针，叫做 isa，通过该指针，对象可以访问它对应的类以及相应的父类。</p>
+<h3 id="Ivar"><a href="#Ivar" class="headerlink" title="Ivar"></a>Ivar</h3><h4 id="objc-ivar"><a href="#objc-ivar" class="headerlink" title="objc_ivar"></a>objc_ivar</h4><p>在 Objective-C 中的实例变量在 Runtime 中是用 <code>Ivar</code> 来表示的，其定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an instance variable.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_ivar *Ivar;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_ivar &#123;</div><div class="line">    <span class="keyword">char</span> *ivar_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">char</span> *ivar_type                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">int</span> ivar_offset                                          OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __LP64__</span></div><div class="line">    <span class="keyword">int</span> space                                                OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;                                                            OBJC2_UNAVAILABLE;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>ivar_name</strong>：变量名<br><strong>ivar_type</strong>：变量类型<br><strong>ivar_offset</strong>：实例结构的基地址偏移字节</p>
+</blockquote>
+<p>可以看出 <code>Ivar</code> 是一个指向 <code>struct objc_ivar</code> 类型的指针，<code>Ivar</code> 指针地址是根据 class 结构体的地址加上基地址偏移字节 <code>ivar_offset</code> 得到的。</p>
+<h4 id="objc-ivar-list"><a href="#objc-ivar-list" class="headerlink" title="objc_ivar_list"></a>objc_ivar_list</h4><p>在 <code>objc_class</code> 中，所有的实例变量（成员变量、属性）的信息是放在链表 ivars 中的，ivars 是一个指向 <code>struct objc_ivar_list</code> 类型的指针，<code>objc_ivar_list</code> 结构体存储了 <code>objc_ivar</code> 的数组列表，<code>struct objc_ivar_list</code> 的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_ivar_list &#123;</div><div class="line">    <span class="keyword">int</span> ivar_count                                           OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __LP64__</span></div><div class="line">    <span class="keyword">int</span> space                                                OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="comment">/* variable length structure */</span></div><div class="line">    <span class="keyword">struct</span> objc_ivar ivar_list[<span class="number">1</span>]                            OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><h4 id="objc-method"><a href="#objc-method" class="headerlink" title="objc_method"></a>objc_method</h4><p>Objective-C 中的方法在 Runtime 中是用 <code>Method</code> 来表示的，其定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a method in a class definition.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_method *Method;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_method &#123;</div><div class="line">    SEL method_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">char</span> *method_types                                       OBJC2_UNAVAILABLE;</div><div class="line">    IMP method_imp                                           OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>method_name</strong>：表示方法名称<br><strong>method_types</strong>：方法的参数类型<br><strong>method_imp</strong>：指向该方法的具体实现的函数指针</p>
+</blockquote>
+<h4 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h4><p><code>SEL</code> 表示该方法的名字/签名，定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a method selector.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_selector     *SEL;</div></pre></td></tr></table></figure>
+<p>没有找到 <code>struct objc_selector</code> 的定义，从一些博客文章上看到过可以将 <code>SEL</code> 理解为一个 <code>char*</code> 指针，可以猜测到 <code>struct objc_selector</code> 的定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_selector  &#123;</div><div class="line">    <span class="keyword">char</span> name[<span class="number">64</span> or ...];</div><div class="line"></div><div class="line">    ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>只要遵循如上原型，就可以将 <code>SEL</code> 理解为一个 <code>char*</code>。</p>
+<h4 id="IMP"><a href="#IMP" class="headerlink" title="IMP"></a>IMP</h4><p><code>IMP</code> 是一个函数指针，定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// A pointer to the function of a method implementation. </span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">id</span> <span class="params">(*IMP)</span><span class="params">(id, SEL, ...)</span></span>;</div></pre></td></tr></table></figure>
+<p>这个被指向的函数包含一个接收消息的对象（id 类型）, 一个调用方法的名称（SEL 类型），以及不定个数的方法参数，并返回一个 id。也就是说 IMP 是消息最终调用的执行代码，是方法真正的实现代码。我们可以像在Ｃ语言里面一样使用这个函数指针。</p>
+<p>NSObject 类中的方法 <code>- (IMP)methodForSelector:(SEL)aSelector</code> 的作用就是可以获取指向方法实现 IMP 的指针，返回的指针和赋值的变量类型必须完全一致，包括方法参数类型和返回值类型。</p>
+<h4 id="objc-method-list"><a href="#objc-method-list" class="headerlink" title="objc_method_list"></a>objc_method_list</h4><p><code>objc_class</code> 中的方法列表 <code>methodLists</code> 是一个二级指针，一个指向结构体 <code>objc_method_list</code> 的二级指针，指针变量当中存的是一个地址，你可以改变这个地址的值从而改变最终指向的变量。动态的修改 <code>*methodLists</code> 的值来添加方法，这也是实现 category 的原理。</p>
+<p><code>struct objc_method_list</code> 的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_method_list &#123;</div><div class="line">    <span class="keyword">struct</span> objc_method_list *obsolete                        OBJC2_UNAVAILABLE;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> method_count                                         OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __LP64__</span></div><div class="line">    <span class="keyword">int</span> space                                                OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    <span class="comment">/* variable length structure */</span></div><div class="line">    <span class="keyword">struct</span> objc_method method_list[<span class="number">1</span>]                        OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Category"><a href="#Category" class="headerlink" title="Category"></a>Category</h3><h4 id="objc-category"><a href="#objc-category" class="headerlink" title="objc_category"></a>objc_category</h4><p>Runtime 中 <code>Category</code> 是一个指向分类的结构体的指针，定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a category.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_category *Category;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_category &#123;</div><div class="line">    <span class="keyword">char</span> *category_name                                      OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">char</span> *class_name                                         OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_method_list *instance_methods                OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_method_list *class_methods                   OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>category_name</strong>：分类名<br><strong>class_name</strong>：分类所属的类名<br><strong>instance_methods</strong>：实例方法列表<br><strong>class_methods</strong>：类方法列表，Meta Class方法列表的子集<br><strong>protocols</strong>：分类所遵循的协议列表</p>
+</blockquote>
+<p>可以看出，<code>Catagory</code> 可以动态地为已经存在的类添加新的实例方法，类方法，协议。后面再单独介绍 <code>Category</code> 里面的方法加载过程。</p>
+<h3 id="Protocol"><a href="#Protocol" class="headerlink" title="Protocol"></a>Protocol</h3><h4 id="Protocol-1"><a href="#Protocol-1" class="headerlink" title="Protocol"></a>Protocol</h4><p>Runtime 中 <code>Protocol</code> 其实就是一个对象结构体，定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object Protocol</div></pre></td></tr></table></figure>
+<h4 id="objc-protocol-list"><a href="#objc-protocol-list" class="headerlink" title="objc_protocol_list"></a>objc_protocol_list</h4><p>在 <code>objc_class</code> 中，所有实现的协议是放在链表 protocols 中的，protocols 是一个指向 <code>struct objc_protocol_list</code> 类型的指针，<code>objc_protocol_list</code> 结构体存储了 <code>Protocol</code> 的数组列表，<code>struct objc_protocol_list</code> 的声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_protocol_list &#123;</div><div class="line">    <span class="keyword">struct</span> objc_protocol_list *next;</div><div class="line">    <span class="keyword">long</span> count;</div><div class="line">    Protocol *<span class="built_in">list</span>[<span class="number">1</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="objc-property-t"><a href="#objc-property-t" class="headerlink" title="objc_property_t"></a>objc_property_t</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an Objective-C declared property.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_property *<span class="keyword">objc_property_t</span>;</div></pre></td></tr></table></figure>
+<p>没有找到 <code>struct objc_property</code> 的定义，但看了下 <code>objc_runtime-new</code><br> 中有个 <code>struct property_t</code> 的定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> <span class="keyword">property_t</span> &#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *attributes;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h3><h4 id="objc-cache"><a href="#objc-cache" class="headerlink" title="objc_cache"></a>objc_cache</h4><p>Runtime 中的 <code>Cache</code> 定义为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_cache *Cache                             OBJC2_UNAVAILABLE;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_cache &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> mask <span class="comment">/* total = mask + 1 */</span>                 OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> occupied                                    OBJC2_UNAVAILABLE;</div><div class="line">    Method buckets[<span class="number">1</span>]                                        OBJC2_UNAVAILABLE;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><code>objc_class</code> 结构体中的 cache 字段用于缓存调用过的 method，cache 指针指向 <code>objc_cache</code> 结构体。</p>
+<p>当对象接到一个消息时，会根据 isa 指针查找能够响应这个消息的对象，这时会在 methodLists 中遍历，在实际使用中，这个对象只有一部分方法是常用的，很多方法其实很少用或者根本用不上，如果每次消息来时，我们都是在 methodLists 中遍历一遍，性能会很差。cache 的作用就是在每次调用过一个方法后，把这个方法缓存到 cache 列表中，下次调用的时候 Runtime 就会优先去 cache 中查找，如果 cache 没有，才去methodLists 中查找方法，找到后再放到 cache 中，下次使用时就会直接在 cache 中找到，这样，对于那些经常用到的方法的调用，提高了调用的效率。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文主要从 <code>objc_class</code> 开始，围绕 <code>objc_class</code> 介绍了 Runtime 运行时中的一些最基本的数据结构，通过这些数据结构，我们可以大概了解 Objective-C 底层面向对象实现的一些信息。下文继续讲 Runtime 中的类与对象，MetaClass 等相关的内容。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.cnblogs.com/whyandinside/archive/2013/02/26/2933552.html" target="_blank" rel="external">http://www.cnblogs.com/whyandinside/archive/2013/02/26/2933552.html</a></p>
+<p><a href="https://ming1016.github.io/2015/04/01/objc-runtime/" target="_blank" rel="external">https://ming1016.github.io/2015/04/01/objc-runtime/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;Objective-C 在 C 语言的基础上，借鉴了 Smalltalk 的面向对象与消息机制，扩展了 C 语言，这个扩展的核心是一个用 C 和 编译语言 写的 Runtime 库，它是 Objective-C 面向对象和动态机制的基石。Objective-C Runtime 使得 C 具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。理解 Objective-C 的 Runtime 机制可以帮我们更好的了解这个语言，适当的时候还能对语言进行扩展，从系统层面解决项目中的一些设计或技术问题。了解 Runtime ，要先了解它的基础 - 基础结构。&lt;a href=&quot;https://opensource.apple.com/tarballs/objc4/&quot;&gt;这里&lt;/a&gt; 可以下载到 Runtime 的源码来研究。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
     
   </entry>
   
@@ -1040,132 +1196,6 @@ getInitialState()：初始化组件的状态
     
     
       <category term="算法" scheme="http://mlijin9011.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS大神博客</title>
-    <link href="http://mlijin9011.github.io/2015/07/07/iOS%E5%A4%A7%E7%A5%9E%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://mlijin9011.github.io/2015/07/07/iOS大神博客/</id>
-    <published>2015-07-07T12:33:53.000Z</published>
-    <updated>2018-03-18T11:46:51.507Z</updated>
-    
-    <content type="html"><![CDATA[<p>iOS从入门到高级，经常阅读各位大神的博客，学习大神的思维和研究的东西，让自己更接近大神，我搜罗了一些知名博客，值得关注阅读。</p>
-<a id="more"></a>
-<h2 id="博客列表"><a href="#博客列表" class="headerlink" title="博客列表"></a>博客列表</h2><p><a href="http://onevcat.com" target="_blank" rel="external"><strong>OneV’s Den</strong></a></p>
-<p><a href="http://blog.devtang.com" target="_blank" rel="external"><strong>唐巧的技术博客</strong></a></p>
-<p><a href="http://blog.ibireme.com" target="_blank" rel="external"><strong>一只魔法师的工坊</strong></a></p>
-<p><a href="http://nshipster.cn" target="_blank" rel="external"><strong>NSHipster</strong></a><br>NSHipster 关注被忽略的 Objective-C、Swift 和 Cocoa 特性。每周更新。</p>
-<p><a href="http://kittenyang.com" target="_blank" rel="external"><strong>Kitten Yong的博客</strong></a><br>对iOS中的动画有深入研究。</p>
-<p><a href="http://limboy.me" target="_blank" rel="external"><strong>Limboy‘s HQ</strong></a><br>李忠关于 RAC 、组件化的文章流传很广。</p>
-<p><a href="http://blog.sunnyxx.com" target="_blank" rel="external"><strong>sunnyxx的技术博客</strong></a></p>
-<p><a href="http://blog.cnbang.net" target="_blank" rel="external"><strong>bang’s blog</strong></a></p>
-<p><a href="http://blog.leichunfeng.com" target="_blank" rel="external"><strong>雷纯锋的技术博客</strong></a></p>
-<p><a href="http://yulingtianxia.com" target="_blank" rel="external"><strong>玉令天下的Blog</strong></a><br>腾讯杨萧玉的博客，底层细节能深入到汇编的实现。</p>
-<p><a href="http://casatwy.com" target="_blank" rel="external"><strong>Casa Taloyum</strong></a><br>Casa 对架构有很深的理解。</p>
-<p><a href="https://draveness.me/tag/iOS/" target="_blank" rel="external"><strong>Draveness’s Blog</strong></a></p>
-<p><a href="http://zhowkev.in" target="_blank" rel="external"><strong>Kevin Blog</strong></a></p>
-<p><a href="http://www.xiangwangfeng.com" target="_blank" rel="external"><strong>阿毛的蛋疼地</strong></a></p>
-<p><a href="http://imtx.me" target="_blank" rel="external"><strong>I’m TualatriX</strong></a></p>
-<p><a href="http://blog.nswebfrog.com/" target="_blank" rel="external"><strong>webfrogs</strong></a></p>
-<p><a href="http://joeyio.com" target="_blank" rel="external"><strong>代码手工艺人</strong></a></p>
-<p><a href="http://gracelancy.com" target="_blank" rel="external"><strong>Lancy’s Blog</strong></a></p>
-<p><a href="http://wangzz.github.io" target="_blank" rel="external"><strong>王中周的技术博客</strong></a></p>
-<p><a href="http://cnblogs.com/biosli" target="_blank" rel="external"><strong>摇滚诗人</strong></a></p>
-<p><a href="http://msching.github.io" target="_blank" rel="external"><strong>码农人生</strong></a></p>
-<p><a href="http://www.cnblogs.com/kenshincui" target="_blank" rel="external"><strong>Kenshin Cui’s Blog</strong></a></p>
-<p><a href="http://www.tanhao.me" target="_blank" rel="external"><strong>老谭笔记</strong></a></p>
-<p><a href="http://www.iosxxx.com" target="_blank" rel="external"><strong>向晨宇的技术博客</strong></a></p>
-<p><a href="http://www.desgard.com" target="_blank" rel="external"><strong>瓜地</strong></a></p>
-<p><a href="https://ming1016.github.io" target="_blank" rel="external"><strong>星光社</strong></a></p>
-<p><a href="http://mrpeak.cn" target="_blank" rel="external"><strong>MrPeak杂货铺</strong></a></p>
-<p><a href="https://juejin.im/user/57638ad8207703006b06e3ef/posts" target="_blank" rel="external"><strong>Bestswifter</strong></a></p>
-<p><a href="https://www.jianshu.com/u/8d5b91490ca5" target="_blank" rel="external"><strong>故胤道长</strong></a></p>
-<p><a href="https://www.jianshu.com/u/96a14318a4de" target="_blank" rel="external"><strong>iOS程序犭袁</strong></a></p>
-<p><a href="https://juejin.im/user/5656f11760b28da566412f03/posts" target="_blank" rel="external"><strong>Joy_xx</strong></a></p>
-<p><a href="https://juejin.im/user/57f8ffda2e958a005581e3c0/posts" target="_blank" rel="external"><strong>J<em>Knight</em></strong></a></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" rel="external">https://github.com/tangqiaoboy/iOSBlogCN</a><br><a href="https://www.jianshu.com/p/ea9fabdc12ed" target="_blank" rel="external">https://www.jianshu.com/p/ea9fabdc12ed</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;iOS从入门到高级，经常阅读各位大神的博客，学习大神的思维和研究的东西，让自己更接近大神，我搜罗了一些知名博客，值得关注阅读。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>开博客啦</title>
-    <link href="http://mlijin9011.github.io/2015/07/07/%E5%BC%80%E5%8D%9A%E5%AE%A2%E5%95%A6/"/>
-    <id>http://mlijin9011.github.io/2015/07/07/开博客啦/</id>
-    <published>2015-07-07T11:09:04.000Z</published>
-    <updated>2018-03-18T11:25:30.267Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天终于学会了搭建个人博客，从此以后也是有博客的人啦，顿时学习的劲头就上来了，顺便把前些日子看的东西总结一下发出来。</p>
-<p>好好学习，天天向上，争取早日进入大公司，😊！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天终于学会了搭建个人博客，从此以后也是有博客的人啦，顿时学习的劲头就上来了，顺便把前些日子看的东西总结一下发出来。&lt;/p&gt;
-&lt;p&gt;好好学习，天天向上，争取早日进入大公司，😊！&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="杂记" scheme="http://mlijin9011.github.io/categories/%E6%9D%82%E8%AE%B0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World - 如何搭建 HexoBlog</title>
-    <link href="http://mlijin9011.github.io/2015/07/07/hello-world/"/>
-    <id>http://mlijin9011.github.io/2015/07/07/hello-world/</id>
-    <published>2015-07-07T10:10:00.000Z</published>
-    <updated>2018-03-16T11:24:26.962Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>快速搭建博客框架：<a href="https://hexo.io/zh-cn/index.html" target="_blank" rel="external">https://hexo.io/zh-cn/index.html</a></p>
-<h3 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h3><p>在安装前，您必须检查电脑中是否已安装下列应用程序：</p>
-<pre><code>Homebrew
-Node.js
-Git
-</code></pre><p>1.安装 Homebrew</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
-<p>2.安装 Node.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
-<p>3.安装 Git<br>一般 Mac 都已安装了 Git，无需自己安装，如需手动安装，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install git</div></pre></td></tr></table></figure>
-<h3 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h3><p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
-<h3 id="使用-Hexo-搭建博客"><a href="#使用-Hexo-搭建博客" class="headerlink" title="使用 Hexo 搭建博客"></a>使用 Hexo 搭建博客</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div><div class="line">$ cd blog</div><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-<h2 id="Hexo-Next-主题使用帮助"><a href="#Hexo-Next-主题使用帮助" class="headerlink" title="Hexo Next 主题使用帮助"></a>Hexo Next 主题使用帮助</h2><p><a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Hexo" scheme="http://mlijin9011.github.io/tags/Hexo/"/>
     
   </entry>
   
