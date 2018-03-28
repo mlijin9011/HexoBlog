@@ -102,7 +102,7 @@
 <meta property="og:url" content="http://mlijin9011.github.io/2015/08/01/Objective-C-Runtime-1/index.html">
 <meta property="og:site_name" content="木子李的博客">
 <meta property="og:description" content="概述Objective-C 在 C 语言的基础上，借鉴了 Smalltalk 的面向对象与消息机制，扩展了 C 语言，这个扩展的核心是一个用 C 和 编译语言 写的 Runtime 库，它是 Objective-C 面向对象和动态机制的基石。Objective-C Runtime 使得 C 具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。理解 Objective-C 的 Ru">
-<meta property="og:updated_time" content="2018-03-25T08:56:01.075Z">
+<meta property="og:updated_time" content="2018-03-28T14:25:26.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objective-C Runtime - 基础结构">
 <meta name="twitter:description" content="概述Objective-C 在 C 语言的基础上，借鉴了 Smalltalk 的面向对象与消息机制，扩展了 C 语言，这个扩展的核心是一个用 C 和 编译语言 写的 Runtime 库，它是 Objective-C 面向对象和动态机制的基石。Objective-C Runtime 使得 C 具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。理解 Objective-C 的 Ru">
@@ -390,9 +390,10 @@
 <h4 id="objc-object"><a href="#objc-object" class="headerlink" title="objc_object"></a>objc_object</h4><p><code>struct objc_object</code> 的声明如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// Represents an instance of a class.</span></div><div class="line"><span class="keyword">struct</span> objc_object &#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>可以看到，<code>struct objc_object</code> 中有一个指向其类的 isa 指针。向一个对象发送消息时，Runtime 库会根据对象 object 的 isa 指针找到 object 所属于的类，然后在类的方法列表以及父类方法列表寻找对应的方法运行。</p>
+<p>可以看出 <code>objc_object</code> 的第一个成员是 <code>Class</code> 类型的 isa 指针，而 <code>objc_class</code> 的第一个元素也是一个 <code>Class</code> 类型的 isa 指针，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。这个定义表明：任何以一个指向 <code>Class</code> 类型的指针作为首个成员的数据结构都可以被认为是一个<code>objc_object</code>，也就可以解释，为什么说 OC 中类本身也是一个对象。</p>
 <h4 id="id-与-NSObject"><a href="#id-与-NSObject" class="headerlink" title="id 与 NSObject"></a>id 与 NSObject</h4><p><code>NSObject</code> 的定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@interface NSObject &lt;NSObject&gt; &#123;</div><div class="line">    Class    isa;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出 NSObject 的第一个成员实例是 Class 类型的 isa 指针，而 id 是一个指向 objc_object 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 NSObject 的类对象都可以用id 来指代，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。</p>
+<p>同样， <code>NSObject</code> 的第一个成员是 <code>Class</code> 类型的 isa 指针，而 id 是一个指向 <code>objc_object</code> 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 <code>NSObject</code> 的类对象都可以用 <code>id</code> 来指代。</p>
 <p>可见，每一个基于 NSObject 的类的实例对象都有一个指向该对象的类结构的指针，叫做 isa，通过该指针，对象可以访问它对应的类以及相应的父类。</p>
 <h3 id="Ivar"><a href="#Ivar" class="headerlink" title="Ivar"></a>Ivar</h3><h4 id="objc-ivar"><a href="#objc-ivar" class="headerlink" title="objc_ivar"></a>objc_ivar</h4><p>在 Objective-C 中的实例变量在 Runtime 中是用 <code>Ivar</code> 来表示的，其定义为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an instance variable.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_ivar *Ivar;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_ivar &#123;</div><div class="line">    <span class="keyword">char</span> *ivar_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">char</span> *ivar_type                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">int</span> ivar_offset                                          OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __LP64__</span></div><div class="line">    <span class="keyword">int</span> space                                                OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;                                                            OBJC2_UNAVAILABLE;</div></pre></td></tr></table></figure>
@@ -481,8 +482,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/08/Objective-C-Runtime-2/" rel="prev" title="Objective-C Runtime - 类与对象">
-                Objective-C Runtime - 类与对象 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/01/28/Mac使用oh-my-zsh和iTerm2/" rel="prev" title="Mac使用oh-my-zsh和iTerm2">
+                Mac使用oh-my-zsh和iTerm2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -560,7 +561,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -582,7 +583,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

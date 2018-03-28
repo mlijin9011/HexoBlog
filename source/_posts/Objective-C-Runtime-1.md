@@ -96,6 +96,8 @@ struct objc_object {
 
 可以看到，`struct objc_object` 中有一个指向其类的 isa 指针。向一个对象发送消息时，Runtime 库会根据对象 object 的 isa 指针找到 object 所属于的类，然后在类的方法列表以及父类方法列表寻找对应的方法运行。
 
+可以看出 `objc_object` 的第一个成员是 `Class` 类型的 isa 指针，而 `objc_class` 的第一个元素也是一个 `Class` 类型的 isa 指针，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。这个定义表明：任何以一个指向 `Class` 类型的指针作为首个成员的数据结构都可以被认为是一个`objc_object`，也就可以解释，为什么说 OC 中类本身也是一个对象。
+
 #### id 与 NSObject
 
 `NSObject` 的定义：
@@ -106,7 +108,7 @@ struct objc_object {
 }
 ```
 
-可以看出 NSObject 的第一个成员实例是 Class 类型的 isa 指针，而 id 是一个指向 objc_object 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 NSObject 的类对象都可以用id 来指代，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。
+同样， `NSObject` 的第一个成员是 `Class` 类型的 isa 指针，而 id 是一个指向 `objc_object` 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 `NSObject` 的类对象都可以用 `id` 来指代。
 
 可见，每一个基于 NSObject 的类的实例对象都有一个指向该对象的类结构的指针，叫做 isa，通过该指针，对象可以访问它对应的类以及相应的父类。
 

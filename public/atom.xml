@@ -611,9 +611,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
       <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
     
   </entry>
   
@@ -665,9 +665,9 @@ profiles/appstore</code><br><code>AppStore_your.bundle.id.mobileprovision</code>
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
       <category term="React Native" scheme="http://mlijin9011.github.io/tags/React-Native/"/>
+    
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
     
   </entry>
   
@@ -866,95 +866,11 @@ getInitialState()：初始化组件的状态
   </entry>
   
   <entry>
-    <title>Objective-C Runtime 协议与分类</title>
-    <link href="http://mlijin9011.github.io/2015/08/29/Objective-C-Runtime-5/"/>
-    <id>http://mlijin9011.github.io/2015/08/29/Objective-C-Runtime-5/</id>
-    <published>2015-08-29T12:02:38.000Z</published>
-    <updated>2018-03-25T08:57:23.249Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Objective-C Runtime 方法与消息</title>
-    <link href="http://mlijin9011.github.io/2015/08/22/Objective-C-Runtime-4/"/>
-    <id>http://mlijin9011.github.io/2015/08/22/Objective-C-Runtime-4/</id>
-    <published>2015-08-22T02:12:18.000Z</published>
-    <updated>2018-03-25T08:56:48.296Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Objective-C Runtime 成员变量与属性</title>
-    <link href="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/"/>
-    <id>http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/</id>
-    <published>2015-08-15T04:22:48.000Z</published>
-    <updated>2018-03-22T14:27:06.123Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Objective-C Runtime - 类与对象</title>
-    <link href="http://mlijin9011.github.io/2015/08/08/Objective-C-Runtime-2/"/>
-    <id>http://mlijin9011.github.io/2015/08/08/Objective-C-Runtime-2/</id>
-    <published>2015-08-08T12:12:18.000Z</published>
-    <updated>2018-03-25T08:38:23.148Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
-    
-      <category term="Runtime" scheme="http://mlijin9011.github.io/tags/Runtime/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Objective-C Runtime - 基础结构</title>
     <link href="http://mlijin9011.github.io/2015/08/01/Objective-C-Runtime-1/"/>
     <id>http://mlijin9011.github.io/2015/08/01/Objective-C-Runtime-1/</id>
     <published>2015-08-01T14:12:18.000Z</published>
-    <updated>2018-03-25T08:56:01.075Z</updated>
+    <updated>2018-03-28T14:25:26.756Z</updated>
     
     <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Objective-C 在 C 语言的基础上，借鉴了 Smalltalk 的面向对象与消息机制，扩展了 C 语言，这个扩展的核心是一个用 C 和 编译语言 写的 Runtime 库，它是 Objective-C 面向对象和动态机制的基石。Objective-C Runtime 使得 C 具有了面向对象能力，在程序运行时创建，检查，修改类、对象和它们的方法。理解 Objective-C 的 Runtime 机制可以帮我们更好的了解这个语言，适当的时候还能对语言进行扩展，从系统层面解决项目中的一些设计或技术问题。了解 Runtime ，要先了解它的基础 - 基础结构。<a href="https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="external">这里</a> 可以下载到 Runtime 的源码来研究。</p>
 <a id="more"></a>
@@ -980,9 +896,10 @@ getInitialState()：初始化组件的状态
 <h4 id="objc-object"><a href="#objc-object" class="headerlink" title="objc_object"></a>objc_object</h4><p><code>struct objc_object</code> 的声明如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// Represents an instance of a class.</span></div><div class="line"><span class="keyword">struct</span> objc_object &#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>可以看到，<code>struct objc_object</code> 中有一个指向其类的 isa 指针。向一个对象发送消息时，Runtime 库会根据对象 object 的 isa 指针找到 object 所属于的类，然后在类的方法列表以及父类方法列表寻找对应的方法运行。</p>
+<p>可以看出 <code>objc_object</code> 的第一个成员是 <code>Class</code> 类型的 isa 指针，而 <code>objc_class</code> 的第一个元素也是一个 <code>Class</code> 类型的 isa 指针，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。这个定义表明：任何以一个指向 <code>Class</code> 类型的指针作为首个成员的数据结构都可以被认为是一个<code>objc_object</code>，也就可以解释，为什么说 OC 中类本身也是一个对象。</p>
 <h4 id="id-与-NSObject"><a href="#id-与-NSObject" class="headerlink" title="id 与 NSObject"></a>id 与 NSObject</h4><p><code>NSObject</code> 的定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@interface NSObject &lt;NSObject&gt; &#123;</div><div class="line">    Class    isa;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出 NSObject 的第一个成员实例是 Class 类型的 isa 指针，而 id 是一个指向 objc_object 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 NSObject 的类对象都可以用id 来指代，因为第一个元素相同，也就意味着可以互相 cast 而不损失信息。</p>
+<p>同样， <code>NSObject</code> 的第一个成员是 <code>Class</code> 类型的 isa 指针，而 id 是一个指向 <code>objc_object</code> 结构体的指针，该结构体只有一个成员 isa，所以任何继承自 <code>NSObject</code> 的类对象都可以用 <code>id</code> 来指代。</p>
 <p>可见，每一个基于 NSObject 的类的实例对象都有一个指向该对象的类结构的指针，叫做 isa，通过该指针，对象可以访问它对应的类以及相应的父类。</p>
 <h3 id="Ivar"><a href="#Ivar" class="headerlink" title="Ivar"></a>Ivar</h3><h4 id="objc-ivar"><a href="#objc-ivar" class="headerlink" title="objc_ivar"></a>objc_ivar</h4><p>在 Objective-C 中的实例变量在 Runtime 中是用 <code>Ivar</code> 来表示的，其定义为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an instance variable.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_ivar *Ivar;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_ivar &#123;</div><div class="line">    <span class="keyword">char</span> *ivar_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">char</span> *ivar_type                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">int</span> ivar_offset                                          OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __LP64__</span></div><div class="line">    <span class="keyword">int</span> space                                                OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">&#125;                                                            OBJC2_UNAVAILABLE;</div></pre></td></tr></table></figure>
@@ -1182,20 +1099,128 @@ getInitialState()：初始化组件的状态
   </entry>
   
   <entry>
-    <title>算法学习笔记</title>
-    <link href="http://mlijin9011.github.io/2015/07/08/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://mlijin9011.github.io/2015/07/08/算法学习笔记/</id>
-    <published>2015-07-08T09:41:05.000Z</published>
-    <updated>2018-03-18T09:06:26.321Z</updated>
+    <title>iOS大神博客</title>
+    <link href="http://mlijin9011.github.io/2015/07/07/iOS%E5%A4%A7%E7%A5%9E%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://mlijin9011.github.io/2015/07/07/iOS大神博客/</id>
+    <published>2015-07-07T12:33:53.000Z</published>
+    <updated>2018-03-18T11:46:51.507Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS从入门到高级，经常阅读各位大神的博客，学习大神的思维和研究的东西，让自己更接近大神，我搜罗了一些知名博客，值得关注阅读。</p>
+<a id="more"></a>
+<h2 id="博客列表"><a href="#博客列表" class="headerlink" title="博客列表"></a>博客列表</h2><p><a href="http://onevcat.com" target="_blank" rel="external"><strong>OneV’s Den</strong></a></p>
+<p><a href="http://blog.devtang.com" target="_blank" rel="external"><strong>唐巧的技术博客</strong></a></p>
+<p><a href="http://blog.ibireme.com" target="_blank" rel="external"><strong>一只魔法师的工坊</strong></a></p>
+<p><a href="http://nshipster.cn" target="_blank" rel="external"><strong>NSHipster</strong></a><br>NSHipster 关注被忽略的 Objective-C、Swift 和 Cocoa 特性。每周更新。</p>
+<p><a href="http://kittenyang.com" target="_blank" rel="external"><strong>Kitten Yong的博客</strong></a><br>对iOS中的动画有深入研究。</p>
+<p><a href="http://limboy.me" target="_blank" rel="external"><strong>Limboy‘s HQ</strong></a><br>李忠关于 RAC 、组件化的文章流传很广。</p>
+<p><a href="http://blog.sunnyxx.com" target="_blank" rel="external"><strong>sunnyxx的技术博客</strong></a></p>
+<p><a href="http://blog.cnbang.net" target="_blank" rel="external"><strong>bang’s blog</strong></a></p>
+<p><a href="http://blog.leichunfeng.com" target="_blank" rel="external"><strong>雷纯锋的技术博客</strong></a></p>
+<p><a href="http://yulingtianxia.com" target="_blank" rel="external"><strong>玉令天下的Blog</strong></a><br>腾讯杨萧玉的博客，底层细节能深入到汇编的实现。</p>
+<p><a href="http://casatwy.com" target="_blank" rel="external"><strong>Casa Taloyum</strong></a><br>Casa 对架构有很深的理解。</p>
+<p><a href="https://draveness.me/tag/iOS/" target="_blank" rel="external"><strong>Draveness’s Blog</strong></a></p>
+<p><a href="http://zhowkev.in" target="_blank" rel="external"><strong>Kevin Blog</strong></a></p>
+<p><a href="http://www.xiangwangfeng.com" target="_blank" rel="external"><strong>阿毛的蛋疼地</strong></a></p>
+<p><a href="http://imtx.me" target="_blank" rel="external"><strong>I’m TualatriX</strong></a></p>
+<p><a href="http://blog.nswebfrog.com/" target="_blank" rel="external"><strong>webfrogs</strong></a></p>
+<p><a href="http://joeyio.com" target="_blank" rel="external"><strong>代码手工艺人</strong></a></p>
+<p><a href="http://gracelancy.com" target="_blank" rel="external"><strong>Lancy’s Blog</strong></a></p>
+<p><a href="http://wangzz.github.io" target="_blank" rel="external"><strong>王中周的技术博客</strong></a></p>
+<p><a href="http://cnblogs.com/biosli" target="_blank" rel="external"><strong>摇滚诗人</strong></a></p>
+<p><a href="http://msching.github.io" target="_blank" rel="external"><strong>码农人生</strong></a></p>
+<p><a href="http://www.cnblogs.com/kenshincui" target="_blank" rel="external"><strong>Kenshin Cui’s Blog</strong></a></p>
+<p><a href="http://www.tanhao.me" target="_blank" rel="external"><strong>老谭笔记</strong></a></p>
+<p><a href="http://www.iosxxx.com" target="_blank" rel="external"><strong>向晨宇的技术博客</strong></a></p>
+<p><a href="http://www.desgard.com" target="_blank" rel="external"><strong>瓜地</strong></a></p>
+<p><a href="https://ming1016.github.io" target="_blank" rel="external"><strong>星光社</strong></a></p>
+<p><a href="http://mrpeak.cn" target="_blank" rel="external"><strong>MrPeak杂货铺</strong></a></p>
+<p><a href="https://juejin.im/user/57638ad8207703006b06e3ef/posts" target="_blank" rel="external"><strong>Bestswifter</strong></a></p>
+<p><a href="https://www.jianshu.com/u/8d5b91490ca5" target="_blank" rel="external"><strong>故胤道长</strong></a></p>
+<p><a href="https://www.jianshu.com/u/96a14318a4de" target="_blank" rel="external"><strong>iOS程序犭袁</strong></a></p>
+<p><a href="https://juejin.im/user/5656f11760b28da566412f03/posts" target="_blank" rel="external"><strong>Joy_xx</strong></a></p>
+<p><a href="https://juejin.im/user/57f8ffda2e958a005581e3c0/posts" target="_blank" rel="external"><strong>J<em>Knight</em></strong></a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/tangqiaoboy/iOSBlogCN" target="_blank" rel="external">https://github.com/tangqiaoboy/iOSBlogCN</a><br><a href="https://www.jianshu.com/p/ea9fabdc12ed" target="_blank" rel="external">https://www.jianshu.com/p/ea9fabdc12ed</a></p>
+]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;iOS从入门到高级，经常阅读各位大神的博客，学习大神的思维和研究的东西，让自己更接近大神，我搜罗了一些知名博客，值得关注阅读。&lt;/p&gt;
     
     </summary>
     
       <category term="技术" scheme="http://mlijin9011.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="算法" scheme="http://mlijin9011.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="iOS" scheme="http://mlijin9011.github.io/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>开博客啦</title>
+    <link href="http://mlijin9011.github.io/2015/07/07/%E5%BC%80%E5%8D%9A%E5%AE%A2%E5%95%A6/"/>
+    <id>http://mlijin9011.github.io/2015/07/07/开博客啦/</id>
+    <published>2015-07-07T11:09:04.000Z</published>
+    <updated>2018-03-18T11:25:30.267Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天终于学会了搭建个人博客，从此以后也是有博客的人啦，顿时学习的劲头就上来了，顺便把前些日子看的东西总结一下发出来。</p>
+<p>好好学习，天天向上，争取早日进入大公司，😊！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天终于学会了搭建个人博客，从此以后也是有博客的人啦，顿时学习的劲头就上来了，顺便把前些日子看的东西总结一下发出来。&lt;/p&gt;
+&lt;p&gt;好好学习，天天向上，争取早日进入大公司，😊！&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="杂记" scheme="http://mlijin9011.github.io/categories/%E6%9D%82%E8%AE%B0/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World - 如何搭建 HexoBlog</title>
+    <link href="http://mlijin9011.github.io/2015/07/07/hello-world/"/>
+    <id>http://mlijin9011.github.io/2015/07/07/hello-world/</id>
+    <published>2015-07-07T10:10:00.000Z</published>
+    <updated>2018-03-16T11:24:26.962Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>快速搭建博客框架：<a href="https://hexo.io/zh-cn/index.html" target="_blank" rel="external">https://hexo.io/zh-cn/index.html</a></p>
+<h3 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h3><p>在安装前，您必须检查电脑中是否已安装下列应用程序：</p>
+<pre><code>Homebrew
+Node.js
+Git
+</code></pre><p>1.安装 Homebrew</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
+<p>2.安装 Node.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
+<p>3.安装 Git<br>一般 Mac 都已安装了 Git，无需自己安装，如需手动安装，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install git</div></pre></td></tr></table></figure>
+<h3 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h3><p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
+<h3 id="使用-Hexo-搭建博客"><a href="#使用-Hexo-搭建博客" class="headerlink" title="使用 Hexo 搭建博客"></a>使用 Hexo 搭建博客</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div><div class="line">$ cd blog</div><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<h2 id="Hexo-Next-主题使用帮助"><a href="#Hexo-Next-主题使用帮助" class="headerlink" title="Hexo Next 主题使用帮助"></a>Hexo Next 主题使用帮助</h2><p><a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="http://mlijin9011.github.io/tags/Hexo/"/>
     
   </entry>
   
