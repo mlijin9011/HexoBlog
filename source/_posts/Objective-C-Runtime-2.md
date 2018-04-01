@@ -704,11 +704,165 @@ id objc_constructInstance(Class cls, void *bytes);
 void * objc_destructInstance(id obj); //不会释放移除任何相关引用
 ```
 
+### 关联对象
+
+在分类中 `@property` 并不会自动生成实例变量以及存取方法，所以一般使用关联对象为已经存在的类添加关“属性”。
+
+向下面这样：
+
+```Objective-C
+#import "CustomClass+Category.h"
+#import <objc/runtime.h>
+
+@implementation CustomClass (Category)
+
+- (NSString *)categoryProperty {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setCategoryProperty:(NSString *)categoryProperty {
+    objc_setAssociatedObject(self, @selector(categoryProperty), categoryProperty, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+```
+
+#### objc_setAssociatedObject
+
+```C
+void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy) {
+    _object_set_associative_reference(object, (void *)key, value, policy);
+}
+
+void _object_set_associative_reference(id object, void *key, id value, uintptr_t policy) {
+    // retain the new value (if any) outside the lock.
+    ObjcAssociation old_association(0, nil);
+    id new_value = value ? acquireValue(value, policy) : nil;
+    {
+        AssociationsManager manager;
+        AssociationsHashMap &associations(manager.associations());
+        disguised_ptr_t disguised_object = DISGUISE(object);
+        if (new_value) {
+            // break any existing association.
+            AssociationsHashMap::iterator i = associations.find(disguised_object);
+            if (i != associations.end()) {
+                // secondary table exists
+                ObjectAssociationMap *refs = i->second;
+                ObjectAssociationMap::iterator j = refs->find(key);
+                if (j != refs->end()) {
+                    old_association = j->second;
+                    j->second = ObjcAssociation(policy, new_value);
+                } else {
+                    (*refs)[key] = ObjcAssociation(policy, new_value);
+                }
+            } else {
+                // create the new association (first time).
+                ObjectAssociationMap *refs = new ObjectAssociationMap;
+                associations[disguised_object] = refs;
+                (*refs)[key] = ObjcAssociation(policy, new_value);
+                object->setHasAssociatedObjects();
+            }
+        } else {
+            // setting the association to nil breaks the association.
+            AssociationsHashMap::iterator i = associations.find(disguised_object);
+            if (i !=  associations.end()) {
+                ObjectAssociationMap *refs = i->second;
+                ObjectAssociationMap::iterator j = refs->find(key);
+                if (j != refs->end()) {
+                    old_association = j->second;
+                    refs->erase(j);
+                }
+            }
+        }
+    }
+    // release the old value (outside of the lock).
+    if (old_association.hasValue()) ReleaseValue()(old_association);
+}
+```
+
+#### objc_getAssociatedObject
+
+```C
+id objc_getAssociatedObject(id object, const void *key) {
+    return _object_get_associative_reference(object, (void *)key);
+}
+
+id _object_get_associative_reference(id object, void *key) {
+    id value = nil;
+    uintptr_t policy = OBJC_ASSOCIATION_ASSIGN;
+    {
+        AssociationsManager manager;
+        AssociationsHashMap &associations(manager.associations());
+        disguised_ptr_t disguised_object = DISGUISE(object);
+        AssociationsHashMap::iterator i = associations.find(disguised_object);
+        if (i != associations.end()) {
+            ObjectAssociationMap *refs = i->second;
+            ObjectAssociationMap::iterator j = refs->find(key);
+            if (j != refs->end()) {
+                ObjcAssociation &entry = j->second;
+                value = entry.value();
+                policy = entry.policy();
+                if (policy & OBJC_ASSOCIATION_GETTER_RETAIN) {
+                    objc_retain(value);
+                }
+            }
+        }
+    }
+    if (value && (policy & OBJC_ASSOCIATION_GETTER_AUTORELEASE)) {
+        objc_autorelease(value);
+    }
+    return value;
+}
+```
+
+#### objc_removeAssociatedObjects
+
+```C
+void objc_removeAssociatedObjects(id object) 
+{
+    if (object && object->hasAssociatedObjects()) {
+        _object_remove_assocations(object);
+    }
+}
+
+void _object_remove_assocations(id object) {
+    vector< ObjcAssociation,ObjcAllocator<ObjcAssociation> > elements;
+    {
+        AssociationsManager manager;
+        AssociationsHashMap &associations(manager.associations());
+        if (associations.size() == 0) return;
+        disguised_ptr_t disguised_object = DISGUISE(object);
+        AssociationsHashMap::iterator i = associations.find(disguised_object);
+        if (i != associations.end()) {
+            // copy all of the associations that need to be removed.
+            ObjectAssociationMap *refs = i->second;
+            for (ObjectAssociationMap::iterator j = refs->begin(), end = refs->end(); j != end; ++j) {
+                elements.push_back(j->second);
+            }
+            // remove the secondary table.
+            delete refs;
+            associations.erase(i);
+        }
+    }
+    // the calls to releaseValue() happen outside of the lock.
+    for_each(elements.begin(), elements.end(), ReleaseValue());
+}
+```
+
+#### 总结
+
+关联对象其实就是 `ObjcAssociation` 对象。
+关联对象由 `AssociationsManager` 管理并在 `AssociationsHashMap` 存储。
+对象的指针以及其对应 `ObjectAssociationMap` 以键值对的形式存储在 `AssociationsHashMap` 中。
+`ObjectAssociationMap` 则是用于存储关联对象的数据结构。
+每一个对象都有一个标记位 `has_assoc` 指示对象是否含有关联对象。
+
 ## 参考
 
 https://draveness.me/load
 https://draveness.me/initialize
 https://draveness.me/object-init
+https://draveness.me/ao
 https://ming1016.github.io/2015/04/01/objc-runtime/
 
 
