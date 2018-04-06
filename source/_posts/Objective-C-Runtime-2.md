@@ -58,10 +58,10 @@ _dyld_start
 ![image](Objective-C-Runtime-2/+initialize.png)
 
 ```Objective-C
-+[XXObject initialize]
++[CustomObject initialize]
 _class_initialize
 lookUpImpOrForward
-_class_lookupMethodAndLoadCache3 // _objc_msgSend_uncached 中
+_class_lookupMethodAndLoadCache3
 _objc_msgSend_uncached
 main
 start
@@ -865,5 +865,9 @@ https://draveness.me/object-init
 https://draveness.me/ao
 https://ming1016.github.io/2015/04/01/objc-runtime/
 
+## 修改记录
+
+2016.04.30
+2016.08.10
 
 

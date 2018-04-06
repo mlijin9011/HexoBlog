@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Runtime," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="木子李的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="概述Objective-C 最大的特色是承自 Smalltalk 的消息传递模型，Objective-C 里，对象互相调用方法，就是对象之间互相传递消息。
+C++ 里类别与方法的关系严格清楚，一个方法必定属于一个类别，而且在编译时（compile time）就已经紧密绑定，不可能调用一个类别里不存在的方法。但在Objective-C，类别与消息的关系比较松散，调用方法视为对对象发送消息，所有方法都">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C Runtime 消息机制">
+<meta property="og:url" content="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/index.html">
+<meta property="og:site_name" content="木子李的博客">
+<meta property="og:description" content="概述Objective-C 最大的特色是承自 Smalltalk 的消息传递模型，Objective-C 里，对象互相调用方法，就是对象之间互相传递消息。
+C++ 里类别与方法的关系严格清楚，一个方法必定属于一个类别，而且在编译时（compile time）就已经紧密绑定，不可能调用一个类别里不存在的方法。但在Objective-C，类别与消息的关系比较松散，调用方法视为对对象发送消息，所有方法都">
+<meta property="og:image" content="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/lookUpImpOrForward.png">
+<meta property="og:image" content="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/clear_imp_cache.png">
+<meta property="og:image" content="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/add_imp_cache.png">
+<meta property="og:updated_time" content="2018-04-06T07:41:04.111Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C Runtime 消息机制">
+<meta name="twitter:description" content="概述Objective-C 最大的特色是承自 Smalltalk 的消息传递模型，Objective-C 里，对象互相调用方法，就是对象之间互相传递消息。
+C++ 里类别与方法的关系严格清楚，一个方法必定属于一个类别，而且在编译时（compile time）就已经紧密绑定，不可能调用一个类别里不存在的方法。但在Objective-C，类别与消息的关系比较松散，调用方法视为对对象发送消息，所有方法都">
+<meta name="twitter:image" content="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/lookUpImpOrForward.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/"/>
+
+
+
+
+
+  <title>Objective-C Runtime 消息机制 | 木子李的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">木子李的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">萧瑟的秋风，倔强的生命！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mlijin9011.github.io/2015/08/15/Objective-C-Runtime-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Li Jin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="木子李的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Objective-C Runtime 消息机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-08-15T12:22:48+08:00">
+                2015-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Objective-C 最大的特色是承自 Smalltalk 的消息传递模型，Objective-C 里，对象互相调用方法，就是对象之间互相传递消息。</p>
+<p>C++ 里类别与方法的关系严格清楚，一个方法必定属于一个类别，而且在编译时（compile time）就已经紧密绑定，不可能调用一个类别里不存在的方法。但在Objective-C，类别与消息的关系比较松散，调用方法视为对对象发送消息，所有方法都被视为对消息的回应。所有消息处理直到运行时（runtime）才会动态决定，并交由类别自行决定如何处理收到的消息。也就是说，一个类别不保证一定会回应收到的消息，如果类别收到了一个无法处理的消息，程序只会抛出异常，不会出错或崩溃。</p>
+<a id="more"></a>
+<h1 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h1><p>调用编译阶段并不会去绑定执行的函数，只有在运行的时候才回去对象中查找方法，接受方法的类中有个方法列表，如果能找到方法就调用，找不到的话就回去父类中查找。</p>
+<h2 id="消息相关的数据结构"><a href="#消息相关的数据结构" class="headerlink" title="消息相关的数据结构"></a>消息相关的数据结构</h2><p>在第一篇讲 Runtime 基本数据结构的时候，我们了解了与方法相关的数据结构，再来回忆一下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a method in a class definition.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_method *Method;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> objc_method &#123;</div><div class="line">    SEL method_name                                          OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">char</span> *method_types                                       OBJC2_UNAVAILABLE;</div><div class="line">    IMP method_imp                                           OBJC2_UNAVAILABLE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/// An opaque type that represents a method selector.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_selector     *SEL;</div><div class="line"></div><div class="line"><span class="comment">/// A pointer to the function of a method implementation. </span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">id</span> <span class="params">(*IMP)</span><span class="params">(id, SEL, ...)</span></span>;</div></pre></td></tr></table></figure>
+<h2 id="objc-msgSend"><a href="#objc-msgSend" class="headerlink" title="objc_msgSend"></a>objc_msgSend</h2><p>所有的 Objective-C 方法调用都是基于 Objective-C Runtime 进行的。 比如最简单的方法调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[object hello];</div></pre></td></tr></table></figure>
+<p>从 Objective-C Runtime 的角度来说，这个代码实际上是在发送一个消息，编译器实际上会将它转换成这样一个函数调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(object, @selector(hello))</div></pre></td></tr></table></figure>
+<p>我们在 Objective-C 中所有通过一对方括号所进行的方法调用，其实都是通过 Objective-C Runtime 的 <code>objc_msgSend</code> 函数发送的一个消息传递。</p>
+<p>Objective-C 中 <code>objc_msgSend</code> 的实现并没有开源，它只存在于 <code>message.h</code> 这个头文件中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** </span></div><div class="line"> * Sends a message with a simple return value to an instance of a class.</div><div class="line"> * </div><div class="line"> * @param self A pointer to the instance of the class that is to receive the message.</div><div class="line"> * @param op The selector of the method that handles the message.</div><div class="line"> * @param ... </div><div class="line"> *   A variable argument list containing the arguments to the method.</div><div class="line"> * </div><div class="line"> * @return The return value of the method.</div><div class="line"> * </div><div class="line"> * @note When it encounters a method call, the compiler generates a call to one of the</div><div class="line"> *  functions \c objc_msgSend, \c objc_msgSend_stret, \c objc_msgSendSuper, or \c objc_msgSendSuper_stret.</div><div class="line"> *  Messages sent to an object’s superclass (using the \c super keyword) are sent using \c objc_msgSendSuper; </div><div class="line"> *  other messages are sent using \c objc_msgSend. Methods that have data structures as return values</div><div class="line"> *  are sent using \c objc_msgSendSuper_stret and \c objc_msgSend_stret.</div><div class="line"> */</div><div class="line"><span class="function">OBJC_EXPORT id <span class="title">objc_msgSend</span><span class="params">(id self, SEL op, ...)</span></span></div><div class="line">    __<span class="title">OSX_AVAILABLE_STARTING</span><span class="params">(<span class="number">__</span>MAC_10_0, <span class="number">__</span>IPHONE_2_0)</span>;</div></pre></td></tr></table></figure>
+<p>在这个头文件的注释中对消息发送的一系列方法解释得非常清楚：<br>当编译器遇到一个方法调用时，它会将方法的调用翻译成以下函数中的一个 <code>objc_msgSend</code>、<code>objc_msgSend_stret</code>、<code>objc_msgSendSuper</code> 和 <code>objc_msgSendSuper_stret</code>。 发送给对象的父类的消息会使用 <code>objc_msgSendSuper</code>，有数据结构作为返回值的方法会使用 <code>objc_msgSendSuper_stret</code> 或 <code>objc_msgSend_stret</code>，其它的消息都是使用 <code>objc_msgSend</code> 发送的。</p>
+<p>对 <code>objc_msgSend</code> 解析总共分两个步骤，我们会向 <code>CustomObject</code> 的实例发送两次 <code>hello</code> 消息，分别模拟无缓存和有缓存两种情况下的调用栈。</p>
+<h3 id="无缓存"><a href="#无缓存" class="headerlink" title="无缓存"></a>无缓存</h3><p><code>objc_msgSend</code> 的调用栈，可以通过这个<a href="https://www.youtube.com/watch?v=bCdjdI4VhwQ&amp;feature=youtu.be" target="_blank" rel="external">视频</a>里打断点查看。我们来看下，在调用 <code>[object hello]</code> 方法时的调用栈（<code>cls</code>, <code>sel</code> 值分别是 <code>CustomObject</code>, <code>&quot;hello&quot;</code>，说明这就是当调用 <code>hello</code> 方法时执行的函数）：</p>
+<p><img src="/2015/08/15/Objective-C-Runtime-3/lookUpImpOrForward.png" alt="image"></p>
+<p>左侧的调用栈是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">lookUpImpOrForward</div><div class="line">_class_lookupMethodAndLoadCache3</div><div class="line">objc_msgSend_uncached</div><div class="line">main</div><div class="line">start</div></pre></td></tr></table></figure>
+<p><code>obj_msgSend</code> 的实际动作就是：找到这个函数指针，然后调用它。而找到函数指针的方法就是 <code>lookUpImpOrForward</code>。</p>
+<p><code>lookUpImpOrForward</code> 并不是 <code>objc_msgSend</code> 直接调用的，而是通过 <code>_class_lookupMethodAndLoadCache3</code> 方法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">IMP <span class="number">_</span>class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> lookUpImpOrForward(cls, sel, obj,</div><div class="line">                              YES<span class="comment">/*initialize*/</span>, NO<span class="comment">/*cache*/</span>, YES<span class="comment">/*resolver*/</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>lookUpImpOrForward</code> 实现的方法的查找，分以下几个部分：</p>
+<h4 id="无锁的缓存查找"><a href="#无锁的缓存查找" class="headerlink" title="无锁的缓存查找"></a>无锁的缓存查找</h4><p>下面是在没有加锁的时候对缓存进行查找，提高缓存使用的性能：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">runtimeLock.assertUnlocked();</div><div class="line"></div><div class="line"><span class="comment">// Optimistic cache lookup</span></div><div class="line"><span class="keyword">if</span> (cache) &#123;</div><div class="line">   imp = cache_getImp(cls, sel);</div><div class="line">   <span class="keyword">if</span> (imp) <span class="keyword">return</span> imp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不过因为 <code>_class_lookupMethodAndLoadCache3</code> 传入的 cache = NO，所以这里会直接跳过 if 中代码的执行。</p>
+<h4 id="类的实现和初始化"><a href="#类的实现和初始化" class="headerlink" title="类的实现和初始化"></a>类的实现和初始化</h4><p>在 Objective-C 运行时初始化的过程中，如果类没有实现（isRealized），则执行 <code>realizeClass</code> 方法实现类，如果没有初始化（isInitialized），则通过 <code>_class_initialize</code> 方法初始化，会调用类的 <code>initialize</code> 方法。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!cls-&gt;isRealized()) &#123;</div><div class="line">    <span class="keyword">rwlock_writer_t</span> lock(runtimeLock);</div><div class="line">    realizeClass(cls);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (initialize  &amp;&amp;  !cls-&gt;isInitialized()) &#123;</div><div class="line">    <span class="number">_</span>class_initialize (<span class="number">_</span>class_getNonMetaClass(cls, inst));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="加锁"><a href="#加锁" class="headerlink" title="加锁"></a>加锁</h4><p>加锁的主要目的是，保证方法查找以及缓存填充（cache-fill）的原子性，保证在运行以下代码时不会有新方法添加导致缓存被冲洗（flush）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">runtimeLock.read();</div></pre></td></tr></table></figure>
+<h4 id="在当前类中查找实现"><a href="#在当前类中查找实现" class="headerlink" title="在当前类中查找实现"></a>在当前类中查找实现</h4><p>在当前类中查找，先调用了 <code>cache_getImp</code> 从类的缓存中查找，如果缓存中查找不到，（第一次调用 hello 方法），则从类的方法列表中寻找方法的实现 <code>getMethodNoSuper_nolock</code>，找到后通过 <code>log_and_fill_cache</code> 将它加入类的缓存中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Try this class's cache.</span></div><div class="line">imp = cache_getImp(cls, sel);</div><div class="line"><span class="keyword">if</span> (imp) <span class="keyword">goto</span> done;</div><div class="line"></div><div class="line"><span class="comment">// Try this class's method lists.</span></div><div class="line">&#123;</div><div class="line">    Method meth = getMethodNoSuper_nolock(cls, sel);</div><div class="line">    <span class="keyword">if</span> (meth) &#123;</div><div class="line">        log_and_fill_cache(cls, meth-&gt;imp, sel, inst, cls);</div><div class="line">        imp = meth-&gt;imp;</div><div class="line">        <span class="keyword">goto</span> done;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="在父类中寻找实现"><a href="#在父类中寻找实现" class="headerlink" title="在父类中寻找实现"></a>在父类中寻找实现</h4><p>如果在当前类中找不到方法的实现，则会去父类查找，这一部分与上面的实现基本上相同，只是多了一个循环用来判断根类：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Try superclass caches and method lists.</span></div><div class="line">&#123;</div><div class="line">   <span class="keyword">unsigned</span> attempts = unreasonableClassCount();</div><div class="line">   <span class="keyword">for</span> (Class curClass = cls-&gt;superclass;</div><div class="line">        curClass != nil;</div><div class="line">        curClass = curClass-&gt;superclass)</div><div class="line">   &#123;</div><div class="line">       <span class="comment">// Halt if there is a cycle in the superclass chain.</span></div><div class="line">       <span class="keyword">if</span> (--attempts == <span class="number">0</span>) &#123;</div><div class="line">           <span class="number">_</span>objc_fatal(<span class="string">"Memory corruption in class list."</span>);</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       <span class="comment">// Superclass cache.</span></div><div class="line">       imp = cache_getImp(curClass, sel);</div><div class="line">       <span class="keyword">if</span> (imp) &#123;</div><div class="line">           <span class="keyword">if</span> (imp != (IMP)<span class="number">_</span>objc_msgForward_impcache) &#123;</div><div class="line">               <span class="comment">// Found the method in a superclass. Cache it in this class.</span></div><div class="line">               log_and_fill_cache(cls, imp, sel, inst, curClass);</div><div class="line">               <span class="keyword">goto</span> done;</div><div class="line">           &#125;</div><div class="line">           <span class="keyword">else</span> &#123;</div><div class="line">               <span class="comment">// Found a forward:: entry in a superclass.</span></div><div class="line">               <span class="comment">// Stop searching, but don't cache yet; call method </span></div><div class="line">               <span class="comment">// resolver for this class first.</span></div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       <span class="comment">// Superclass method list.</span></div><div class="line">       Method meth = getMethodNoSuper_nolock(curClass, sel);</div><div class="line">       <span class="keyword">if</span> (meth) &#123;</div><div class="line">           log_and_fill_cache(cls, meth-&gt;imp, sel, inst, curClass);</div><div class="line">           imp = meth-&gt;imp;</div><div class="line">           <span class="keyword">goto</span> done;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>与当前类寻找实现的区别是：在父类中寻找到的 <code>_objc_msgForward_impcache</code> 实现会交给当前类来处理。</p>
+<h4 id="方法决议"><a href="#方法决议" class="headerlink" title="方法决议"></a>方法决议</h4><p>如果在当前类和父类中都没有找到方法实现，就进入了方法决议（method resolve）的过程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// No implementation found. Try method resolver once.</span></div><div class="line"><span class="keyword">if</span> (resolver  &amp;&amp;  !triedResolver) &#123;</div><div class="line">   runtimeLock.unlockRead();</div><div class="line">   <span class="number">_</span>class_resolveMethod(cls, sel, inst);</div><div class="line">   runtimeLock.read();</div><div class="line">   <span class="comment">// Don't cache the result; we don't hold the lock so it may have </span></div><div class="line">   <span class="comment">// changed already. Re-do the search from scratch instead.</span></div><div class="line">   triedResolver = YES;</div><div class="line">   <span class="keyword">goto</span> retry;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>内部实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="number">_</span>class_resolveMethod(Class cls, SEL sel, id inst)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (! cls-&gt;isMetaClass()) &#123;</div><div class="line">        <span class="comment">// try [cls resolveInstanceMethod:sel]</span></div><div class="line">        <span class="number">_</span>class_resolveInstanceMethod(cls, sel, inst);</div><div class="line">    &#125; </div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// try [nonMetaClass resolveClassMethod:sel]</span></div><div class="line">        <span class="comment">// and [cls resolveInstanceMethod:sel]</span></div><div class="line">        <span class="number">_</span>class_resolveClassMethod(cls, sel, inst);</div><div class="line">        <span class="keyword">if</span> (!lookUpImpOrNil(cls, sel, inst, </div><div class="line">                            NO<span class="comment">/*initialize*/</span>, YES<span class="comment">/*cache*/</span>, NO<span class="comment">/*resolver*/</span>)) </div><div class="line">        &#123;</div><div class="line">            <span class="number">_</span>class_resolveInstanceMethod(cls, sel, inst);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> <span class="number">_</span>class_resolveInstanceMethod(Class cls, SEL sel, id inst) &#123;</div><div class="line">    <span class="keyword">if</span> (! lookUpImpOrNil(cls-&gt;ISA(), SEL_resolveInstanceMethod, cls,</div><div class="line">                         NO<span class="comment">/*initialize*/</span>, YES<span class="comment">/*cache*/</span>, NO<span class="comment">/*resolver*/</span>)) &#123;</div><div class="line">        <span class="comment">// 没有找到 resolveInstanceMethod: 方法，直接返回。</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    BOOL (*msg)(Class, SEL, SEL) = (<span class="number">__</span>typeof__(msg))objc_msgSend;</div><div class="line">    <span class="keyword">bool</span> resolved = msg(cls, SEL_resolveInstanceMethod, sel);</div><div class="line"></div><div class="line">    <span class="comment">// 缓存结果，以防止下次在调用 resolveInstanceMethod: 方法影响性能。</span></div><div class="line">    IMP imp = lookUpImpOrNil(cls, sel, inst,</div><div class="line">                             NO<span class="comment">/*initialize*/</span>, YES<span class="comment">/*cache*/</span>, NO<span class="comment">/*resolver*/</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这两个方法的实现其实就是判断当前类是否实现了 <code>resolveInstanceMethod:</code> 或者 <code>resolveClassMethod:</code> 方法，然后用 <code>objc_msgSend</code> 执行上述方法，并传入需要决议的选择子。</p>
+<p>在执行了 <code>resolveInstanceMethod:</code> 之后，会跳转到 <code>retry</code> 标签，重新执行查找方法实现的流程，只不过不会再调用 <code>resolveInstanceMethod:</code> 方法了（将 <code>triedResolver</code> 标记为 YES）。</p>
+<h4 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h4><p>在缓存、当前类、父类以及 <code>resolveInstanceMethod:</code> 都没有解决实现查找的问题时，Objective-C 还为我们提供了最后一次翻身的机会，进行方法转发：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// No implementation found, and method resolver didn't help. </span></div><div class="line"><span class="comment">// Use forwarding.</span></div><div class="line">imp = (IMP)<span class="number">_</span>objc_msgForward_impcache;</div><div class="line">cache_fill(cls, sel, imp, inst);</div></pre></td></tr></table></figure>
+<p>返回实现 <code>_objc_msgForward_impcache</code>，然后加入缓存。</p>
+<h4 id="解锁、返回实现"><a href="#解锁、返回实现" class="headerlink" title="解锁、返回实现"></a>解锁、返回实现</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">done:</div><div class="line">    runtimeLock.unlockRead();</div><div class="line"></div><div class="line"><span class="keyword">return</span> imp;</div></pre></td></tr></table></figure>
+<p>上面查找方法的过程中，一旦找到方法的实现，就会跳转到 <code>done</code> 标签进行解锁，然后返回方法实现。</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>根据上面截图中 demo 中的示例，由于 <code>CustomObject</code> 实现了方法 <code>hello</code>，当我们调用 <code>[object hello]</code> 时，虽然缓存没有命中，但是在当前类的方法列表中找到了 <code>hello</code> 方法的实现，调用了该方法，这样就结束了整个方法第一次的调用过程。</p>
+<h3 id="有缓存"><a href="#有缓存" class="headerlink" title="有缓存"></a>有缓存</h3><p>如果使用对应的选择子时，缓存命中了，那么情况就大不相同了，我们修改主程序中的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        <span class="comment">// insert code here...</span></div><div class="line">        NSLog(@<span class="string">"Hello, World!"</span>);</div><div class="line">        </div><div class="line">        CustomObject *object = [[CustomObject alloc] init];</div><div class="line">        [object hello];</div><div class="line">        [object hello];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在第二次调用 <code>hello</code> 方法时，同第一次一样加断点，发现第二次 <code>objc_msgSend</code> 并没有走 <code>lookupImpOrForward</code> 这个方法，而是直接调用了 <code>hello</code> 方法，结束了。</p>
+<p>为了验证有缓存时，<code>objc_msgSend</code> 是否真的访问了类中的缓存来加速实现寻找的过程，我们进行了两种实验：</p>
+<blockquote>
+<p>一个重要的问题：<code>objc_class *</code> 的地址偏移 0x10，可以得到成员 <code>cache</code> 的地址</p>
+</blockquote>
+<h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><p>在执行第二个 <code>hello</code> 方法前，将其中 <code>hello</code> 的缓存清空：</p>
+<p><img src="/2015/08/15/Objective-C-Runtime-3/clear_imp_cache.png" alt="image"></p>
+<p>这样 <code>CustomObject</code> 中就不存在 <code>hello</code> 方法对应实现的缓存了。然后继续运行程序，果然像第一次调用 <code>hello</code> 一样，会再次进入 <code>lookupImpOrForward</code> 方法。</p>
+<h4 id="添加伪缓存"><a href="#添加伪缓存" class="headerlink" title="添加伪缓存"></a>添加伪缓存</h4><p>修改代码为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        <span class="comment">// insert code here...</span></div><div class="line">        NSLog(@<span class="string">"Hello, World!"</span>);</div><div class="line">        </div><div class="line">        <span class="number">__u</span>nused IMP cached_hello_imp = imp_implementationWithBlock(^() &#123;</div><div class="line">            NSLog(@<span class="string">"Cached Hello"</span>);</div><div class="line">        &#125;);</div><div class="line">        CustomObject *object = [[CustomObject alloc] init];</div><div class="line">        [object hello];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在第一个 <code>hello</code> 方法调用之前，打断点将实现加入缓存：</p>
+<p><img src="/2015/08/15/Objective-C-Runtime-3/add_imp_cache.png" alt="image"></p>
+<p>我们看到添加缓存后，打印出的 <code>_imp</code> 的地址和上面我们定义的 <code>cached_hello_imp</code> 的地址一样，执行代码后，输出了 <code>Cached Hello</code>，可见在 <code>objc_msgSend</code> 的消息发送链路中，使用错误的缓存实现 <code>cached_hello_imp</code> 拦截了实现的查找，没有再调用 <code>lookupImpOrForward</code> 进行方法查找，打印出了 <code>Cached Hello</code>。</p>
+<p>由此可以推定，<code>objc_msgSend</code> 在实现中确实检查了缓存，如果没有缓存会调用 <code>lookupImpOrForward</code> 进行方法查找。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>看了大神 Draveness 的<a href="https://draveness.me/message" target="_blank" rel="external">从源代码看 ObjC 中消息的发送</a>，对 OC 中的消息机制介绍的很透彻。参考原文对 <code>objc_msgSend</code> 部分进行了深入的学习，感谢大神。（2016.5.15）</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://draveness.me/message" target="_blank" rel="external">https://draveness.me/message</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Runtime/" rel="tag"># Runtime</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/08/Objective-C-Runtime-2/" rel="next" title="Objective-C Runtime - 类与对象">
+                <i class="fa fa-chevron-left"></i> Objective-C Runtime - 类与对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/29/日常问题及解决方法/" rel="prev" title="日常问题及解决方法">
+                日常问题及解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Li Jin" />
+          <p class="site-author-name" itemprop="name">Li Jin</p>
+           
+              <p class="site-description motion-element" itemprop="description">守望天空的猎户</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/mlijin9011" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/mlj90/profile" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:lijinysu@163.com" target="_blank" title="邮箱">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      邮箱
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://objccn.io/" title="ObjC 中国" target="_blank">ObjC 中国</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://mlijin9011.github.io/2015/07/07/iOS大神博客/" title="iOS大神博客列表" target="_blank">iOS大神博客列表</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息机制"><span class="nav-number">2.</span> <span class="nav-text">消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息相关的数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">消息相关的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#objc-msgSend"><span class="nav-number">2.2.</span> <span class="nav-text">objc_msgSend</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无缓存"><span class="nav-number">2.2.1.</span> <span class="nav-text">无缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#无锁的缓存查找"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">无锁的缓存查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类的实现和初始化"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">类的实现和初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加锁"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">加锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在当前类中查找实现"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">在当前类中查找实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在父类中寻找实现"><span class="nav-number">2.2.1.5.</span> <span class="nav-text">在父类中寻找实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法决议"><span class="nav-number">2.2.1.6.</span> <span class="nav-text">方法决议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息转发"><span class="nav-number">2.2.1.7.</span> <span class="nav-text">消息转发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解锁、返回实现"><span class="nav-number">2.2.1.8.</span> <span class="nav-text">解锁、返回实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">2.2.1.9.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有缓存"><span class="nav-number">2.2.2.</span> <span class="nav-text">有缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#清除缓存"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">清除缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加伪缓存"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">添加伪缓存</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Li Jin</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  </div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">
+    主题 &mdash;
+    <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+      NexT.Pisces
+    </a>
+  </div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
